@@ -1,71 +1,98 @@
-# Lakshan Superlight & Event Productions Management System
+# Lakshan Superlight - Event Productions & Operational Management System
 
-A custom software solution engineered specifically for **Lakshan Superlight** in accordance with the **System Requirements Specification (SRS)**.
-
----
-
-## 📋 Comprehensive Scope of Work Coverage
-
-### Phase 1: Digital Marketing & Online Presence
-- **1.1 Facebook-to-WhatsApp Lead Funnel (`/marketing`)**:
-  - Direct click-to-chat WhatsApp link generator with pre-filled promotional templates in Sinhala and English for *Wedding Lighting*, *Light Wal*, *Concerts*, and *Pirith Pinkama*.
-  - Ready for integration into Facebook Page posts, Boosted Ads, and QR codes.
-- **1.2 WhatsApp Contact Broadcast & Sharing Workflow (`/marketing`)**:
-  - Segments client contacts into *Event Clients*, *Light Wal Buyers*, and *Retail POS Customers*.
-  - Streamlined promotional broadcast message composer with one-click clipboard copy.
-- **1.3 Google Business Profile Registration & Local Search (`/marketing`)**:
-  - Standardized business metadata (Name, Sinhala trade name, categories, address, hours, phone numbers).
-  - Verification checklist and local SEO review link generator for Google Maps.
+A unified operational management system engineered specifically for **Lakshan Superlight & Event Productions**.
 
 ---
 
-### Phase 2: Custom Software System
-- **2.1 Automated Event Stock Deduction on Booking (`/rental-stock` & `/bookings`)**:
-  - Real-time master catalog with category filtering (*Moving Heads*, *Par Lights*, *Truss & Rigging*, *Lasers & Effects*, *Power Distro*, *Decor*).
-  - Tracks total stock, maintenance/damaged stock, currently booked units, and free available units.
-  - Live overbooking prevention algorithm prevents scheduling more units than available.
-- **2.2 Full-Lifecycle Event Date Blocking (`/bookings`)**:
-  - **Multi-Stage Calendar Reservation Logic**: Automatically locks items across:
-    1. **Pre-Event Setup Window**: 3–4 days prior (configurable).
-    2. **Active Event Window**: Event duration (e.g., 5 active days).
-    3. **Post-Event Dismantling Window**: 3 days afterward (configurable).
-  - Total stock lock period = `[Event Start - Setup Days]` to `[Event End + Dismantle Days]`.
-  - Conflict detection engine alerts if any overlapping booking exceeds available quantity.
-- **2.3 Biometric Fingerprint Attendance & Automated Salary Calculation (`/payroll`)**:
-  - Biometric terminal sync simulator with check-in, check-out, working hours, late arrivals, and overtime (OT) tracking.
-  - Employee wage settings (Basic Salary, Hourly OT Rate, EPF/ETF eligibility, Terminal Fingerprint ID).
-  - Automated Monthly Payroll Run:
-    $$\text{Gross Pay} = \text{Basic Salary} + \text{OT Pay} + \text{Site Allowances}$$
-    $$\text{Net Salary} = \text{Gross Pay} - (\text{EPF 8\%} + \text{Advance Deductions})$$
-    $$\text{Employer Contributions} = \text{EPF 12\%} + \text{ETF 3\%}$$
-  - Formatted printable employee payslips.
-- **2.4 Standalone Direct Sales Software Module - POS (`/direct-sales`)**:
-  - Operates completely independently from rental equipment stock.
-  - Retail catalog (*E27/B22 Edison Bulbs, Rubber Wire Coils, Sockets, Top Plugs, Insulation Tapes*).
-  - High-speed POS cart with cash given, change due calculator, card/bank transfer, and 80mm thermal receipt printing.
-- **2.5 Quotations & Invoices Typing and Print Engine (`/quotations`)**:
-  - Professional quotation and commercial invoice typing engine with customizable header, billing terms, bank details, and customer information.
-  - **One-Click Conversion**: Convert any quotation to a confirmed booking in 1 click, automatically reserving stock and creating date blocks.
-- **2.6 Dedicated "Light Wal" (Fairy / Festoon Lights) Invoicing Workflow (`/light-wal`)**:
-  - Sizing calculator: Custom length in Feet or Meters, bulb socket spacing (12", 18", 24", 36"), and calculated bulb socket count.
-  - Specifications: Bulb type (*Edison 2W, Clear LED 4W, RGB Flashing*), wire insulation (*Kelani Heavy Duty Rubber 2x1.5mm, PVC*), plug, and flasher controller.
-  - Pricing engines: *Per Foot/Meter*, *Per Bulb Socket*, or *Fixed Bundle/Package*.
-  - Dedicated printable Workshop Job Sheet & Commercial Invoice.
+## 🚀 Key Modules & System Capabilities
+
+### 1. Operations Dashboard
+- **Real-Time Operational Metrics**: Live status of active bookings, in-field rental equipment, today's staff attendance, POS sales revenue, and open quotes.
+- **Multi-Stage Event Lifecycle Visualizer**: Visual schedule tracking each event across its pre-event staging window, active show dates, and post-event return period.
+- **Quick Action Center**: 1-click navigation to create event bookings, launch retail POS checkout, calculate custom Light Wal orders, or run biometric payroll.
 
 ---
 
-## 🚀 How to Run Locally
+### 2. Event Bookings & Multi-Stage Date Blocking Engine
+- **Full Lifecycle Automated Equipment Locking**:
+  1. **Pre-Event Staging**: Configurable buffer (e.g. 3–4 days) for warehouse packing, testing, loading, transport, and on-site rigging.
+  2. **Active Show Days**: Full operational show schedule.
+  3. **Post-Event Dismantle & Return**: Dedicated buffer (e.g. 3 days) for breakdown, cable coiling, warehouse intake, inspection, and servicing.
+- **Total Block Span**: Automatically locks equipment across `[Event Start - Setup Days]` through `[Event End + Dismantle Days]`.
+- **Zero-Conflict Overbooking Shield**: Real-time conflict validation against total fleet minus damaged/servicing stock. System visually alerts if overlapping bookings exceed available quantity.
+- **Stage Crew & Vehicle Assignment**: Assign lead technician, crew members, and transport logistics directly to bookings.
 
-```bash
-# 1. Install dependencies
+---
+
+### 3. Master Rental Equipment Catalog
+- **Master Fleet Management**: Categorized tracking across *Moving Heads*, *LED Par Lights*, *Truss & Rigging*, *Lasers & Atmospheric Effects*, *Power Distribution*, and *Decor Lighting*.
+- **Live Status Tracking**: Instant visibility of total units, units currently in field, units in maintenance/repair, and true available stock.
+- **Schedule Inspector**: Open any fixture's calendar to see past, present, and upcoming event allocations.
+
+---
+
+### 4. Dedicated "Light Wal" (Festoon & Fairy Lights) Engineering Engine
+- **Custom Dimension Calculator**: Input total length in Feet or Meters and select bulb spacing (12", 18", 24", 36") to calculate exact socket counts automatically.
+- **Technical Specifications**: Configurable bulb types (*Edison Warm Filament 2W, Clear LED 4W, RGB Flashing*), cable grades (*Kelani Heavy Duty Rubber 2x1.5mm, Weatherproof PVC*), plugs, and controller flasher units.
+- **Flexible Commercial Pricing**: Calculate by *Per Foot/Meter*, *Per Socket*, or *Fixed Package Deal*.
+- **Workshop Job Sheets**: 1-click printable technical production sheets for workshop assembly technicians detailing wire length, sockets, spacing, and packaging.
+
+---
+
+### 5. Standalone Direct Sales Point of Sale (POS)
+- **Independent Retail Inventory**: Retail stock (E27 Edison bulbs, socket holders, heavy-duty wire coils, plugs, insulation tapes) completely segregated from rental gear.
+- **High-Speed Counter Cart**: Barcode/SKU quick-search, instant quantity controls, and rapid line-item discounts.
+- **Split Tender & Change Computation**: Instant cash received calculation with real-time change due, credit/debit card, or direct bank transfer support.
+- **80mm Thermal Receipt Printing**: Clean, receipt layout ready for thermal printers.
+
+---
+
+### 6. Commercial Quotations & Invoices Engine
+- **Professional Invoice & Estimate Generator**: Itemized equipment, labor, transport, and staging terms with customizable company header and payment instructions.
+- **One-Click Quote-to-Booking Conversion**: Convert approved client estimates into confirmed active bookings instantly, automatically generating calendar reservations and locking equipment in the warehouse.
+- **Print & PDF Export**: Clean, standard A4 commercial format with printable company seal, terms, and bank details.
+
+---
+
+### 7. Biometric Fingerprint Attendance & Automated Payroll
+- **Biometric Terminal Synchronization**: Terminal sync logger tracking employee punch-in, punch-out, hours worked, late flags, and overtime (OT) hours.
+- **Automated Salary Calculation**:
+  - $$\text{Gross Pay} = \text{Basic Salary} + \text{OT Pay} + \text{Site Allowances}$$
+  - $$\text{Net Salary} = \text{Gross Pay} - (\text{EPF 8\%} + \text{Salary Advance Deductions})$$
+  - $$\text{Employer Contributions} = \text{EPF 12\%} + \text{ETF 3\%}$$
+- **Payslip Generator**: Formatted printable payslips for every staff member.
+
+---
+
+### 8. Lead Funnel & Marketing Hub
+- **Direct WhatsApp Lead Funnel**: Instant click-to-chat link generator with custom inquiry templates for *Wedding Lighting*, *Light Wal*, *Concerts & Staging*, and *Cultural / Religious Events*.
+- **Segmented WhatsApp Broadcast**: Filter customer contacts by *Event Organizers*, *Festoon Light Buyers*, or *Retail POS Customers* and compose targeted broadcast messages.
+- **Google Business Profile & Local Search Guide**: Verification checklist and review link launcher to maximize local search rank on Google Maps.
+
+---
+
+### 9. Settings, Customization & Data Backup
+- **Company Profile**: Customize company name, business registration number, primary phone numbers, email, warehouse address, and bank settlement details.
+- **JSON Data Backup & Restore**: Full 1-click database export to JSON file and instant restore capability for offline security and multi-machine sync.
+
+---
+
+## 💻 Quick Start Guide
+
+### Launching with the Windows 1-Click Launcher
+Double-click **`Run-Lakshan-Superlight.bat`** in the application directory.
+This script will start the application and automatically open your default web browser to:
+```
+http://localhost:3000/
+```
+
+### Running Manually via Command Line
+```powershell
+# 1. Install project dependencies (if not already installed)
 npm.cmd install
 
-# 2. Run in development mode
-npm.cmd run dev
-
-# 3. Or build and run production preview
-npm.cmd run build
+# 2. Start the local server
 npm.cmd run preview -- --port 3000
 ```
 Open **`http://localhost:3000`** in your browser.
-
+To access from mobile devices or other computers on your local Wi-Fi / LAN, use the Network IP address displayed in the terminal (e.g. `http://192.168.1.7:3000`).
