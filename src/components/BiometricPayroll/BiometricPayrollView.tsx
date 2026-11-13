@@ -193,9 +193,6 @@ export const BiometricPayrollView: React.FC<BiometricPayrollViewProps> = ({
         <div>
           <div className="flex items-center gap-2">
             <h2 className="text-2xl font-black text-white">Biometric Attendance & Automated Payroll</h2>
-            <span className="text-xs px-2 py-0.5 rounded bg-purple-500/20 text-purple-300 font-mono">
-              SRS Section 2.3
-            </span>
           </div>
           <p className="text-xs text-slate-400 mt-1">
             Biometric terminal check-ins, overtime tracking, and automated monthly salary calculations with EPF/ETF contributions
@@ -388,7 +385,7 @@ export const BiometricPayrollView: React.FC<BiometricPayrollViewProps> = ({
         </div>
       )}
 
-      {/* Automated Payroll Run Sub-tab (SRS 2.3) */}
+      {/* Automated Payroll Run Sub-tab */}
       {subTab === 'payroll' && (
         <div className="space-y-4">
           <div className="bg-slate-900 border border-slate-800 p-4 rounded-xl flex flex-col sm:flex-row items-center justify-between gap-4">

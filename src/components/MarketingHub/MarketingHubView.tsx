@@ -30,7 +30,7 @@ export const MarketingHubView: React.FC = () => {
     setTimeout(() => setCopiedKey(null), 3000);
   };
 
-  // WhatsApp Funnel Templates (SRS 1.1)
+  // WhatsApp Funnel Templates
   const [whatsappPhone, setWhatsappPhone] = useState(company.whatsapp.replace('+', ''));
   const funnelTemplates = [
     {
@@ -59,7 +59,7 @@ export const MarketingHubView: React.FC = () => {
     }
   ];
 
-  // Broadcast composer state (SRS 1.2)
+  // Broadcast composer state
   const [broadcastSegment, setBroadcastSegment] = useState<'all' | 'events' | 'retail' | 'lightwal'>('all');
   const [broadcastText, setBroadcastText] = useState(
     'Special Offer from Lakshan Superlight! Reserve your event lighting early for upcoming weddings, corporate shows, and banquets. Premium Sharpy 7R, Waterproof Par Cans, and Custom Light Wal Festoons. Contact us today: +94 77 123 4567 | WhatsApp: +94 77 123 4567.'
@@ -80,9 +80,6 @@ export const MarketingHubView: React.FC = () => {
         <div>
           <div className="flex items-center gap-2">
             <h2 className="text-2xl font-black text-white">Digital Marketing & Online Presence Hub</h2>
-            <span className="text-xs px-2 py-0.5 rounded bg-blue-500/20 text-blue-300 font-mono">
-              SRS Phase 1
-            </span>
           </div>
           <p className="text-xs text-slate-400 mt-1">
             Direct Facebook-to-WhatsApp inquiry links, broadcast messaging workflow, and Google Maps business profile optimization
@@ -98,7 +95,7 @@ export const MarketingHubView: React.FC = () => {
             }`}
           >
             <MessageCircle className="w-3.5 h-3.5" />
-            <span>Facebook-to-WhatsApp (1.1)</span>
+            <span>Facebook-to-WhatsApp</span>
           </button>
           <button
             onClick={() => setActiveTab('broadcast')}
@@ -107,7 +104,7 @@ export const MarketingHubView: React.FC = () => {
             }`}
           >
             <Share2 className="w-3.5 h-3.5" />
-            <span>Broadcast Workflow (1.2)</span>
+            <span>Broadcast Workflow</span>
           </button>
           <button
             onClick={() => setActiveTab('google')}
@@ -116,12 +113,12 @@ export const MarketingHubView: React.FC = () => {
             }`}
           >
             <MapPin className="w-3.5 h-3.5" />
-            <span>Google Business (1.3)</span>
+            <span>Google Business</span>
           </button>
         </div>
       </div>
 
-      {/* Tab 1: Facebook-to-WhatsApp Lead Funnel (SRS 1.1) */}
+      {/* Tab 1: Facebook-to-WhatsApp Lead Funnel */}
       {activeTab === 'funnel' && (
         <div className="space-y-4">
           <div className="bg-slate-900 border border-slate-800 p-5 rounded-xl space-y-4">
@@ -203,7 +200,7 @@ export const MarketingHubView: React.FC = () => {
         </div>
       )}
 
-      {/* Tab 2: WhatsApp Broadcast Workflow (SRS 1.2) */}
+      {/* Tab 2: WhatsApp Broadcast Workflow */}
       {activeTab === 'broadcast' && (
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-6">
           {/* Broadcast Composer */}
@@ -291,7 +288,7 @@ export const MarketingHubView: React.FC = () => {
         </div>
       )}
 
-      {/* Tab 3: Google Business Profile & Local SEO (SRS 1.3) */}
+      {/* Tab 3: Google Business Profile & Local SEO */}
       {activeTab === 'google' && (
         <div className="space-y-4">
           <div className="bg-slate-900 border border-slate-800 p-5 rounded-xl space-y-4">

@@ -222,7 +222,7 @@ export const PrintModal: React.FC<PrintModalProps> = ({
         )}
 
         {/* ==================================================== */}
-        {/* DOCUMENT TYPE: DEDICATED "LIGHT WAL" INVOICE (PDF 2.6) */}
+        {/* DOCUMENT TYPE: DEDICATED "LIGHT WAL" INVOICE */}
         {/* ==================================================== */}
         {docType === 'light-wal' && (
           <div className="space-y-6">
@@ -372,7 +372,7 @@ export const PrintModal: React.FC<PrintModalProps> = ({
         )}
 
         {/* ==================================================== */}
-        {/* DOCUMENT TYPE: POS THERMAL RECEIPT (PDF 2.4) */}
+        {/* DOCUMENT TYPE: POS THERMAL RECEIPT */}
         {/* ==================================================== */}
         {docType === 'pos-receipt' && (
           <div className="max-w-xs mx-auto font-mono text-xs space-y-3 text-slate-900 py-4">
@@ -434,7 +434,7 @@ export const PrintModal: React.FC<PrintModalProps> = ({
         )}
 
         {/* ==================================================== */}
-        {/* DOCUMENT TYPE: EMPLOYEE PAYSLIP (PDF 2.3) */}
+        {/* DOCUMENT TYPE: EMPLOYEE PAYSLIP */}
         {/* ==================================================== */}
         {docType === 'payslip' && (
           <div className="space-y-6">

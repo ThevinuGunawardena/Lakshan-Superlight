@@ -229,9 +229,6 @@ export const EventBookingsView: React.FC<EventBookingsViewProps> = ({
         <div>
           <div className="flex items-center gap-2">
             <h2 className="text-2xl font-black text-white">Event Bookings & Date Blocking</h2>
-            <span className="text-xs px-2 py-0.5 rounded bg-amber-500/20 text-amber-300 font-mono">
-              SRS Section 2.1 & 2.2
-            </span>
           </div>
           <p className="text-xs text-slate-400 mt-1">
             Complete inventory locking across pre-event setup (3–4 days), active show dates, and post-event dismantling (3 days)
@@ -495,7 +492,7 @@ export const EventBookingsView: React.FC<EventBookingsViewProps> = ({
         </div>
       )}
 
-      {/* Multi-Stage New Booking Creator Modal (SRS 2.1 & 2.2) */}
+      {/* Multi-Stage New Booking Creator Modal */}
       {isNewBookingModalOpen && (
         <div className="fixed inset-0 bg-black/85 backdrop-blur-sm z-50 flex items-center justify-center p-4">
           <div className="bg-slate-900 border border-slate-800 rounded-2xl max-w-4xl w-full p-6 shadow-2xl space-y-4 max-h-[92vh] overflow-y-auto">
@@ -605,12 +602,12 @@ export const EventBookingsView: React.FC<EventBookingsViewProps> = ({
                 </div>
               </div>
 
-              {/* SRS Section 2.2 Date Lifecycle Settings */}
+              {/* Date Lifecycle Settings */}
               <div className="bg-slate-950 p-4 rounded-xl border border-amber-500/30 space-y-3">
                 <div className="flex items-center justify-between">
                   <h4 className="text-xs font-bold text-white flex items-center gap-1.5">
                     <Clock className="w-4 h-4 text-amber-400" />
-                    <span>Multi-Stage Date Lifecycle Setup (SRS Section 2.2)</span>
+                    <span>Multi-Stage Date Lifecycle Setup</span>
                   </h4>
                   <span className="text-[11px] text-amber-300 font-mono">
                     Total Blocked Duration: {computedWindow.activeDays + setupDaysPrior + dismantleDaysAfter} Days
@@ -681,7 +678,7 @@ export const EventBookingsView: React.FC<EventBookingsViewProps> = ({
                 </div>
               </div>
 
-              {/* Equipment Items Selection & Overbooking Conflict Engine (SRS 2.1) */}
+              {/* Equipment Items Selection & Overbooking Conflict Engine */}
               <div className="bg-slate-950 p-4 rounded-xl border border-slate-800 space-y-3">
                 <div className="flex items-center justify-between">
                   <h4 className="text-xs font-bold text-white flex items-center gap-1.5">

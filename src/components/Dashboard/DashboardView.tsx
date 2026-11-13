@@ -152,7 +152,7 @@ export const DashboardView: React.FC<DashboardViewProps> = ({ onNavigate, onOpen
         </div>
       </div>
 
-      {/* Main Lifecycle Visualizer: SRS 2.2 Date Blocking Architecture */}
+      {/* Main Lifecycle Visualizer: Date Blocking Timeline */}
       <div className="bg-slate-900 border border-slate-800 rounded-xl p-5">
         <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 mb-4">
           <div>
@@ -160,9 +160,6 @@ export const DashboardView: React.FC<DashboardViewProps> = ({ onNavigate, onOpen
               <h3 className="text-base font-bold text-white">
                 Full-Lifecycle Event Date Blocking Timeline
               </h3>
-              <span className="text-xs px-2 py-0.5 rounded bg-amber-500/20 text-amber-300 font-mono">
-                SRS Section 2.2
-              </span>
             </div>
             <p className="text-xs text-slate-400 mt-0.5">
               Automated multi-stage item reservation across pre-event setup, active event dates, and post-event dismantling
@@ -294,7 +291,7 @@ export const DashboardView: React.FC<DashboardViewProps> = ({ onNavigate, onOpen
 
       {/* Two Column Layout: Current Stock Status & Quick Access */}
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-        {/* Real-time Rental Stock Availability (SRS 2.1) */}
+        {/* Real-time Rental Stock Availability */}
         <div className="bg-slate-900 border border-slate-800 rounded-xl p-5">
           <div className="flex items-center justify-between mb-3">
             <div>
@@ -361,7 +358,7 @@ export const DashboardView: React.FC<DashboardViewProps> = ({ onNavigate, onOpen
             <div className="flex items-center justify-between mb-2">
               <span className="text-xs font-bold text-amber-400 uppercase tracking-wider flex items-center gap-1.5">
                 <Sparkles className="w-4 h-4" />
-                <span>Dedicated Module • SRS 2.6</span>
+                <span>Dedicated Studio</span>
               </span>
               <span className="text-xs text-slate-400">Festoon & Fairy Lights</span>
             </div>
@@ -389,7 +386,7 @@ export const DashboardView: React.FC<DashboardViewProps> = ({ onNavigate, onOpen
             <div className="flex items-center justify-between mb-2">
               <span className="text-xs font-bold text-emerald-400 uppercase tracking-wider flex items-center gap-1.5">
                 <ShoppingBag className="w-4 h-4" />
-                <span>Standalone POS • SRS 2.4</span>
+                <span>Standalone POS</span>
               </span>
               <span className="text-xs text-slate-400">Retail Sales</span>
             </div>

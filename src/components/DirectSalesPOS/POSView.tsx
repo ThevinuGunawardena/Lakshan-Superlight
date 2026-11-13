@@ -199,9 +199,6 @@ export const POSView: React.FC<POSViewProps> = ({ onRefresh, onOpenPrint }) => {
         <div>
           <div className="flex items-center gap-2">
             <h2 className="text-2xl font-black text-white">Standalone Direct Sales (POS) Module</h2>
-            <span className="text-xs px-2 py-0.5 rounded bg-emerald-500/20 text-emerald-300 font-mono">
-              SRS Section 2.4
-            </span>
           </div>
           <p className="text-xs text-slate-400 mt-1">
             Dedicated retail sales point operating completely independently from rental booking stock

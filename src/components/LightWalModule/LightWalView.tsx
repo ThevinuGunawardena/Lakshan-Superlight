@@ -145,9 +145,6 @@ export const LightWalView: React.FC<LightWalViewProps> = ({ onRefresh, onOpenPri
         <div>
           <div className="flex items-center gap-2">
             <h2 className="text-2xl font-black text-white">Dedicated "Light Wal" Invoicing Workflow</h2>
-            <span className="text-xs px-2 py-0.5 rounded bg-amber-500/20 text-amber-300 font-mono">
-              SRS Section 2.6
-            </span>
           </div>
           <p className="text-xs text-slate-400 mt-1">
             Dedicated invoicing and workshop calculation for fairy and festoon light chains
@@ -527,7 +524,7 @@ export const LightWalView: React.FC<LightWalViewProps> = ({ onRefresh, onOpenPri
                 </div>
               </div>
 
-              {/* Pricing Modes (SRS 2.6: per length, bulb counts, or bundle pricing) */}
+              {/* Pricing Modes: per length, bulb counts, or bundle pricing */}
               <div className="bg-slate-950 p-4 rounded-xl border border-slate-800 space-y-3 text-xs">
                 <h4 className="font-bold text-white uppercase tracking-wider text-[11px]">
                   Pricing & Invoice Model

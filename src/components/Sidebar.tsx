@@ -51,8 +51,7 @@ export const Sidebar: React.FC<SidebarProps> = ({
       subtitle: 'Multi-Stage Date Blocking',
       icon: CalendarDays,
       badge: bookingBadgeCount > 0 ? bookingBadgeCount : null,
-      badgeColor: 'bg-amber-500 text-black',
-      tag: 'SRS 2.1 & 2.2'
+      badgeColor: 'bg-amber-500 text-black'
     },
     {
       id: 'rental-stock' as TabType,
@@ -60,8 +59,7 @@ export const Sidebar: React.FC<SidebarProps> = ({
       subtitle: 'Real-Time Catalog',
       icon: Boxes,
       badge: lowStockCount > 0 ? `${lowStockCount} alert` : null,
-      badgeColor: 'bg-rose-500 text-white',
-      tag: 'SRS 2.1'
+      badgeColor: 'bg-rose-500 text-white'
     },
     {
       id: 'light-wal' as TabType,
@@ -69,8 +67,7 @@ export const Sidebar: React.FC<SidebarProps> = ({
       subtitle: 'Festoon & Fairy Lights',
       icon: Sparkles,
       badge: 'Dedicated',
-      badgeColor: 'bg-amber-400/20 text-amber-300 border border-amber-500/30',
-      tag: 'SRS 2.6'
+      badgeColor: 'bg-amber-400/20 text-amber-300 border border-amber-500/30'
     },
     {
       id: 'direct-sales' as TabType,
@@ -78,33 +75,28 @@ export const Sidebar: React.FC<SidebarProps> = ({
       subtitle: 'Direct Retail Sales',
       icon: ShoppingBag,
       badge: 'Retail',
-      badgeColor: 'bg-emerald-500/20 text-emerald-300 border border-emerald-500/30',
-      tag: 'SRS 2.4'
+      badgeColor: 'bg-emerald-500/20 text-emerald-300 border border-emerald-500/30'
     },
     {
       id: 'quotations' as TabType,
       label: 'Quotes & Invoices',
       subtitle: 'Typing & Print Engine',
       icon: FileSpreadsheet,
-      badge: null,
-      tag: 'SRS 2.5'
+      badge: null
     },
     {
       id: 'payroll' as TabType,
       label: 'Biometric & Payroll',
       subtitle: 'Attendance & Salaries',
       icon: Fingerprint,
-      badge: null,
-      tag: 'SRS 2.3'
+      badge: null
     },
     {
       id: 'marketing' as TabType,
       label: 'Marketing & Leads',
       subtitle: 'WhatsApp Funnel & Maps',
       icon: Megaphone,
-      badge: 'Phase 1',
-      badgeColor: 'bg-blue-500/20 text-blue-300 border border-blue-500/30',
-      tag: 'Phase 1'
+      badge: null
     },
     {
       id: 'settings' as TabType,

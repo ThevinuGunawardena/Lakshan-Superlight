@@ -190,9 +190,6 @@ export const QuotationsInvoicesView: React.FC<QuotationsInvoicesViewProps> = ({
         <div>
           <div className="flex items-center gap-2">
             <h2 className="text-2xl font-black text-white">Quotations & Invoices Engine</h2>
-            <span className="text-xs px-2 py-0.5 rounded bg-amber-500/20 text-amber-300 font-mono">
-              SRS Section 2.5
-            </span>
           </div>
           <p className="text-xs text-slate-400 mt-1">
             Create, customize, and print professional quotations and commercial invoices with one-click conversion to booking
