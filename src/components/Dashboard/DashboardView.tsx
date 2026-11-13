@@ -37,14 +37,11 @@ export const DashboardView: React.FC<DashboardViewProps> = ({ onNavigate, onOpen
     .filter(t => t.date.startsWith(todayStr))
     .reduce((sum, t) => sum + t.netTotal, 0);
 
-  const lowRetailStock = retailItems.filter(i => i.stockQty <= i.minAlertQty);
-
-  // Compute total gear booked right now
   const totalGearBooked = rentalStockUsage.reduce((acc, curr) => acc + curr.currentlyBooked, 0);
 
   return (
     <div className="space-y-6">
-      {/* Top Banner with Sri Lankan Context & Specs Notification */}
+      {/* Top Banner with Specs Notification */}
       <div className="bg-gradient-to-r from-amber-500/15 via-slate-900 to-slate-900 border border-amber-500/30 rounded-2xl p-5 relative overflow-hidden">
         <div className="relative z-10 flex flex-col md:flex-row md:items-center justify-between gap-4">
           <div>
@@ -56,7 +53,7 @@ export const DashboardView: React.FC<DashboardViewProps> = ({ onNavigate, onOpen
               Lakshan Superlight Operations Hub
             </h2>
             <p className="text-sm text-slate-300 mt-1 max-w-2xl">
-              Automatic inventory deduction across <span className="text-amber-400 font-semibold">Pre-Event Setup (3–4 days)</span>, <span className="text-emerald-400 font-semibold">Active Event</span>, and <span className="text-purple-400 font-semibold">Post-Event Dismantling (3 days)</span> preventing overbooking.
+              Automatic inventory deduction across <span className="text-amber-400 font-semibold">Pre-Event Setup (3–4 days)</span>, <span className="text-emerald-400 font-semibold">Active Event</span>, and <span className="text-purple-400 font-semibold">Post-Event Dismantling (3 days)</span> to prevent overbooking.
             </p>
           </div>
           <div className="flex items-center gap-3">
@@ -88,8 +85,8 @@ export const DashboardView: React.FC<DashboardViewProps> = ({ onNavigate, onOpen
             <span className="text-2xl font-extrabold text-white">{activeBookings.length}</span>
             <span className="text-xs text-amber-400/80 font-medium">({bookings.length} total)</span>
           </div>
-          <p className="text-[11px] text-slate-400 mt-1 font-sinhala">
-            සක්‍රීය ඉවෙන්ට් වෙන්කිරීම්
+          <p className="text-[11px] text-slate-400 mt-1">
+            Active and confirmed bookings
           </p>
         </div>
 
@@ -108,8 +105,8 @@ export const DashboardView: React.FC<DashboardViewProps> = ({ onNavigate, onOpen
             <span className="text-2xl font-extrabold text-white">{totalGearBooked}</span>
             <span className="text-xs text-slate-400">units reserved</span>
           </div>
-          <p className="text-[11px] text-slate-400 mt-1 font-sinhala">
-            වෙන්ව ඇති බඩු ප්‍රමාණය
+          <p className="text-[11px] text-slate-400 mt-1">
+            Locked in active date windows
           </p>
         </div>
 
@@ -129,8 +126,8 @@ export const DashboardView: React.FC<DashboardViewProps> = ({ onNavigate, onOpen
               Rs. {todayPOSTotal.toLocaleString()}
             </span>
           </div>
-          <p className="text-[11px] text-slate-400 mt-1 font-sinhala">
-            අද දින සිල්ලර විකුණුම්
+          <p className="text-[11px] text-slate-400 mt-1">
+            Retail direct sales revenue
           </p>
         </div>
 
@@ -149,13 +146,13 @@ export const DashboardView: React.FC<DashboardViewProps> = ({ onNavigate, onOpen
             <span className="text-2xl font-extrabold text-white">{todayAttendance.length}</span>
             <span className="text-xs text-purple-400/80 font-medium">staff on duty</span>
           </div>
-          <p className="text-[11px] text-slate-400 mt-1 font-sinhala">
-            අද පැමිණි සේවකයින්
+          <p className="text-[11px] text-slate-400 mt-1">
+            Verified fingerprint check-ins
           </p>
         </div>
       </div>
 
-      {/* Main Lifecycle Visualizer: PDF 2.2 Date Blocking Architecture */}
+      {/* Main Lifecycle Visualizer: SRS 2.2 Date Blocking Architecture */}
       <div className="bg-slate-900 border border-slate-800 rounded-xl p-5">
         <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 mb-4">
           <div>
@@ -164,11 +161,11 @@ export const DashboardView: React.FC<DashboardViewProps> = ({ onNavigate, onOpen
                 Full-Lifecycle Event Date Blocking Timeline
               </h3>
               <span className="text-xs px-2 py-0.5 rounded bg-amber-500/20 text-amber-300 font-mono">
-                PDF Section 2.2
+                SRS Section 2.2
               </span>
             </div>
-            <p className="text-xs text-slate-400 mt-0.5 font-sinhala">
-              Booking එකට පෙර සවිකිරීමේ දින (Setup) සහ අවසානයේ ගැලවීමේ දින (Dismantle) ස්වයංක්‍රීයව Block කිරීම
+            <p className="text-xs text-slate-400 mt-0.5">
+              Automated multi-stage item reservation across pre-event setup, active event dates, and post-event dismantling
             </p>
           </div>
 
@@ -216,9 +213,9 @@ export const DashboardView: React.FC<DashboardViewProps> = ({ onNavigate, onOpen
                       </span>
                     </div>
                     <div className="text-xs text-slate-400 mt-1 flex items-center gap-3">
-                      <span>👤 {booking.customerName}</span>
-                      <span>📍 {booking.eventVenue}</span>
-                      <span>📞 {booking.customerPhone}</span>
+                      <span>Customer: {booking.customerName}</span>
+                      <span>Venue: {booking.eventVenue}</span>
+                      <span>Tel: {booking.customerPhone}</span>
                     </div>
                   </div>
 
@@ -244,7 +241,7 @@ export const DashboardView: React.FC<DashboardViewProps> = ({ onNavigate, onOpen
                           {booking.blockedStartDate} ➜ {booking.eventStartDate}
                         </div>
                       </div>
-                      <span className="text-[10px] text-amber-300/80 font-sinhala font-medium">සවිකිරීම</span>
+                      <span className="text-[10px] text-amber-300/80 font-medium">Installation</span>
                     </div>
 
                     {/* Stage 2: Active event */}
@@ -258,7 +255,7 @@ export const DashboardView: React.FC<DashboardViewProps> = ({ onNavigate, onOpen
                           {booking.eventStartDate} ➜ {booking.eventEndDate}
                         </div>
                       </div>
-                      <span className="text-[10px] text-emerald-300/80 font-sinhala font-medium">ඉවෙන්ට් එක</span>
+                      <span className="text-[10px] text-emerald-300/80 font-medium">Show Dates</span>
                     </div>
 
                     {/* Stage 3: Post-event dismantling */}
@@ -272,7 +269,7 @@ export const DashboardView: React.FC<DashboardViewProps> = ({ onNavigate, onOpen
                           {booking.eventEndDate} ➜ {booking.blockedEndDate}
                         </div>
                       </div>
-                      <span className="text-[10px] text-purple-300/80 font-sinhala font-medium">ගැලවීම</span>
+                      <span className="text-[10px] text-purple-300/80 font-medium">Breakdown</span>
                     </div>
                   </div>
 
@@ -295,17 +292,17 @@ export const DashboardView: React.FC<DashboardViewProps> = ({ onNavigate, onOpen
         </div>
       </div>
 
-      {/* Two Column Layout: Current Stock Status & Low Stock / POS Alerts */}
+      {/* Two Column Layout: Current Stock Status & Quick Access */}
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-        {/* Real-time Rental Stock Availability (PDF 2.1) */}
+        {/* Real-time Rental Stock Availability (SRS 2.1) */}
         <div className="bg-slate-900 border border-slate-800 rounded-xl p-5">
           <div className="flex items-center justify-between mb-3">
             <div>
               <h3 className="text-base font-bold text-white flex items-center gap-2">
                 <span>Real-Time Rental Stock Status</span>
               </h3>
-              <p className="text-xs text-slate-400 font-sinhala">
-                දැනට පවතින ඉතිරි බඩු තොගය සහ වෙන්ව ඇති ප්‍රමාණ
+              <p className="text-xs text-slate-400">
+                Available inventory vs. currently reserved units
               </p>
             </div>
             <button
@@ -318,16 +315,15 @@ export const DashboardView: React.FC<DashboardViewProps> = ({ onNavigate, onOpen
           </div>
 
           <div className="divide-y divide-slate-800">
-            {rentalStockUsage.slice(0, 5).map(({ item, total, maintenance, currentlyBooked, freeStock }) => {
-              const bookedPct = Math.round((currentlyBooked / total) * 100);
+            {rentalStockUsage.slice(0, 5).map(({ item, total, currentlyBooked, freeStock }) => {
               return (
                 <div key={item.id} className="py-3 flex items-center justify-between gap-4">
                   <div className="min-w-0">
                     <div className="text-sm font-semibold text-slate-200 truncate">
                       {item.name}
                     </div>
-                    <div className="text-xs text-slate-400 font-sinhala">
-                      {item.sinhalaName} • Rs. {item.dailyRate.toLocaleString()}/day
+                    <div className="text-xs text-slate-400">
+                      {item.category} • Rs. {item.dailyRate.toLocaleString()}/day
                     </div>
                   </div>
 
@@ -358,19 +354,19 @@ export const DashboardView: React.FC<DashboardViewProps> = ({ onNavigate, onOpen
           </div>
         </div>
 
-        {/* Dedicated "Light Wal" & POS Quick Access */}
+        {/* Dedicated Modules Quick Access */}
         <div className="space-y-4">
           {/* Light Wal Highlight Card */}
           <div className="bg-gradient-to-br from-amber-500/10 via-slate-900 to-slate-900 border border-amber-500/30 rounded-xl p-5">
             <div className="flex items-center justify-between mb-2">
               <span className="text-xs font-bold text-amber-400 uppercase tracking-wider flex items-center gap-1.5">
                 <Sparkles className="w-4 h-4" />
-                <span>Dedicated Module • PDF 2.6</span>
+                <span>Dedicated Module • SRS 2.6</span>
               </span>
-              <span className="text-xs text-slate-400 font-sinhala">ලයිට් වැල් Invoicing</span>
+              <span className="text-xs text-slate-400">Festoon & Fairy Lights</span>
             </div>
             <h4 className="text-base font-bold text-white">
-              "Light Wal" (Fairy / Festoon Lights) Invoicing Engine
+              "Light Wal" Invoicing & Workshop Engine
             </h4>
             <p className="text-xs text-slate-300 mt-1">
               Custom lengths (feet/meters), bulb counts, wire types (rubber/PVC), and bundle pricing with dedicated assembly job sheets.
@@ -393,9 +389,9 @@ export const DashboardView: React.FC<DashboardViewProps> = ({ onNavigate, onOpen
             <div className="flex items-center justify-between mb-2">
               <span className="text-xs font-bold text-emerald-400 uppercase tracking-wider flex items-center gap-1.5">
                 <ShoppingBag className="w-4 h-4" />
-                <span>Standalone POS • PDF 2.4</span>
+                <span>Standalone POS • SRS 2.4</span>
               </span>
-              <span className="text-xs text-slate-400 font-sinhala">වෙනම Sales POS එක</span>
+              <span className="text-xs text-slate-400">Retail Sales</span>
             </div>
             <h4 className="text-base font-bold text-white">
               Direct Retail Sales & Thermal Billing
@@ -420,4 +416,3 @@ export const DashboardView: React.FC<DashboardViewProps> = ({ onNavigate, onOpen
     </div>
   );
 };
-

@@ -4,7 +4,6 @@ export const initialRentalItems: RentalItem[] = [
   {
     id: 'rent-01',
     name: 'Sharpy Beam 7R Moving Head 230W',
-    sinhalaName: 'ශාර්පි 7R මූවින් හෙඩ්ස්',
     category: 'Sharpy & Beams',
     totalQuantity: 24,
     maintenanceQty: 2,
@@ -16,7 +15,6 @@ export const initialRentalItems: RentalItem[] = [
   {
     id: 'rent-02',
     name: 'LED Par Light 54x3W RGBW Waterproof',
-    sinhalaName: 'LED පාර් ලයිට් 54x3W',
     category: 'Par Lights',
     totalQuantity: 60,
     maintenanceQty: 4,
@@ -28,7 +26,6 @@ export const initialRentalItems: RentalItem[] = [
   {
     id: 'rent-03',
     name: 'Aluminum Box Truss 10ft (300mm x 300mm)',
-    sinhalaName: 'ඇලුමිනියම් ට්‍රස් 10ft',
     category: 'Truss & Rigging',
     totalQuantity: 30,
     maintenanceQty: 0,
@@ -40,7 +37,6 @@ export const initialRentalItems: RentalItem[] = [
   {
     id: 'rent-04',
     name: 'Stage Blinder 4-Eye 400W COB LED',
-    sinhalaName: 'බ්ලයින්ඩර් 4 Eye 400W',
     category: 'Effects & Lasers',
     totalQuantity: 12,
     maintenanceQty: 1,
@@ -52,7 +48,6 @@ export const initialRentalItems: RentalItem[] = [
   {
     id: 'rent-05',
     name: '3-Phase Main Power Distro Box 63A with MCB',
-    sinhalaName: 'පවර් ඩිස්ට්‍රිබියුෂන් බොක්ස් 63A',
     category: 'Power & Distro',
     totalQuantity: 8,
     maintenanceQty: 0,
@@ -64,7 +59,6 @@ export const initialRentalItems: RentalItem[] = [
   {
     id: 'rent-06',
     name: 'Antari Professional DMX Haze Machine 1500W',
-    sinhalaName: 'හේස් දුම් මැෂින් 1500W',
     category: 'Effects & Lasers',
     totalQuantity: 6,
     maintenanceQty: 1,
@@ -76,7 +70,6 @@ export const initialRentalItems: RentalItem[] = [
   {
     id: 'rent-07',
     name: 'Warm White Fairy / Festoon Light Canopy Set (500m)',
-    sinhalaName: 'ෆෙස්ටූන් ලයිට් කැනපි සෙට් (500m)',
     category: 'Ambient & Decor',
     totalQuantity: 10,
     maintenanceQty: 0,
@@ -88,7 +81,6 @@ export const initialRentalItems: RentalItem[] = [
   {
     id: 'rent-08',
     name: 'RGB Full-Color Animation Laser 5W Pure Diode',
-    sinhalaName: 'RGB ඇනිමේෂන් ලේසර් 5W',
     category: 'Effects & Lasers',
     totalQuantity: 4,
     maintenanceQty: 0,
@@ -104,7 +96,6 @@ export const initialRetailItems: RetailItem[] = [
     id: 'ret-01',
     sku: 'LSL-BULB-ED2W',
     name: 'E27 Warm White Edison LED Bulb 2W (Vintage Amber)',
-    sinhalaName: 'E27 වෝම් වයිට් එඩිසන් බල්බ් 2W',
     category: 'Bulbs & Lamps',
     unit: 'Piece',
     unitCost: 160,
@@ -116,7 +107,6 @@ export const initialRetailItems: RetailItem[] = [
     id: 'ret-02',
     sku: 'LSL-BULB-G40',
     name: 'G40 Clear Globe Festoon Bulb E12 / E27 1W',
-    sinhalaName: 'G40 ග්ලෝබ් බල්බ් 1W',
     category: 'Bulbs & Lamps',
     unit: 'Piece',
     unitCost: 110,
@@ -127,8 +117,7 @@ export const initialRetailItems: RetailItem[] = [
   {
     id: 'ret-03',
     sku: 'LSL-WIRE-2X15',
-    name: 'Kelani / ACL 2-Core 1.5mm Heavy Duty Flat Rubber Wire (100m Coil)',
-    sinhalaName: '2-Core 1.5mm රබර් වයර් රෝල් 100m',
+    name: '2-Core 1.5mm Heavy Duty Flat Rubber Wire (100m Coil)',
     category: 'Wires & Cables',
     unit: 'Roll',
     unitCost: 14500,
@@ -140,7 +129,6 @@ export const initialRetailItems: RetailItem[] = [
     id: 'ret-04',
     sku: 'LSL-HLD-E27WP',
     name: 'E27 Waterproof Festoon Light Socket Holder with Rubber Seal',
-    sinhalaName: 'E27 වෝටර්පෲෆ් හෝල්ඩර්',
     category: 'Holders & Sockets',
     unit: 'Piece',
     unitCost: 65,
@@ -151,8 +139,7 @@ export const initialRetailItems: RetailItem[] = [
   {
     id: 'ret-05',
     sku: 'LSL-PLUG-13A',
-    name: '13A British Standard Fused Heavy Duty Top Plug (Orange/Black)',
-    sinhalaName: '13A හෙවි ඩියුටි ප්ලග් ටොප්',
+    name: '13A British Standard Fused Heavy Duty Top Plug',
     category: 'Holders & Sockets',
     unit: 'Piece',
     unitCost: 220,
@@ -164,7 +151,6 @@ export const initialRetailItems: RetailItem[] = [
     id: 'ret-06',
     sku: 'LSL-TAPE-NITTO',
     name: 'High Grade Waterproof Electrical Insulation Tape (Pack of 10)',
-    sinhalaName: 'ඉන්සියුලේෂන් ටේප් පැක්',
     category: 'Tapes & Accessories',
     unit: 'Box',
     unitCost: 950,
@@ -176,7 +162,6 @@ export const initialRetailItems: RetailItem[] = [
     id: 'ret-07',
     sku: 'LSL-CTRL-8F',
     name: 'Outdoor 8-Mode Waterproof Controller Box for String Lights 1000W',
-    sinhalaName: 'වෝටර්පෲෆ් 8-මෝඩ් කන්ට්‍රෝලර් බොක්ස්',
     category: 'Power Supplies',
     unit: 'Piece',
     unitCost: 1400,
@@ -191,7 +176,6 @@ export const initialEmployees: Employee[] = [
     id: 'emp-01',
     empNo: 'EMP-001',
     name: 'Kavinda Perera',
-    sinhalaName: 'කවින්ද පෙරේරා',
     role: 'Lead Electrician',
     phone: '077 123 4567',
     nationalId: '199214502840',
@@ -206,7 +190,6 @@ export const initialEmployees: Employee[] = [
     id: 'emp-02',
     empNo: 'EMP-002',
     name: 'Nuwan Jayasinghe',
-    sinhalaName: 'නුවන් ජයසිංහ',
     role: 'Lighting Technician',
     phone: '071 987 6543',
     nationalId: '199587401129',
@@ -221,7 +204,6 @@ export const initialEmployees: Employee[] = [
     id: 'emp-03',
     empNo: 'EMP-003',
     name: 'Saman Kumara',
-    sinhalaName: 'සමන් කුමාර',
     role: 'Vehicle Driver',
     phone: '076 554 1122',
     nationalId: '198945603310',
@@ -236,12 +218,11 @@ export const initialEmployees: Employee[] = [
     id: 'emp-04',
     empNo: 'EMP-004',
     name: 'Dinesh Bandara',
-    sinhalaName: 'දිනේෂ් බණ්ඩාර',
     role: 'Site Crew / Helper',
     phone: '078 332 9901',
     nationalId: '200155209931',
     salaryType: 'Daily',
-    basicSalary: 2800, // per day
+    basicSalary: 2800,
     otRatePerHour: 350,
     epfEligible: false,
     fingerprintId: 104,
@@ -249,7 +230,6 @@ export const initialEmployees: Employee[] = [
   }
 ];
 
-// Helper to compute date strings relative to today
 const today = new Date();
 const formatDate = (d: Date) => d.toISOString().split('T')[0];
 const addDays = (d: Date, n: number) => {
@@ -258,10 +238,8 @@ const addDays = (d: Date, n: number) => {
   return result;
 };
 
-// Sample bookings highlighting the Multi-stage blocking logic!
-// Setup Window (3-4 days prior) + Active Event + Dismantle Window (3 days afterward)
 const event1Start = addDays(today, 5);
-const event1End = addDays(today, 9); // 5 days event
+const event1End = addDays(today, 9);
 const event1Setup = 3;
 const event1Dismantle = 3;
 
@@ -389,7 +367,7 @@ export const initialQuotations: Quotation[] = [
     customerName: 'Dilshan Wickramasinghe',
     customerPhone: '077 334 5566',
     customerAddress: 'Kandy Road, Kiribathgoda',
-    eventTitle: 'Overnight Pirith Ceremony & Pinkama',
+    eventTitle: 'Ceremony & Reception Illumination',
     eventVenue: 'Residence Garden, Kiribathgoda',
     eventStartDate: formatDate(addDays(today, 10)),
     eventEndDate: formatDate(addDays(today, 11)),
@@ -419,7 +397,7 @@ export const initialQuotations: Quotation[] = [
     discount: 4200,
     grandTotal: 80000,
     status: 'Sent',
-    notes: 'Pirith mandapaya perimeter lighting and surrounding festoon canopy.',
+    notes: 'Perimeter lighting and surrounding festoon canopy.',
     validUntil: formatDate(addDays(today, 7)),
     createdAt: formatDate(addDays(today, -2))
   }
@@ -443,7 +421,7 @@ export const initialLightWalOrders: LightWalOrder[] = [
     controllerIncluded: true,
     controllerType: '8-Function Memory Controller',
     pricingMode: 'perFoot',
-    ratePerUnit: 220, // Rs. 220 per foot (includes wiring + bulbs + sockets)
+    ratePerUnit: 220,
     accessoriesFee: 3500,
     discount: 1500,
     grandTotal: 35000,
@@ -468,7 +446,7 @@ export const initialLightWalOrders: LightWalOrder[] = [
     plugType: '13A British Standard',
     controllerIncluded: false,
     pricingMode: 'bundle',
-    ratePerUnit: 68000, // Bundle rate
+    ratePerUnit: 68000,
     accessoriesFee: 4000,
     discount: 2000,
     grandTotal: 70000,
@@ -534,4 +512,3 @@ export const initialAttendanceRecords: AttendanceRecord[] = [
     terminalSource: 'Biometric Terminal'
   }
 ];
-

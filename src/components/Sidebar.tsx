@@ -41,66 +41,66 @@ export const Sidebar: React.FC<SidebarProps> = ({
     {
       id: 'dashboard' as TabType,
       label: 'Dashboard',
-      sinhala: 'දළ විශ්ලේෂණය',
+      subtitle: 'Overview & Metrics',
       icon: LayoutDashboard,
       badge: null
     },
     {
       id: 'bookings' as TabType,
       label: 'Event Bookings & Dates',
-      sinhala: 'ඉවෙන්ට් බුකින් සහ දින බ්ලොක්',
+      subtitle: 'Multi-Stage Date Blocking',
       icon: CalendarDays,
       badge: bookingBadgeCount > 0 ? bookingBadgeCount : null,
       badgeColor: 'bg-amber-500 text-black',
-      tag: 'PDF 2.1 & 2.2'
+      tag: 'SRS 2.1 & 2.2'
     },
     {
       id: 'rental-stock' as TabType,
       label: 'Rental Master Stock',
-      sinhala: 'කුලියට දෙන බඩු තොගය',
+      subtitle: 'Real-Time Catalog',
       icon: Boxes,
       badge: lowStockCount > 0 ? `${lowStockCount} alert` : null,
       badgeColor: 'bg-rose-500 text-white',
-      tag: 'PDF 2.1'
+      tag: 'SRS 2.1'
     },
     {
       id: 'light-wal' as TabType,
       label: 'Dedicated "Light Wal"',
-      sinhala: 'ලයිට් වැල් Invoicing',
+      subtitle: 'Festoon & Fairy Lights',
       icon: Sparkles,
       badge: 'Dedicated',
       badgeColor: 'bg-amber-400/20 text-amber-300 border border-amber-500/30',
-      tag: 'PDF 2.6'
+      tag: 'SRS 2.6'
     },
     {
       id: 'direct-sales' as TabType,
       label: 'Standalone Sales POS',
-      sinhala: 'සිල්ලර විකුණුම් (Direct POS)',
+      subtitle: 'Direct Retail Sales',
       icon: ShoppingBag,
       badge: 'Retail',
       badgeColor: 'bg-emerald-500/20 text-emerald-300 border border-emerald-500/30',
-      tag: 'PDF 2.4'
+      tag: 'SRS 2.4'
     },
     {
       id: 'quotations' as TabType,
       label: 'Quotes & Invoices',
-      sinhala: 'ක්වෝටේෂන් සහ බිල්පත්',
+      subtitle: 'Typing & Print Engine',
       icon: FileSpreadsheet,
       badge: null,
-      tag: 'PDF 2.5'
+      tag: 'SRS 2.5'
     },
     {
       id: 'payroll' as TabType,
       label: 'Biometric & Payroll',
-      sinhala: 'ඇඟිලි සලකුණු පැමිණීම & Salary',
+      subtitle: 'Attendance & Salaries',
       icon: Fingerprint,
       badge: null,
-      tag: 'PDF 2.3'
+      tag: 'SRS 2.3'
     },
     {
       id: 'marketing' as TabType,
       label: 'Marketing & Leads',
-      sinhala: 'WhatsApp Funnel & Maps',
+      subtitle: 'WhatsApp Funnel & Maps',
       icon: Megaphone,
       badge: 'Phase 1',
       badgeColor: 'bg-blue-500/20 text-blue-300 border border-blue-500/30',
@@ -109,7 +109,7 @@ export const Sidebar: React.FC<SidebarProps> = ({
     {
       id: 'settings' as TabType,
       label: 'Settings & Company',
-      sinhala: 'සැකසුම් සහ විස්තර',
+      subtitle: 'Profile & Banking Terms',
       icon: Settings,
       badge: null
     }
@@ -131,8 +131,8 @@ export const Sidebar: React.FC<SidebarProps> = ({
             <p className="text-[11px] text-slate-400 font-medium leading-none mt-0.5">
               Event Productions & Rentals
             </p>
-            <p className="text-[10px] text-amber-300/80 font-sinhala mt-0.5">
-              ලක්ෂාන් සුපර්ලයිට් සිස්ටම්
+            <p className="text-[10px] text-amber-400/80 font-medium mt-1">
+              Enterprise Management System
             </p>
           </div>
         </div>
@@ -167,11 +167,11 @@ export const Sidebar: React.FC<SidebarProps> = ({
                     {item.label}
                   </div>
                   <div
-                    className={`text-[10px] font-sinhala truncate ${
+                    className={`text-[10px] truncate ${
                       isActive ? 'text-slate-900/80 font-medium' : 'text-slate-400'
                     }`}
                   >
-                    {item.sinhala}
+                    {item.subtitle}
                   </div>
                 </div>
               </div>
@@ -198,8 +198,11 @@ export const Sidebar: React.FC<SidebarProps> = ({
       {/* Footer Info */}
       <div className="p-3.5 border-t border-slate-800/80 bg-slate-950/60 text-xs">
         <div className="flex items-center justify-between text-slate-400 mb-1">
-          <span className="text-[11px] font-medium">Sri Lanka Local Version</span>
-          <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
+          <span className="text-[11px] font-medium">System Status</span>
+          <span className="flex items-center gap-1 text-[11px] text-emerald-400">
+            <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
+            <span>Online</span>
+          </span>
         </div>
         <p className="text-[10px] text-slate-400 leading-tight">
           Stock Date-Blocking & POS Engine v1.0
@@ -208,4 +211,3 @@ export const Sidebar: React.FC<SidebarProps> = ({
     </aside>
   );
 };
-

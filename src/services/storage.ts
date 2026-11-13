@@ -35,7 +35,6 @@ const STORAGE_KEYS = {
 export interface CompanyInfo {
   name: string;
   tagline: string;
-  sinhalaName: string;
   address: string;
   phone1: string;
   phone2: string;
@@ -51,7 +50,6 @@ export interface CompanyInfo {
 export const defaultCompanyInfo: CompanyInfo = {
   name: 'Lakshan Superlight & Event Productions',
   tagline: 'Professional Stage Lighting, Light Wal Rentals & Sales',
-  sinhalaName: 'ලක්ෂාන් සුපර්ලයිට් සහ ඉවෙන්ට් ප්‍රඩක්ෂන්ස්',
   address: 'No. 142/B, High Level Road, Maharagama, Sri Lanka',
   phone1: '+94 77 123 4567',
   phone2: '+94 11 289 9000',
@@ -64,7 +62,7 @@ export const defaultCompanyInfo: CompanyInfo = {
   terms: [
     '30% non-refundable advance required to confirm booking and lock equipment dates.',
     'Equipment blocked strictly includes pre-event setup (3-4 days) & post-event dismantling (3 days).',
-    'Customer is responsible for safe on-site storage, 3-phase power supply, and sheltered shelter from rain.',
+    'Customer is responsible for safe on-site storage, 3-phase power supply, and sheltered protection from rain.',
     'Any damages or missing gear will be charged at current replacement cost.'
   ]
 };
@@ -174,7 +172,6 @@ export const StorageService = {
     const txs = StorageService.getPOSTransactions();
     txs.unshift(tx);
     StorageService.savePOSTransactions(txs);
-    // Deduct stock
     tx.items.forEach(item => {
       StorageService.updateRetailStock(item.itemId, item.quantity);
     });
@@ -203,14 +200,7 @@ export const StorageService = {
   getCompanyInfo: (): CompanyInfo => getStored(STORAGE_KEYS.COMPANY_INFO, defaultCompanyInfo),
   saveCompanyInfo: (info: CompanyInfo) => setStored(STORAGE_KEYS.COMPANY_INFO, info),
 
-  // ==========================================
-  // CORE BUSINESS LOGIC (PDF 2.1 & 2.2):
   // Date Blocking & Overbooking Prevention
-  // ==========================================
-  /**
-   * Checks if an item is available for the entire blocked lifecycle
-   * [blockedStart to blockedEnd] = [EventStart - SetupDays to EventEnd + DismantleDays]
-   */
   checkItemAvailability: (
     itemId: string,
     blockedStart: string,
@@ -243,12 +233,10 @@ export const StorageService = {
     const conflictingBookings: { bookingNumber: string; customerName: string; blockedStart: string; blockedEnd: string; qty: number }[] = [];
     let maxSimultaneousBooked = 0;
 
-    // Check each booking overlapping with this window
     for (const b of bookings) {
       const existingStart = new Date(b.blockedStartDate).getTime();
       const existingEnd = new Date(b.blockedEndDate).getTime();
 
-      // Check date interval overlap: start1 <= end2 && end1 >= start2
       if (bStart <= existingEnd && bEnd >= existingStart) {
         const itemLine = b.items.find(line => line.itemId === itemId);
         if (itemLine) {
@@ -276,7 +264,6 @@ export const StorageService = {
     };
   },
 
-  // Get current inventory usage right now (today)
   getCurrentRentalUsage: () => {
     const todayStr = new Date().toISOString().split('T')[0];
     const todayTime = new Date(todayStr).getTime();
@@ -307,7 +294,6 @@ export const StorageService = {
     });
   },
 
-  // Export / Backup full database
   exportBackupJSON: () => {
     const backup = {
       version: '1.0',
@@ -326,7 +312,6 @@ export const StorageService = {
     return JSON.stringify(backup, null, 2);
   },
 
-  // Reset to sample initial state
   resetToDefaults: () => {
     localStorage.clear();
     StorageService.saveRentalItems(initialRentalItems);
@@ -339,4 +324,3 @@ export const StorageService = {
     StorageService.saveCompanyInfo(defaultCompanyInfo);
   }
 };
-

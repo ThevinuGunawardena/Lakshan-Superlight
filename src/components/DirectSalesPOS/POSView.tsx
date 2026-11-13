@@ -32,7 +32,6 @@ export const POSView: React.FC<POSViewProps> = ({ onRefresh, onOpenPrint }) => {
   const retailItems = StorageService.getRetailItems();
   const transactions = StorageService.getPOSTransactions();
 
-  // POS Cart State
   const [cart, setCart] = useState<POSCartItem[]>([]);
   const [customerName, setCustomerName] = useState('');
   const [customerPhone, setCustomerPhone] = useState('');
@@ -40,12 +39,10 @@ export const POSView: React.FC<POSViewProps> = ({ onRefresh, onOpenPrint }) => {
   const [cashGiven, setCashGiven] = useState<number>(0);
   const [overallDiscount, setOverallDiscount] = useState<number>(0);
 
-  // New retail item modal
   const [isAddModalOpen, setIsAddModalOpen] = useState(false);
   const [newRetailItem, setNewRetailItem] = useState<Partial<RetailItem>>({
     sku: '',
     name: '',
-    sinhalaName: '',
     category: 'Bulbs & Lamps',
     unit: 'Piece',
     unitCost: 150,
@@ -65,13 +62,11 @@ export const POSView: React.FC<POSViewProps> = ({ onRefresh, onOpenPrint }) => {
 
   const filteredItems = retailItems.filter(item => {
     const matchesSearch = item.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
-      item.sku.toLowerCase().includes(searchTerm.toLowerCase()) ||
-      (item.sinhalaName && item.sinhalaName.includes(searchTerm));
+      item.sku.toLowerCase().includes(searchTerm.toLowerCase());
     const matchesCategory = selectedCategory === 'All' || item.category === selectedCategory;
     return matchesSearch && matchesCategory;
   });
 
-  // Cart operations
   const addToCart = (item: RetailItem) => {
     if (item.stockQty <= 0) {
       alert('This item is currently out of stock.');
@@ -131,7 +126,6 @@ export const POSView: React.FC<POSViewProps> = ({ onRefresh, onOpenPrint }) => {
     setCart(cart.filter(c => c.itemId !== itemId));
   };
 
-  // Cart totals
   const subtotal = cart.reduce((sum, item) => sum + item.lineTotal, 0);
   const netTotal = Math.max(0, subtotal - Number(overallDiscount));
   const changeDue = Math.max(0, Number(cashGiven) - netTotal);
@@ -157,17 +151,15 @@ export const POSView: React.FC<POSViewProps> = ({ onRefresh, onOpenPrint }) => {
       amountPaid: paymentMethod === 'Cash' ? Number(cashGiven) : netTotal,
       changeGiven: paymentMethod === 'Cash' ? changeDue : 0,
       paymentMethod,
-      cashierName: 'Lakshan (Cashier)'
+      cashierName: 'Cashier'
     };
 
     StorageService.recordPOSSale(tx);
 
-    // Open print receipt modal if available
     if (onOpenPrint) {
       onOpenPrint('pos-receipt', tx);
     }
 
-    // Reset cart
     setCart([]);
     setCustomerName('');
     setCustomerPhone('');
@@ -185,7 +177,6 @@ export const POSView: React.FC<POSViewProps> = ({ onRefresh, onOpenPrint }) => {
       id: `ret-${Date.now()}`,
       sku,
       name: newRetailItem.name || '',
-      sinhalaName: newRetailItem.sinhalaName || '',
       category: newRetailItem.category as any,
       unit: newRetailItem.unit as any,
       unitCost: Number(newRetailItem.unitCost) || 0,
@@ -209,11 +200,11 @@ export const POSView: React.FC<POSViewProps> = ({ onRefresh, onOpenPrint }) => {
           <div className="flex items-center gap-2">
             <h2 className="text-2xl font-black text-white">Standalone Direct Sales (POS) Module</h2>
             <span className="text-xs px-2 py-0.5 rounded bg-emerald-500/20 text-emerald-300 font-mono">
-              PDF Section 2.4
+              SRS Section 2.4
             </span>
           </div>
-          <p className="text-xs text-slate-400 mt-1 font-sinhala">
-            කුලියට දෙන බඩු වලින් වෙන්වූ, කෙලින්ම සිල්ලරට විකුණන බඩු සඳහාම වෙන්වූ POS පද්ධතිය
+          <p className="text-xs text-slate-400 mt-1">
+            Dedicated retail sales point operating completely independently from rental booking stock
           </p>
         </div>
 
@@ -259,7 +250,6 @@ export const POSView: React.FC<POSViewProps> = ({ onRefresh, onOpenPrint }) => {
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-6">
           {/* Left / Center: Retail Product Catalog */}
           <div className="lg:col-span-7 space-y-4">
-            {/* Filter bar */}
             <div className="bg-slate-900 border border-slate-800 p-3 rounded-xl flex flex-col sm:flex-row gap-3 items-center justify-between">
               <div className="relative w-full sm:w-64">
                 <Search className="w-4 h-4 text-slate-400 absolute left-3 top-2.5" />
@@ -312,11 +302,6 @@ export const POSView: React.FC<POSViewProps> = ({ onRefresh, onOpenPrint }) => {
                     <h4 className="text-xs font-bold text-white mt-1.5 leading-snug line-clamp-2 group-hover:text-amber-400 transition">
                       {item.name}
                     </h4>
-                    {item.sinhalaName && (
-                      <div className="text-[10px] text-slate-400 font-sinhala truncate mt-0.5">
-                        {item.sinhalaName}
-                      </div>
-                    )}
                   </div>
 
                   <div className="mt-3 pt-2 border-t border-slate-800 flex items-center justify-between">
@@ -350,7 +335,6 @@ export const POSView: React.FC<POSViewProps> = ({ onRefresh, onOpenPrint }) => {
                 )}
               </div>
 
-              {/* Customer quick inputs */}
               <div className="grid grid-cols-2 gap-2 my-3 text-xs">
                 <input
                   type="text"
@@ -536,12 +520,7 @@ export const POSView: React.FC<POSViewProps> = ({ onRefresh, onOpenPrint }) => {
                 {retailItems.map((item) => (
                   <tr key={item.id} className="hover:bg-slate-800/40">
                     <td className="py-3 px-4 font-mono text-amber-400">{item.sku}</td>
-                    <td className="py-3 px-4 font-medium text-white">
-                      <div>{item.name}</div>
-                      {item.sinhalaName && (
-                        <div className="text-[10px] text-slate-400 font-sinhala">{item.sinhalaName}</div>
-                      )}
-                    </td>
+                    <td className="py-3 px-4 font-medium text-white">{item.name}</td>
                     <td className="py-3 px-4 text-slate-400">{item.category}</td>
                     <td className="py-3 px-4 text-right text-slate-400">Rs. {item.unitCost.toLocaleString()}</td>
                     <td className="py-3 px-4 text-right font-bold text-white">Rs. {item.retailPrice.toLocaleString()}</td>
@@ -649,17 +628,6 @@ export const POSView: React.FC<POSViewProps> = ({ onRefresh, onOpenPrint }) => {
                 />
               </div>
 
-              <div>
-                <label className="block text-slate-300 font-semibold mb-1 font-sinhala">Product Name (Sinhala)</label>
-                <input
-                  type="text"
-                  placeholder="උදා: 2.5mm ට්වින් ෆ්ලැට් වයර් රෝල්"
-                  value={newRetailItem.sinhalaName}
-                  onChange={(e) => setNewRetailItem({ ...newRetailItem, sinhalaName: e.target.value })}
-                  className="w-full bg-slate-950 border border-slate-800 rounded-lg px-2.5 py-1.5 text-white"
-                />
-              </div>
-
               <div className="grid grid-cols-2 gap-2">
                 <div>
                   <label className="block text-slate-300 font-semibold mb-1">Category</label>
@@ -756,4 +724,3 @@ export const POSView: React.FC<POSViewProps> = ({ onRefresh, onOpenPrint }) => {
     </div>
   );
 };
-

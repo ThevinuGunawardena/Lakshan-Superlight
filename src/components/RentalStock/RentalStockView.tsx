@@ -42,16 +42,13 @@ export const RentalStockView: React.FC<RentalStockViewProps> = ({ onRefresh }) =
 
   const filteredItems = rentalItems.filter(item => {
     const matchesSearch = item.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
-      (item.sinhalaName && item.sinhalaName.includes(searchTerm)) ||
       item.category.toLowerCase().includes(searchTerm.toLowerCase());
     const matchesCategory = selectedCategory === 'All' || item.category === selectedCategory;
     return matchesSearch && matchesCategory;
   });
 
-  // New item form state
   const [newItem, setNewItem] = useState<Partial<RentalItem>>({
     name: '',
-    sinhalaName: '',
     category: 'Sharpy & Beams',
     totalQuantity: 10,
     maintenanceQty: 0,
@@ -67,7 +64,6 @@ export const RentalStockView: React.FC<RentalStockViewProps> = ({ onRefresh }) =
     const created: RentalItem = {
       id: `rent-${Date.now()}`,
       name: newItem.name || '',
-      sinhalaName: newItem.sinhalaName || '',
       category: newItem.category as any,
       totalQuantity: Number(newItem.totalQuantity) || 1,
       maintenanceQty: Number(newItem.maintenanceQty) || 0,
@@ -81,7 +77,6 @@ export const RentalStockView: React.FC<RentalStockViewProps> = ({ onRefresh }) =
     setIsAddModalOpen(false);
     setNewItem({
       name: '',
-      sinhalaName: '',
       category: 'Sharpy & Beams',
       totalQuantity: 10,
       maintenanceQty: 0,
@@ -92,7 +87,6 @@ export const RentalStockView: React.FC<RentalStockViewProps> = ({ onRefresh }) =
     onRefresh();
   };
 
-  // Inspect bookings holding a specific item
   const getBookingsForItem = (itemId: string) => {
     return bookings.filter(b => 
       b.status !== 'Cancelled' &&
@@ -109,11 +103,11 @@ export const RentalStockView: React.FC<RentalStockViewProps> = ({ onRefresh }) =
           <div className="flex items-center gap-2">
             <h2 className="text-2xl font-black text-white">Rental Equipment Master Catalog</h2>
             <span className="text-xs px-2 py-0.5 rounded bg-amber-500/20 text-amber-300 font-mono">
-              PDF Section 2.1
+              SRS Section 2.1
             </span>
           </div>
-          <p className="text-xs text-slate-400 mt-1 font-sinhala">
-            කුලියට දෙන ප්‍රධාන බඩු තොගය සහ ඉවෙන්ට් වෙන්කිරීමේදී ස්වයංක්‍රීයව අඩුවන ක්‍රමවේදය
+          <p className="text-xs text-slate-400 mt-1">
+            Master inventory management with real-time automatic stock deduction upon booking
           </p>
         </div>
 
@@ -184,11 +178,6 @@ export const RentalStockView: React.FC<RentalStockViewProps> = ({ onRefresh }) =
                   <h3 className="text-base font-bold text-white mt-2 leading-snug">
                     {item.name}
                   </h3>
-                  {item.sinhalaName && (
-                    <div className="text-xs text-slate-400 font-sinhala mt-0.5">
-                      {item.sinhalaName}
-                    </div>
-                  )}
 
                   {item.specs && (
                     <p className="text-xs text-slate-400 mt-2 line-clamp-2">
@@ -225,7 +214,6 @@ export const RentalStockView: React.FC<RentalStockViewProps> = ({ onRefresh }) =
                     </div>
                   )}
 
-                  {/* Button to inspect calendar schedule for this specific item */}
                   <button
                     onClick={() => setInspectItem(item)}
                     className="w-full mt-2 bg-slate-800 hover:bg-slate-700 text-slate-200 text-xs font-semibold py-2 px-3 rounded-lg transition flex items-center justify-center gap-1.5"
@@ -249,8 +237,8 @@ export const RentalStockView: React.FC<RentalStockViewProps> = ({ onRefresh }) =
                 <h3 className="text-lg font-bold text-white flex items-center gap-2">
                   <span>Reserved Dates: {inspectItem.name}</span>
                 </h3>
-                <p className="text-xs text-slate-400 font-sinhala">
-                  මෙම උපකරණය වෙන් කර ඇති සියලුම ඉවෙන්ට් සහ දින වකවානු
+                <p className="text-xs text-slate-400">
+                  All active events and multi-stage date blocking intervals holding this equipment
                 </p>
               </div>
               <button
@@ -337,7 +325,7 @@ export const RentalStockView: React.FC<RentalStockViewProps> = ({ onRefresh }) =
             <form onSubmit={handleCreateItem} className="space-y-4">
               <div>
                 <label className="block text-xs font-semibold text-slate-300 mb-1">
-                  Equipment Name (English) *
+                  Equipment Name *
                 </label>
                 <input
                   type="text"
@@ -345,19 +333,6 @@ export const RentalStockView: React.FC<RentalStockViewProps> = ({ onRefresh }) =
                   placeholder="e.g. Beam 260 Moving Head"
                   value={newItem.name}
                   onChange={(e) => setNewItem({ ...newItem, name: e.target.value })}
-                  className="w-full bg-slate-950 border border-slate-800 rounded-lg px-3 py-2 text-sm text-slate-200 focus:outline-none focus:border-amber-500"
-                />
-              </div>
-
-              <div>
-                <label className="block text-xs font-semibold text-slate-300 mb-1 font-sinhala">
-                  Equipment Name (Sinhala)
-                </label>
-                <input
-                  type="text"
-                  placeholder="උදා: බීම් 260 මූවින් හෙඩ්ස්"
-                  value={newItem.sinhalaName}
-                  onChange={(e) => setNewItem({ ...newItem, sinhalaName: e.target.value })}
                   className="w-full bg-slate-950 border border-slate-800 rounded-lg px-3 py-2 text-sm text-slate-200 focus:outline-none focus:border-amber-500"
                 />
               </div>
@@ -459,4 +434,3 @@ export const RentalStockView: React.FC<RentalStockViewProps> = ({ onRefresh }) =
     </div>
   );
 };
-

@@ -39,7 +39,6 @@ export const EventBookingsView: React.FC<EventBookingsViewProps> = ({
   const bookings = StorageService.getBookings();
   const rentalCatalog = StorageService.getRentalItems();
 
-  // If a booking was selected from dashboard
   React.useEffect(() => {
     if (selectedBookingId) {
       const found = bookings.find(b => b.id === selectedBookingId);
@@ -47,22 +46,20 @@ export const EventBookingsView: React.FC<EventBookingsViewProps> = ({
     }
   }, [selectedBookingId, bookings]);
 
-  // Today helper
   const today = new Date().toISOString().split('T')[0];
 
-  // Helper date math
   const computeBlockedDates = (startDate: string, endDate: string, setupDays: number, dismantleDays: number) => {
     if (!startDate || !endDate) return { blockedStart: '', blockedEnd: '', activeDays: 1 };
-
+    
     const start = new Date(startDate);
     const end = new Date(endDate);
-
+    
     const bStart = new Date(start);
     bStart.setDate(bStart.getDate() - setupDays);
-
+    
     const bEnd = new Date(end);
     bEnd.setDate(bEnd.getDate() + dismantleDays);
-
+    
     const diffTime = Math.abs(end.getTime() - start.getTime());
     const activeDays = Math.max(1, Math.ceil(diffTime / (1000 * 60 * 60 * 24)) + 1);
 
@@ -73,21 +70,19 @@ export const EventBookingsView: React.FC<EventBookingsViewProps> = ({
     };
   };
 
-  // New Booking State
   const [customerName, setCustomerName] = useState('');
   const [customerPhone, setCustomerPhone] = useState('');
   const [customerEmail, setCustomerEmail] = useState('');
   const [customerAddress, setCustomerAddress] = useState('');
   const [eventTitle, setEventTitle] = useState('');
   const [eventVenue, setEventVenue] = useState('');
-
-  // Date states (defaults: 5 days event, 3 days setup, 3 days dismantling as in PDF 2.2)
+  
   const defaultStart = new Date(Date.now() + 86400000 * 4).toISOString().split('T')[0];
   const defaultEnd = new Date(Date.now() + 86400000 * 8).toISOString().split('T')[0];
   const [eventStartDate, setEventStartDate] = useState(defaultStart);
   const [eventEndDate, setEventEndDate] = useState(defaultEnd);
-  const [setupDaysPrior, setSetupDaysPrior] = useState<number>(3); // 3-4 days
-  const [dismantleDaysAfter, setDismantleDaysAfter] = useState<number>(3); // 3 days
+  const [setupDaysPrior, setSetupDaysPrior] = useState<number>(3);
+  const [dismantleDaysAfter, setDismantleDaysAfter] = useState<number>(3);
 
   const [selectedItems, setSelectedItems] = useState<BookingItem[]>([]);
   const [transportFee, setTransportFee] = useState<number>(25000);
@@ -96,16 +91,13 @@ export const EventBookingsView: React.FC<EventBookingsViewProps> = ({
   const [advancePaid, setAdvancePaid] = useState<number>(0);
   const [notes, setNotes] = useState('');
 
-  // Selected item line adder
   const [itemToAddId, setItemToAddId] = useState('');
   const [itemToAddQty, setItemToAddQty] = useState(1);
 
-  // Computed block window for new booking
   const computedWindow = useMemo(() => {
     return computeBlockedDates(eventStartDate, eventEndDate, setupDaysPrior, dismantleDaysAfter);
   }, [eventStartDate, eventEndDate, setupDaysPrior, dismantleDaysAfter]);
 
-  // Live overbooking check for item being added
   const currentItemAvailability = useMemo(() => {
     if (!itemToAddId || !computedWindow.blockedStart || !computedWindow.blockedEnd) return null;
     return StorageService.checkItemAvailability(
@@ -121,7 +113,6 @@ export const EventBookingsView: React.FC<EventBookingsViewProps> = ({
     const catItem = rentalCatalog.find(i => i.id === itemToAddId);
     if (!catItem) return;
 
-    // Check if item already in selectedItems
     const existingIndex = selectedItems.findIndex(i => i.itemId === itemToAddId);
     const lineTotal = catItem.dailyRate * itemToAddQty * computedWindow.activeDays;
 
@@ -144,7 +135,6 @@ export const EventBookingsView: React.FC<EventBookingsViewProps> = ({
       ]);
     }
 
-    // Reset item selector
     setItemToAddId('');
     setItemToAddQty(1);
   };
@@ -153,7 +143,6 @@ export const EventBookingsView: React.FC<EventBookingsViewProps> = ({
     setSelectedItems(selectedItems.filter(i => i.itemId !== itemId));
   };
 
-  // Financial totals
   const equipmentTotal = selectedItems.reduce((sum, i) => sum + i.subtotal, 0);
   const netTotal = equipmentTotal + Number(transportFee) + Number(securityDeposit) - Number(discount);
   const balanceDue = Math.max(0, netTotal - Number(advancePaid));
@@ -241,11 +230,11 @@ export const EventBookingsView: React.FC<EventBookingsViewProps> = ({
           <div className="flex items-center gap-2">
             <h2 className="text-2xl font-black text-white">Event Bookings & Date Blocking</h2>
             <span className="text-xs px-2 py-0.5 rounded bg-amber-500/20 text-amber-300 font-mono">
-              PDF Section 2.1 & 2.2
+              SRS Section 2.1 & 2.2
             </span>
           </div>
-          <p className="text-xs text-slate-400 mt-1 font-sinhala">
-            ඉවෙන්ට් එකට පෙර දින 3–4 ක සවිකිරීම් සහ අවසානයේ දින 3 ක ගැලවීම් ඇතුළුව සම්පූර්ණ බඩු වෙන්කිරීම
+          <p className="text-xs text-slate-400 mt-1">
+            Complete inventory locking across pre-event setup (3–4 days), active show dates, and post-event dismantling (3 days)
           </p>
         </div>
 
@@ -277,10 +266,11 @@ export const EventBookingsView: React.FC<EventBookingsViewProps> = ({
             <button
               key={st}
               onClick={() => setStatusFilter(st)}
-              className={`px-3 py-1.5 rounded-lg text-xs font-semibold whitespace-nowrap transition ${statusFilter === st
+              className={`px-3 py-1.5 rounded-lg text-xs font-semibold whitespace-nowrap transition ${
+                statusFilter === st
                   ? 'bg-amber-500 text-slate-950'
                   : 'bg-slate-800 text-slate-300 hover:bg-slate-700'
-                }`}
+              }`}
             >
               {st}
             </button>
@@ -303,22 +293,23 @@ export const EventBookingsView: React.FC<EventBookingsViewProps> = ({
                 <h3 className="text-base font-bold text-white">
                   {b.eventTitle}
                 </h3>
-                <span className={`text-xs px-2.5 py-0.5 rounded-full font-bold ${b.status === 'Confirmed'
+                <span className={`text-xs px-2.5 py-0.5 rounded-full font-bold ${
+                  b.status === 'Confirmed'
                     ? 'bg-emerald-500/20 text-emerald-400 border border-emerald-500/30'
                     : b.status === 'In-Setup'
-                      ? 'bg-amber-500/20 text-amber-300 border border-amber-500/30'
-                      : b.status === 'Completed'
-                        ? 'bg-slate-800 text-slate-400'
-                        : 'bg-blue-500/20 text-blue-300 border border-blue-500/30'
-                  }`}>
+                    ? 'bg-amber-500/20 text-amber-300 border border-amber-500/30'
+                    : b.status === 'Completed'
+                    ? 'bg-slate-800 text-slate-400'
+                    : 'bg-blue-500/20 text-blue-300 border border-blue-500/30'
+                }`}>
                   {b.status}
                 </span>
               </div>
 
               <div className="flex flex-wrap items-center gap-4 text-xs text-slate-400">
-                <span>👤 <strong>{b.customerName}</strong></span>
-                <span>📞 {b.customerPhone}</span>
-                <span>📍 {b.eventVenue}</span>
+                <span>Customer: <strong>{b.customerName}</strong></span>
+                <span>Tel: {b.customerPhone}</span>
+                <span>Venue: {b.eventVenue}</span>
               </div>
 
               {/* Lifecycle Date Bar */}
@@ -404,10 +395,11 @@ export const EventBookingsView: React.FC<EventBookingsViewProps> = ({
                   <button
                     key={st}
                     onClick={() => handleStatusChange(viewBooking.id, st)}
-                    className={`px-2.5 py-1 rounded text-xs font-semibold transition ${viewBooking.status === st
+                    className={`px-2.5 py-1 rounded text-xs font-semibold transition ${
+                      viewBooking.status === st
                         ? 'bg-amber-500 text-slate-950 font-bold'
                         : 'bg-slate-800 text-slate-400 hover:text-white'
-                      }`}
+                    }`}
                   >
                     {st}
                   </button>
@@ -420,12 +412,12 @@ export const EventBookingsView: React.FC<EventBookingsViewProps> = ({
               <div>
                 <span className="text-slate-400 block font-medium">Customer Information:</span>
                 <span className="font-bold text-slate-200 text-sm">{viewBooking.customerName}</span>
-                <div className="text-slate-300 mt-0.5">📞 {viewBooking.customerPhone}</div>
-                {viewBooking.customerAddress && <div className="text-slate-400">🏠 {viewBooking.customerAddress}</div>}
+                <div className="text-slate-300 mt-0.5">Phone: {viewBooking.customerPhone}</div>
+                {viewBooking.customerAddress && <div className="text-slate-400">Address: {viewBooking.customerAddress}</div>}
               </div>
               <div>
                 <span className="text-slate-400 block font-medium">Event Location & Dates:</span>
-                <span className="font-bold text-slate-200 text-sm">📍 {viewBooking.eventVenue}</span>
+                <span className="font-bold text-slate-200 text-sm">Venue: {viewBooking.eventVenue}</span>
                 <div className="text-slate-300 mt-0.5">
                   Event: {viewBooking.eventStartDate} to {viewBooking.eventEndDate} ({viewBooking.activeEventDays} Days)
                 </div>
@@ -503,7 +495,7 @@ export const EventBookingsView: React.FC<EventBookingsViewProps> = ({
         </div>
       )}
 
-      {/* Multi-Stage New Booking Creator Modal (PDF 2.1 & 2.2) */}
+      {/* Multi-Stage New Booking Creator Modal (SRS 2.1 & 2.2) */}
       {isNewBookingModalOpen && (
         <div className="fixed inset-0 bg-black/85 backdrop-blur-sm z-50 flex items-center justify-center p-4">
           <div className="bg-slate-900 border border-slate-800 rounded-2xl max-w-4xl w-full p-6 shadow-2xl space-y-4 max-h-[92vh] overflow-y-auto">
@@ -512,8 +504,8 @@ export const EventBookingsView: React.FC<EventBookingsViewProps> = ({
                 <h3 className="text-lg font-black text-white flex items-center gap-2">
                   <span>Create Event Booking with Multi-Stage Date Blocking</span>
                 </h3>
-                <p className="text-xs text-amber-400 font-sinhala">
-                  සවිකිරීම් (Setup) + ඉවෙන්ට් (Event) + ගැලවීම් (Dismantling) දින සම්පූර්ණයෙන්ම Block කර බඩු වෙන් කිරීම
+                <p className="text-xs text-amber-400">
+                  Multi-stage reservation: Pre-Event Setup + Active Event Duration + Post-Event Dismantling
                 </p>
               </div>
               <button onClick={() => setIsNewBookingModalOpen(false)} className="text-slate-400 hover:text-white">
@@ -583,7 +575,7 @@ export const EventBookingsView: React.FC<EventBookingsViewProps> = ({
                     <input
                       type="text"
                       required
-                      placeholder="e.g. Grand Wedding Reception, Pirith Pinkama, Concert"
+                      placeholder="e.g. Grand Wedding Reception, Corporate Gala, Concert"
                       value={eventTitle}
                       onChange={(e) => setEventTitle(e.target.value)}
                       className="w-full bg-slate-900 border border-slate-800 rounded-lg px-3 py-1.5 text-xs text-slate-200 focus:outline-none focus:border-amber-500"
@@ -594,7 +586,7 @@ export const EventBookingsView: React.FC<EventBookingsViewProps> = ({
                     <input
                       type="text"
                       required
-                      placeholder="e.g. Waters Edge Battaramulla, Shangri-La, Temple Ground"
+                      placeholder="e.g. Waters Edge Battaramulla, Shangri-La, Temple Grounds"
                       value={eventVenue}
                       onChange={(e) => setEventVenue(e.target.value)}
                       className="w-full bg-slate-900 border border-slate-800 rounded-lg px-3 py-1.5 text-xs text-slate-200 focus:outline-none focus:border-amber-500"
@@ -613,12 +605,12 @@ export const EventBookingsView: React.FC<EventBookingsViewProps> = ({
                 </div>
               </div>
 
-              {/* PDF Section 2.2 Date Lifecycle Settings */}
+              {/* SRS Section 2.2 Date Lifecycle Settings */}
               <div className="bg-slate-950 p-4 rounded-xl border border-amber-500/30 space-y-3">
                 <div className="flex items-center justify-between">
                   <h4 className="text-xs font-bold text-white flex items-center gap-1.5">
                     <Clock className="w-4 h-4 text-amber-400" />
-                    <span>Multi-Stage Date Lifecycle Setup (PDF Section 2.2)</span>
+                    <span>Multi-Stage Date Lifecycle Setup (SRS Section 2.2)</span>
                   </h4>
                   <span className="text-[11px] text-amber-300 font-mono">
                     Total Blocked Duration: {computedWindow.activeDays + setupDaysPrior + dismantleDaysAfter} Days
@@ -678,27 +670,26 @@ export const EventBookingsView: React.FC<EventBookingsViewProps> = ({
                   </div>
                 </div>
 
-                {/* Highlight banner explaining the date span */}
                 <div className="bg-amber-500/10 border border-amber-500/30 p-2.5 rounded-lg flex flex-col sm:flex-row sm:items-center justify-between text-xs text-slate-300 gap-2 font-mono">
                   <div>
                     <span className="text-amber-400 font-bold">TOTAL STOCK LOCK PERIOD:</span>{' '}
                     <span>{computedWindow.blockedStart}</span> ➜ <span>{computedWindow.blockedEnd}</span>
                   </div>
-                  <div className="text-[11px] text-amber-300 font-sinhala">
-                    (බඩු වෙන්වන්නේ මෙම මුළු කාලය සඳහාමය)
+                  <div className="text-[11px] text-amber-300">
+                    ({computedWindow.activeDays + setupDaysPrior + dismantleDaysAfter} total days reserved)
                   </div>
                 </div>
               </div>
 
-              {/* Equipment Items Selection & Overbooking Conflict Engine (PDF 2.1) */}
+              {/* Equipment Items Selection & Overbooking Conflict Engine (SRS 2.1) */}
               <div className="bg-slate-950 p-4 rounded-xl border border-slate-800 space-y-3">
                 <div className="flex items-center justify-between">
                   <h4 className="text-xs font-bold text-white flex items-center gap-1.5">
                     <Boxes className="w-4 h-4 text-amber-400" />
                     <span>Select Rental Equipment & Check Real-Time Availability</span>
                   </h4>
-                  <span className="text-xs text-slate-400 font-sinhala">
-                    ස්වයංක්‍රීයව අතිරික්ත වෙන්වීම් (Overbooking) පරීක්ෂාව
+                  <span className="text-xs text-slate-400">
+                    Automated conflict & overbooking verification
                   </span>
                 </div>
 
@@ -748,10 +739,11 @@ export const EventBookingsView: React.FC<EventBookingsViewProps> = ({
 
                 {/* Overbooking Alert Banner if Conflict Detected */}
                 {currentItemAvailability && (
-                  <div className={`p-2.5 rounded-lg text-xs border ${currentItemAvailability.available
+                  <div className={`p-2.5 rounded-lg text-xs border ${
+                    currentItemAvailability.available
                       ? 'bg-emerald-500/10 border-emerald-500/30 text-emerald-300'
                       : 'bg-rose-500/15 border-rose-500/40 text-rose-300'
-                    }`}>
+                  }`}>
                     {currentItemAvailability.available ? (
                       <div className="flex items-center gap-2">
                         <CheckCircle2 className="w-4 h-4 text-emerald-400 shrink-0" />
@@ -770,7 +762,7 @@ export const EventBookingsView: React.FC<EventBookingsViewProps> = ({
                           {currentItemAvailability.conflictingBookings.length > 0 && (
                             <div className="mt-1 font-mono text-[10px]">
                               Conflicting bookings:{' '}
-                              {currentItemAvailability.conflictingBookings.map(c =>
+                              {currentItemAvailability.conflictingBookings.map(c => 
                                 `${c.bookingNumber} (${c.customerName}: ${c.qty} units)`
                               ).join(', ')}
                             </div>
@@ -898,7 +890,7 @@ export const EventBookingsView: React.FC<EventBookingsViewProps> = ({
                 <button
                   type="submit"
                   disabled={selectedItems.length === 0}
-                  className="px-5 py-2.5 rounded-lg text-xs font-bold bg-amber-500 hover:bg-amber-400 disabled:opacity-40 text-slate-950 shadow-lg shadow-amber-500/20"
+                  className="px-5 py-2.5 rounded-lg text-xs font-bold bg-amber-500 hover:bg-amber-400 text-slate-950 shadow-lg shadow-amber-500/20"
                 >
                   Confirm Booking & Lock Stock
                 </button>

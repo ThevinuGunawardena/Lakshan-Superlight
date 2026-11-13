@@ -30,20 +30,16 @@ export const BiometricPayrollView: React.FC<BiometricPayrollViewProps> = ({
   const attendanceLogs = StorageService.getAttendance();
   const payrollRecords = StorageService.getPayroll();
 
-  // Biometric Terminal Simulator punch state
   const [punchEmpId, setPunchEmpId] = useState(employees[0]?.id || '');
   const [punchType, setPunchType] = useState<'Check-In' | 'Check-Out'>('Check-In');
   const [punchTime, setPunchTime] = useState('08:00');
   const [punchDate, setPunchDate] = useState(new Date().toISOString().split('T')[0]);
 
-  // Selected payroll month
   const [payrollMonth, setPayrollMonth] = useState('2026-11');
 
-  // New Employee state
   const [isAddEmpModalOpen, setIsAddEmpModalOpen] = useState(false);
   const [newEmp, setNewEmp] = useState<Partial<Employee>>({
     name: '',
-    sinhalaName: '',
     role: 'Lighting Technician',
     phone: '',
     nationalId: '',
@@ -55,13 +51,11 @@ export const BiometricPayrollView: React.FC<BiometricPayrollViewProps> = ({
     active: true
   });
 
-  // Handle Biometric Punch Simulation
   const handleSimulatePunch = (e: React.FormEvent) => {
     e.preventDefault();
     const emp = employees.find(e => e.id === punchEmpId);
     if (!emp) return;
 
-    // Check if record exists for this emp on this date
     const existing = attendanceLogs.find(a => a.empId === emp.id && a.date === punchDate);
 
     if (punchType === 'Check-In') {
@@ -70,7 +64,7 @@ export const BiometricPayrollView: React.FC<BiometricPayrollViewProps> = ({
         return;
       }
       const [h, m] = punchTime.split(':').map(Number);
-      const lateMins = Math.max(0, (h * 60 + m) - (8 * 60)); // Standard start 08:00 AM
+      const lateMins = Math.max(0, (h * 60 + m) - (8 * 60));
 
       const record: AttendanceRecord = {
         id: `att-${Date.now()}`,
@@ -86,7 +80,6 @@ export const BiometricPayrollView: React.FC<BiometricPayrollViewProps> = ({
       };
       StorageService.logBiometricPunch(record);
     } else {
-      // Check-out
       if (!existing) {
         alert(`No check-in record found for ${emp.name} on ${punchDate}. Please check in first.`);
         return;
@@ -115,29 +108,25 @@ export const BiometricPayrollView: React.FC<BiometricPayrollViewProps> = ({
     alert(`Biometric Fingerprint Verified: ${emp.name} [ID: ${emp.fingerprintId}] - ${punchType} at ${punchTime}`);
   };
 
-  // Automated Monthly Salary Run (PDF 2.3)
   const handleGenerateMonthlyPayroll = () => {
     const records: PayrollRecord[] = [];
 
     employees.forEach(emp => {
-      // Filter attendance records for this employee in selected month
       const empLogs = attendanceLogs.filter(a => a.empId === emp.id && a.date.startsWith(payrollMonth));
-      const daysWorked = empLogs.filter(a => a.status === 'Present' || a.status === 'Half-Day').length || 24; // default to standard days
-      const totalOtHours = empLogs.reduce((sum, a) => sum + (a.otHours || 0), 0) || 12; // sample OT
+      const daysWorked = empLogs.filter(a => a.status === 'Present' || a.status === 'Half-Day').length || 24;
+      const totalOtHours = empLogs.reduce((sum, a) => sum + (a.otHours || 0), 0) || 12;
 
       const basicSalary = emp.salaryType === 'Monthly' ? emp.basicSalary : emp.basicSalary * daysWorked;
       const otEarnings = Math.round(totalOtHours * emp.otRatePerHour);
-      const siteAllowances = 7500; // standard event site allowance
+      const siteAllowances = 7500;
       const grossSalary = basicSalary + otEarnings + siteAllowances;
 
-      // EPF 8% (Employee deduction)
       const epfEmployee8 = emp.epfEligible ? Math.round(basicSalary * 0.08) : 0;
-      const advanceDeductions = 5000; // standard advance
+      const advanceDeductions = 5000;
       const lateDeductions = 0;
       const totalDeductions = epfEmployee8 + advanceDeductions + lateDeductions;
       const netSalary = grossSalary - totalDeductions;
 
-      // Employer EPF 12% + ETF 3%
       const epfEmployer12 = emp.epfEligible ? Math.round(basicSalary * 0.12) : 0;
       const etfEmployer3 = emp.epfEligible ? Math.round(basicSalary * 0.03) : 0;
 
@@ -179,7 +168,6 @@ export const BiometricPayrollView: React.FC<BiometricPayrollViewProps> = ({
       id: `emp-${Date.now()}`,
       empNo: empNum,
       name: newEmp.name || '',
-      sinhalaName: newEmp.sinhalaName || '',
       role: newEmp.role as any,
       phone: newEmp.phone || '',
       nationalId: newEmp.nationalId || '',
@@ -206,11 +194,11 @@ export const BiometricPayrollView: React.FC<BiometricPayrollViewProps> = ({
           <div className="flex items-center gap-2">
             <h2 className="text-2xl font-black text-white">Biometric Attendance & Automated Payroll</h2>
             <span className="text-xs px-2 py-0.5 rounded bg-purple-500/20 text-purple-300 font-mono">
-              PDF Section 2.3
+              SRS Section 2.3
             </span>
           </div>
-          <p className="text-xs text-slate-400 mt-1 font-sinhala">
-            ඇඟිලි සලකුණු යන්ත්‍රය මඟින් සේවක පැමිණීම සටහන් කර, ස්වයංක්‍රීයව OT හා වැටුප් ගණනය කර Payslip මුද්‍රණය කිරීම
+          <p className="text-xs text-slate-400 mt-1">
+            Biometric terminal check-ins, overtime tracking, and automated monthly salary calculations with EPF/ETF contributions
           </p>
         </div>
 
@@ -266,7 +254,7 @@ export const BiometricPayrollView: React.FC<BiometricPayrollViewProps> = ({
                   <h3 className="font-bold text-white text-sm">Biometric Terminal Sync</h3>
                   <div className="text-[10px] text-emerald-400 flex items-center gap-1">
                     <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse"></span>
-                    <span>ZKTeco Hardware Port: Online</span>
+                    <span>Hardware Port: Online</span>
                   </div>
                 </div>
               </div>
@@ -400,7 +388,7 @@ export const BiometricPayrollView: React.FC<BiometricPayrollViewProps> = ({
         </div>
       )}
 
-      {/* Automated Payroll Run Sub-tab (PDF 2.3) */}
+      {/* Automated Payroll Run Sub-tab (SRS 2.3) */}
       {subTab === 'payroll' && (
         <div className="space-y-4">
           <div className="bg-slate-900 border border-slate-800 p-4 rounded-xl flex flex-col sm:flex-row items-center justify-between gap-4">
@@ -423,7 +411,6 @@ export const BiometricPayrollView: React.FC<BiometricPayrollViewProps> = ({
             </button>
           </div>
 
-          {/* Payroll records table */}
           <div className="bg-slate-900 border border-slate-800 rounded-xl overflow-hidden">
             <table className="w-full text-xs text-left">
               <thead className="bg-slate-950 text-slate-400 font-semibold">
@@ -506,9 +493,6 @@ export const BiometricPayrollView: React.FC<BiometricPayrollViewProps> = ({
                     <span className="font-mono text-xs text-amber-400 font-bold">{emp.empNo}</span>
                     <h4 className="font-bold text-white text-sm">{emp.name}</h4>
                   </div>
-                  {emp.sinhalaName && (
-                    <div className="text-xs text-slate-400 font-sinhala">{emp.sinhalaName}</div>
-                  )}
                   <div className="text-xs text-slate-300 mt-2 space-y-0.5">
                     <div>Role: <strong className="text-slate-100">{emp.role}</strong></div>
                     <div>Phone: {emp.phone} • NIC: {emp.nationalId}</div>
@@ -550,17 +534,6 @@ export const BiometricPayrollView: React.FC<BiometricPayrollViewProps> = ({
                   placeholder="e.g. Kasun Chathuranga"
                   value={newEmp.name}
                   onChange={(e) => setNewEmp({ ...newEmp, name: e.target.value })}
-                  className="w-full bg-slate-950 border border-slate-800 rounded-lg px-2.5 py-1.5 text-white"
-                />
-              </div>
-
-              <div>
-                <label className="block text-slate-300 font-semibold mb-1 font-sinhala">Name (Sinhala)</label>
-                <input
-                  type="text"
-                  placeholder="උදා: කසුන් චතුරංග"
-                  value={newEmp.sinhalaName}
-                  onChange={(e) => setNewEmp({ ...newEmp, sinhalaName: e.target.value })}
                   className="w-full bg-slate-950 border border-slate-800 rounded-lg px-2.5 py-1.5 text-white"
                 />
               </div>
@@ -671,4 +644,3 @@ export const BiometricPayrollView: React.FC<BiometricPayrollViewProps> = ({
     </div>
   );
 };
-

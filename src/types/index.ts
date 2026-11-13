@@ -5,7 +5,6 @@ export type BookingStatus = 'Quote' | 'Confirmed' | 'In-Setup' | 'Active-Event' 
 export interface RentalItem {
   id: string;
   name: string;
-  sinhalaName?: string;
   category: 'Moving Heads' | 'Par Lights' | 'Sharpy & Beams' | 'Effects & Lasers' | 'Truss & Rigging' | 'Power & Distro' | 'Sound & Audio' | 'Ambient & Decor';
   totalQuantity: number;
   maintenanceQty: number; // In repair / damaged
@@ -92,7 +91,6 @@ export interface RetailItem {
   id: string;
   sku: string;
   name: string;
-  sinhalaName?: string;
   category: 'Bulbs & Lamps' | 'Wires & Cables' | 'Holders & Sockets' | 'Tapes & Accessories' | 'Power Supplies' | 'LED Strips';
   unit: 'Piece' | 'Meter' | 'Roll' | 'Box' | 'Set';
   unitCost: number;
@@ -149,7 +147,7 @@ export interface LightWalOrder {
   controllerType?: '8-Function Memory Controller' | 'Inline Rotary Dimmer' | 'Static Non-Flashing Driver';
   
   pricingMode: 'perFoot' | 'perBulb' | 'bundle';
-  ratePerUnit: number; // e.g. Rs. 180 per foot or Rs. 120 per bulb socket
+  ratePerUnit: number;
   accessoriesFee: number;
   discount: number;
   grandTotal: number;
@@ -163,26 +161,25 @@ export interface LightWalOrder {
 
 export interface Employee {
   id: string;
-  empNo: string; // e.g., EMP-001
+  empNo: string;
   name: string;
-  sinhalaName?: string;
   role: 'Lighting Technician' | 'Lead Electrician' | 'Audio/Visual Tech' | 'Site Crew / Helper' | 'Vehicle Driver' | 'Supervisor';
   phone: string;
   nationalId: string;
   salaryType: 'Monthly' | 'Daily';
-  basicSalary: number; // e.g. Rs. 65,000 / month or Rs. 2,800 / day
-  otRatePerHour: number; // e.g. Rs. 450 / hour
-  epfEligible: boolean; // 8% employee, 12% employer
-  fingerprintId: number; // Terminal enrollment ID (1-1000)
+  basicSalary: number;
+  otRatePerHour: number;
+  epfEligible: boolean;
+  fingerprintId: number;
   active: boolean;
 }
 
 export interface AttendanceRecord {
   id: string;
   empId: string;
-  date: string; // YYYY-MM-DD
-  checkIn: string; // HH:mm
-  checkOut?: string; // HH:mm
+  date: string;
+  checkIn: string;
+  checkOut?: string;
   totalHours: number;
   normalHours: number;
   otHours: number;
@@ -193,7 +190,7 @@ export interface AttendanceRecord {
 
 export interface PayrollRecord {
   id: string;
-  payrollMonth: string; // e.g., "2026-10"
+  payrollMonth: string;
   empId: string;
   empName: string;
   role: string;
@@ -232,4 +229,3 @@ export interface MarketingCampaign {
   clickUrl?: string;
   status: 'Active' | 'Scheduled' | 'Draft';
 }
-

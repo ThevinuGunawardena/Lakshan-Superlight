@@ -26,7 +26,6 @@ export const LightWalView: React.FC<LightWalViewProps> = ({ onRefresh, onOpenPri
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [viewOrder, setViewOrder] = useState<LightWalOrder | null>(null);
 
-  // Form states for custom Light Wal Builder
   const [customerName, setCustomerName] = useState('');
   const [customerPhone, setCustomerPhone] = useState('');
   const [customerAddress, setCustomerAddress] = useState('');
@@ -34,7 +33,6 @@ export const LightWalView: React.FC<LightWalViewProps> = ({ onRefresh, onOpenPri
     new Date(Date.now() + 86400000 * 3).toISOString().split('T')[0]
   );
 
-  // Specifications
   const [lengthValue, setLengthValue] = useState<number>(100);
   const [lengthUnit, setLengthUnit] = useState<'Feet' | 'Meters'>('Feet');
   const [bulbSpacingInches, setBulbSpacingInches] = useState<number>(18);
@@ -44,21 +42,18 @@ export const LightWalView: React.FC<LightWalViewProps> = ({ onRefresh, onOpenPri
   const [controllerIncluded, setControllerIncluded] = useState<boolean>(true);
   const [controllerType, setControllerType] = useState<LightWalOrder['controllerType']>('8-Function Memory Controller');
   
-  // Pricing configuration
   const [pricingMode, setPricingMode] = useState<'perFoot' | 'perBulb' | 'bundle'>('perFoot');
-  const [ratePerUnit, setRatePerUnit] = useState<number>(220); // Rs. 220 per foot
+  const [ratePerUnit, setRatePerUnit] = useState<number>(220);
   const [accessoriesFee, setAccessoriesFee] = useState<number>(2500);
   const [discount, setDiscount] = useState<number>(0);
   const [advancePaid, setAdvancePaid] = useState<number>(10000);
   const [workshopNotes, setWorkshopNotes] = useState('Include 5 spare bulbs in pack. Heavy duty waterproof heat shrink on ends.');
 
-  // Live calculation of bulb count
   const calculatedBulbCount = useMemo(() => {
     const totalInches = lengthUnit === 'Feet' ? lengthValue * 12 : lengthValue * 39.37;
     return Math.max(1, Math.round(totalInches / bulbSpacingInches));
   }, [lengthValue, lengthUnit, bulbSpacingInches]);
 
-  // Live calculation of grand total
   const calculatedSubtotal = useMemo(() => {
     if (pricingMode === 'perFoot') {
       const feet = lengthUnit === 'Feet' ? lengthValue : Math.round(lengthValue * 3.28);
@@ -66,7 +61,7 @@ export const LightWalView: React.FC<LightWalViewProps> = ({ onRefresh, onOpenPri
     } else if (pricingMode === 'perBulb') {
       return calculatedBulbCount * ratePerUnit;
     } else {
-      return ratePerUnit; // bundle total
+      return ratePerUnit;
     }
   }, [pricingMode, ratePerUnit, lengthValue, lengthUnit, calculatedBulbCount]);
 
@@ -151,11 +146,11 @@ export const LightWalView: React.FC<LightWalViewProps> = ({ onRefresh, onOpenPri
           <div className="flex items-center gap-2">
             <h2 className="text-2xl font-black text-white">Dedicated "Light Wal" Invoicing Workflow</h2>
             <span className="text-xs px-2 py-0.5 rounded bg-amber-500/20 text-amber-300 font-mono">
-              PDF Section 2.6
+              SRS Section 2.6
             </span>
           </div>
-          <p className="text-xs text-slate-400 mt-1 font-sinhala">
-            ලයිට් වැල් (Fairy / Festoon Lights) විකිණීම සඳහාම වෙන්වූ විශේෂිත ගණනය කිරීම් සහ ඉන්වොයිස් සැකසීම
+          <p className="text-xs text-slate-400 mt-1">
+            Dedicated invoicing and workshop calculation for fairy and festoon light chains
           </p>
         </div>
 
@@ -210,8 +205,8 @@ export const LightWalView: React.FC<LightWalViewProps> = ({ onRefresh, onOpenPri
                 {order.customerName}
               </h3>
               <div className="text-xs text-slate-400 flex items-center gap-3 mt-1">
-                <span>📞 {order.customerPhone}</span>
-                <span>📅 Delivery: {order.deliveryDate}</span>
+                <span>Tel: {order.customerPhone}</span>
+                <span>Delivery: {order.deliveryDate}</span>
               </div>
 
               {/* Technical Spec Box */}
@@ -219,7 +214,7 @@ export const LightWalView: React.FC<LightWalViewProps> = ({ onRefresh, onOpenPri
                 <div className="flex justify-between text-slate-300">
                   <span className="text-slate-400">Length & Bulbs:</span>
                   <span className="font-bold text-amber-400">
-                    {order.lengthValue} {order.lengthUnit} • {order.calculatedBulbCount} Bulbs ({order.bulbSpacingInches}" gap)
+                    {order.lengthValue} {order.lengthUnit} • {order.calculatedBulbCount} Bulbs ({order.bulbSpacingInches}" spacing)
                   </span>
                 </div>
                 <div className="flex justify-between text-slate-300">
@@ -362,8 +357,8 @@ export const LightWalView: React.FC<LightWalViewProps> = ({ onRefresh, onOpenPri
                   <Sparkles className="w-5 h-5 text-amber-400" />
                   <span>Dedicated "Light Wal" Calculation & Invoicing Engine</span>
                 </h3>
-                <p className="text-xs text-amber-400 font-sinhala">
-                  දිග, බල්බ් පරතරය, වයර් වර්ගය අනුව මිල ගණනය කර විශේෂිත බිල්පතක් සැකසීම
+                <p className="text-xs text-amber-400">
+                  Configure custom chain length, bulb socket spacing, wire gauge, and pricing mode
                 </p>
               </div>
               <button onClick={() => setIsModalOpen(false)} className="text-slate-400 hover:text-white">
@@ -532,7 +527,7 @@ export const LightWalView: React.FC<LightWalViewProps> = ({ onRefresh, onOpenPri
                 </div>
               </div>
 
-              {/* Pricing Modes (PDF 2.6: per length, bulb counts, or bundle pricing) */}
+              {/* Pricing Modes (SRS 2.6: per length, bulb counts, or bundle pricing) */}
               <div className="bg-slate-950 p-4 rounded-xl border border-slate-800 space-y-3 text-xs">
                 <h4 className="font-bold text-white uppercase tracking-wider text-[11px]">
                   Pricing & Invoice Model
@@ -670,4 +665,3 @@ export const LightWalView: React.FC<LightWalViewProps> = ({ onRefresh, onOpenPri
     </div>
   );
 };
-

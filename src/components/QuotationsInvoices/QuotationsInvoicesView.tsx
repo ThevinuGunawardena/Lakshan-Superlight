@@ -32,7 +32,6 @@ export const QuotationsInvoicesView: React.FC<QuotationsInvoicesViewProps> = ({
   const bookings = StorageService.getBookings();
   const rentalCatalog = StorageService.getRentalItems();
 
-  // New quote state
   const [customerName, setCustomerName] = useState('');
   const [customerPhone, setCustomerPhone] = useState('');
   const [customerAddress, setCustomerAddress] = useState('');
@@ -52,7 +51,6 @@ export const QuotationsInvoicesView: React.FC<QuotationsInvoicesViewProps> = ({
   const [discount, setDiscount] = useState(0);
   const [notes, setNotes] = useState('Quotation valid for 7 days. 30% advance required to confirm booking and lock stock.');
 
-  // Item line adder for quote
   const [selectedItemId, setSelectedItemId] = useState('');
   const [selectedItemQty, setSelectedItemQty] = useState(1);
 
@@ -61,7 +59,6 @@ export const QuotationsInvoicesView: React.FC<QuotationsInvoicesViewProps> = ({
     const cat = rentalCatalog.find(i => i.id === selectedItemId);
     if (!cat) return;
 
-    // Calculate active days
     const start = new Date(eventStartDate);
     const end = new Date(eventEndDate);
     const days = Math.max(1, Math.ceil(Math.abs(end.getTime() - start.getTime()) / (1000 * 60 * 60 * 24)) + 1);
@@ -125,13 +122,11 @@ export const QuotationsInvoicesView: React.FC<QuotationsInvoicesViewProps> = ({
     onRefresh();
   };
 
-  // PDF 2.5: ONE-CLICK CONVERSION FROM QUOTE TO CONFIRMED BOOKING
   const handleConvertToBooking = (quote: Quotation) => {
     if (!window.confirm(`Convert Quotation ${quote.quoteNumber} to a Confirmed Event Booking? This will lock equipment stock and activate multi-stage date blocking.`)) {
       return;
     }
 
-    // Compute blocked dates
     const start = new Date(quote.eventStartDate);
     const end = new Date(quote.eventEndDate);
     const bStart = new Date(start);
@@ -169,7 +164,6 @@ export const QuotationsInvoicesView: React.FC<QuotationsInvoicesViewProps> = ({
       createdAt: new Date().toISOString().split('T')[0]
     };
 
-    // Update quotation status
     const updatedQuote: Quotation = {
       ...quote,
       status: 'Converted',
@@ -197,11 +191,11 @@ export const QuotationsInvoicesView: React.FC<QuotationsInvoicesViewProps> = ({
           <div className="flex items-center gap-2">
             <h2 className="text-2xl font-black text-white">Quotations & Invoices Engine</h2>
             <span className="text-xs px-2 py-0.5 rounded bg-amber-500/20 text-amber-300 font-mono">
-              PDF Section 2.5
+              SRS Section 2.5
             </span>
           </div>
-          <p className="text-xs text-slate-400 mt-1 font-sinhala">
-            ප්‍රවීණ Quotation සහ Commercial Invoice සකස් කිරීම, Print කිරීම සහ ක්ලික් එකකින් Booking බවට හැරවීම
+          <p className="text-xs text-slate-400 mt-1">
+            Create, customize, and print professional quotations and commercial invoices with one-click conversion to booking
           </p>
         </div>
 
@@ -251,7 +245,7 @@ export const QuotationsInvoicesView: React.FC<QuotationsInvoicesViewProps> = ({
                     <span className="font-mono text-xs font-bold text-amber-400 bg-amber-500/10 px-2 py-0.5 rounded border border-amber-500/20">
                       {q.quoteNumber}
                     </span>
-                    <span className={`text-xs px-2 py-0.5 rounded-full font-bold ${
+                    <span className={`text-xs px-2.5 py-0.5 rounded-full font-bold ${
                       q.status === 'Converted'
                         ? 'bg-emerald-500/20 text-emerald-400 border border-emerald-500/30'
                         : 'bg-blue-500/20 text-blue-300 border border-blue-500/30'
@@ -262,11 +256,11 @@ export const QuotationsInvoicesView: React.FC<QuotationsInvoicesViewProps> = ({
 
                   <h3 className="text-base font-bold text-white">{q.eventTitle}</h3>
                   <div className="text-xs text-slate-400 mt-1 flex items-center gap-3">
-                    <span>👤 {q.customerName}</span>
-                    <span>📞 {q.customerPhone}</span>
+                    <span>Customer: {q.customerName}</span>
+                    <span>Tel: {q.customerPhone}</span>
                   </div>
                   <div className="text-xs text-slate-400 mt-0.5">
-                    📍 {q.eventVenue} • Dates: {q.eventStartDate} to {q.eventEndDate}
+                    Venue: {q.eventVenue} • Dates: {q.eventStartDate} to {q.eventEndDate}
                   </div>
 
                   <div className="mt-3 bg-slate-950 p-2.5 rounded-lg border border-slate-800 text-xs">
@@ -412,7 +406,7 @@ export const QuotationsInvoicesView: React.FC<QuotationsInvoicesViewProps> = ({
                   <input
                     type="text"
                     required
-                    placeholder="e.g. Pirith Mandapaya Lighting"
+                    placeholder="e.g. Stage & Venue Illumination"
                     value={eventTitle}
                     onChange={(e) => setEventTitle(e.target.value)}
                     className="w-full bg-slate-900 border border-slate-800 rounded-lg px-2.5 py-1.5 text-white"
@@ -423,7 +417,7 @@ export const QuotationsInvoicesView: React.FC<QuotationsInvoicesViewProps> = ({
                   <input
                     type="text"
                     required
-                    placeholder="e.g. Temple Grounds, Kelaniya"
+                    placeholder="e.g. Waters Edge, Colombo"
                     value={eventVenue}
                     onChange={(e) => setEventVenue(e.target.value)}
                     className="w-full bg-slate-900 border border-slate-800 rounded-lg px-2.5 py-1.5 text-white"
@@ -582,4 +576,3 @@ export const QuotationsInvoicesView: React.FC<QuotationsInvoicesViewProps> = ({
     </div>
   );
 };
-

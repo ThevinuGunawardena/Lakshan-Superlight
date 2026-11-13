@@ -30,42 +30,41 @@ export const MarketingHubView: React.FC = () => {
     setTimeout(() => setCopiedKey(null), 3000);
   };
 
-  // WhatsApp Funnel Templates (PDF 1.1)
+  // WhatsApp Funnel Templates (SRS 1.1)
   const [whatsappPhone, setWhatsappPhone] = useState(company.whatsapp.replace('+', ''));
   const funnelTemplates = [
     {
       id: 'lw',
       title: 'Light Wal (Fairy / Festoon Lights) Inquiry',
-      sinhalaTitle: 'ලයිට් වැල් මිල ගණන් විමසීම',
-      message: 'හෙලෝ ලක්ෂාන් සුපර්ලයිට්, මට ලයිට් වැල් (Light Wal) මිලදී ගැනීමට/කුලියට ගැනීමට අවශ්‍යයි. කරුණාකර විස්තර සහ පැකේජ් එවන්න පුලුවන්ද? (Hi Lakshan Superlight, I would like to inquire about Light Wal festoon packages)'
+      subtitle: 'Festoon Pricing & Lengths',
+      message: 'Hi Lakshan Superlight, I would like to inquire about purchasing / renting Light Wal festoon packages. Could you please share available lengths and pricing?'
     },
     {
       id: 'wedding',
       title: 'Grand Wedding & Stage Lighting Package',
-      sinhalaTitle: 'වෙඩින් සහ වේදිකා ලයිටින් පැකේජ්',
-      message: 'හෙලෝ ලක්ෂාන් සුපර්ලයිට්, අපේ වෙඩින් / ඉවෙන්ට් එකක් සඳහා Moving Heads, Sharpy සහ Par Lights ඇතුලත් පැකේජ් එකක් දැනගැනීමට කැමතියි.'
+      subtitle: 'Moving Heads & Ambient Lights',
+      message: 'Hi Lakshan Superlight, I am planning an upcoming wedding reception and would like a quotation for Stage Moving Heads, Sharpy Beams, and Par Lights.'
     },
     {
       id: 'pirith',
-      title: 'Pirith & Pinkama Ceremony Illumination',
-      sinhalaTitle: 'පිරිත් සහ ආගමික උත්සව ආලෝකකරණය',
-      message: 'හෙලෝ ලක්ෂාන් සුපර්ලයිට්, පිරිත් මණ්ඩපය සහ වටපිටාව ආලෝකවත් කිරීමට අවශ්‍ය ලයිටින් සහ ෆෙස්ටූන් ලයිට් විස්තර අවශ්‍යයි.'
+      title: 'Religious & Ceremony Illumination',
+      subtitle: 'Perimeter & Ambient Decor',
+      message: 'Hi Lakshan Superlight, we need an illumination setup for an upcoming religious ceremony. Please share details on canopy lighting and outdoor setups.'
     },
     {
       id: 'concert',
       title: 'Live Musical Concert & DJ Truss Lighting',
-      sinhalaTitle: 'සංගීත ප්‍රසංග සහ DJ ලයිටින්',
-      message: 'Hi Lakshan Superlight, need a quotation for Stage Trusses, Sharpy 7R, Lasers and Haze machine for an upcoming concert.'
+      subtitle: 'Aluminum Trusses & Lasers',
+      message: 'Hi Lakshan Superlight, need a technical quotation for 10ft Box Trusses, Sharpy 7R beams, pure diode Lasers, and DMX Haze machines.'
     }
   ];
 
-  // Broadcast composer state (PDF 1.2)
+  // Broadcast composer state (SRS 1.2)
   const [broadcastSegment, setBroadcastSegment] = useState<'all' | 'events' | 'retail' | 'lightwal'>('all');
   const [broadcastText, setBroadcastText] = useState(
-    '🎉 ලක්ෂාන් සුපර්ලයිට් වෙතින් විශේෂ දීමනාවක්! ඔබගේ ඉදිරි වෙඩින්, පාටි, හෝ උත්සව සඳහා උසස් තත්වයේ Sharpy, Par Lights සහ Light Wal වෙන්කරවා ගන්න. අදම අමතන්න: 077 123 4567 | WhatsApp: 077 123 4567.'
+    'Special Offer from Lakshan Superlight! Reserve your event lighting early for upcoming weddings, corporate shows, and banquets. Premium Sharpy 7R, Waterproof Par Cans, and Custom Light Wal Festoons. Contact us today: +94 77 123 4567 | WhatsApp: +94 77 123 4567.'
   );
 
-  // Extract customer contacts
   const eventContacts = bookings.map(b => ({ name: b.customerName, phone: b.customerPhone, source: 'Event Booking' }));
   const lwContacts = lightWalOrders.map(o => ({ name: o.customerName, phone: o.customerPhone, source: 'Light Wal' }));
   const retailContacts = posTx.filter(p => p.customerPhone).map(p => ({ name: p.customerName || 'Retail Customer', phone: p.customerPhone || '', source: 'Retail POS' }));
@@ -82,11 +81,11 @@ export const MarketingHubView: React.FC = () => {
           <div className="flex items-center gap-2">
             <h2 className="text-2xl font-black text-white">Digital Marketing & Online Presence Hub</h2>
             <span className="text-xs px-2 py-0.5 rounded bg-blue-500/20 text-blue-300 font-mono">
-              PDF Phase 1
+              SRS Phase 1
             </span>
           </div>
-          <p className="text-xs text-slate-400 mt-1 font-sinhala">
-            Facebook වෙතින් කෙලින්ම WhatsApp වෙත Lead ලබාගැනීම, Broadcast පණිවිඩ සහ Google Maps ලියාපදිංචිය
+          <p className="text-xs text-slate-400 mt-1">
+            Direct Facebook-to-WhatsApp inquiry links, broadcast messaging workflow, and Google Maps business profile optimization
           </p>
         </div>
 
@@ -122,7 +121,7 @@ export const MarketingHubView: React.FC = () => {
         </div>
       </div>
 
-      {/* Tab 1: Facebook-to-WhatsApp Lead Funnel (PDF 1.1) */}
+      {/* Tab 1: Facebook-to-WhatsApp Lead Funnel (SRS 1.1) */}
       {activeTab === 'funnel' && (
         <div className="space-y-4">
           <div className="bg-slate-900 border border-slate-800 p-5 rounded-xl space-y-4">
@@ -131,8 +130,8 @@ export const MarketingHubView: React.FC = () => {
                 <h3 className="text-base font-bold text-white flex items-center gap-2">
                   <span>Direct Facebook-to-WhatsApp Funnel Links</span>
                 </h3>
-                <p className="text-xs text-slate-400 font-sinhala">
-                  Facebook Page එකේ Posts, Ads සහ Stories වලට දැමීමට සකසන ලද WhatsApp Click-to-Chat Direct Links
+                <p className="text-xs text-slate-400">
+                  Pre-configured click-to-chat links for Facebook ads, page buttons, and promotional campaigns
                 </p>
               </div>
 
@@ -161,10 +160,10 @@ export const MarketingHubView: React.FC = () => {
                     <div>
                       <div className="flex items-center justify-between">
                         <span className="text-xs font-bold text-amber-400">{tpl.title}</span>
-                        <span className="text-[10px] text-slate-400 font-sinhala">{tpl.sinhalaTitle}</span>
+                        <span className="text-[10px] text-slate-400">{tpl.subtitle}</span>
                       </div>
 
-                      <div className="mt-2 p-2.5 bg-slate-900 rounded-lg border border-slate-800/80 text-xs text-slate-300 font-sinhala leading-relaxed">
+                      <div className="mt-2 p-2.5 bg-slate-900 rounded-lg border border-slate-800/80 text-xs text-slate-300 leading-relaxed">
                         "{tpl.message}"
                       </div>
 
@@ -183,7 +182,7 @@ export const MarketingHubView: React.FC = () => {
                         }`}
                       >
                         {isCopied ? <CheckCircle2 className="w-3.5 h-3.5" /> : <Copy className="w-3.5 h-3.5" />}
-                        <span>{isCopied ? 'Link Copied!' : 'Copy Facebook Ad Link'}</span>
+                        <span>{isCopied ? 'Link Copied!' : 'Copy Link for Facebook'}</span>
                       </button>
 
                       <a
@@ -204,14 +203,14 @@ export const MarketingHubView: React.FC = () => {
         </div>
       )}
 
-      {/* Tab 2: WhatsApp Broadcast Workflow (PDF 1.2) */}
+      {/* Tab 2: WhatsApp Broadcast Workflow (SRS 1.2) */}
       {activeTab === 'broadcast' && (
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-6">
           {/* Broadcast Composer */}
           <div className="lg:col-span-7 bg-slate-900 border border-slate-800 rounded-xl p-5 space-y-4">
             <h3 className="font-bold text-white text-base">Promotional Broadcast Composer</h3>
-            <p className="text-xs text-slate-400 font-sinhala">
-              පාරිභෝගිකයින් වෙත යැවීම සඳහා විශේෂ ප්‍රවර්ධන පණිවිඩ සකස් කිරීම
+            <p className="text-xs text-slate-400">
+              Compose promotional messages and copy for broadcast distribution to organized customer lists
             </p>
 
             <div className="space-y-3 text-xs">
@@ -242,12 +241,12 @@ export const MarketingHubView: React.FC = () => {
               </div>
 
               <div>
-                <label className="block text-slate-300 font-semibold mb-1">Broadcast Message Body (Sinhala / English)</label>
+                <label className="block text-slate-300 font-semibold mb-1">Broadcast Message Body</label>
                 <textarea
                   rows={5}
                   value={broadcastText}
                   onChange={(e) => setBroadcastText(e.target.value)}
-                  className="w-full bg-slate-950 border border-slate-800 rounded-lg p-3 text-white text-xs font-sinhala leading-relaxed"
+                  className="w-full bg-slate-950 border border-slate-800 rounded-lg p-3 text-white text-xs leading-relaxed"
                 />
               </div>
 
@@ -292,14 +291,14 @@ export const MarketingHubView: React.FC = () => {
         </div>
       )}
 
-      {/* Tab 3: Google Business Profile & Local SEO (PDF 1.3) */}
+      {/* Tab 3: Google Business Profile & Local SEO (SRS 1.3) */}
       {activeTab === 'google' && (
         <div className="space-y-4">
           <div className="bg-slate-900 border border-slate-800 p-5 rounded-xl space-y-4">
             <div className="border-b border-slate-800 pb-3">
               <h3 className="text-base font-bold text-white">Google Business Profile Registration & Local Search</h3>
-              <p className="text-xs text-slate-400 font-sinhala">
-                Google Search & Google Maps හි ආයතනය ලියාපදිංචි කිරීමට අවශ්‍ය නිල තොරතුරු
+              <p className="text-xs text-slate-400">
+                Official business metadata and location information for Google Search and Google Maps verification
               </p>
             </div>
 
@@ -313,10 +312,6 @@ export const MarketingHubView: React.FC = () => {
                   <div>
                     <span className="text-slate-400 block">Registered Business Name:</span>
                     <span className="font-bold text-white text-sm">{company.name}</span>
-                  </div>
-                  <div>
-                    <span className="text-slate-400 block">Sinhala Trade Name:</span>
-                    <span className="font-semibold text-slate-200 font-sinhala">{company.sinhalaName}</span>
                   </div>
                   <div>
                     <span className="text-slate-400 block">Primary Google Category:</span>
@@ -333,7 +328,7 @@ export const MarketingHubView: React.FC = () => {
                 </div>
 
                 <button
-                  onClick={() => handleCopy(`${company.name}\n${company.sinhalaName}\n${company.address}\nPhone: ${company.phone1}`, 'gprofile')}
+                  onClick={() => handleCopy(`${company.name}\n${company.address}\nPhone: ${company.phone1}`, 'gprofile')}
                   className="w-full bg-slate-800 hover:bg-slate-700 text-white font-semibold py-2 rounded-lg transition"
                 >
                   {copiedKey === 'gprofile' ? 'Profile Details Copied!' : 'Copy Profile Details'}
@@ -343,7 +338,7 @@ export const MarketingHubView: React.FC = () => {
               {/* Local SEO & Verification Checklist */}
               <div className="space-y-3 bg-slate-950 p-4 rounded-xl border border-slate-800">
                 <h4 className="font-bold text-emerald-400 uppercase tracking-wider text-[11px]">
-                  Verification Checklist for Sri Lanka
+                  Verification Checklist
                 </h4>
 
                 <ul className="space-y-2 text-slate-300">
@@ -353,7 +348,7 @@ export const MarketingHubView: React.FC = () => {
                   </li>
                   <li className="flex items-start gap-2">
                     <CheckCircle2 className="w-4 h-4 text-emerald-400 shrink-0 mt-0.5" />
-                    <span>Pin the exact store/warehouse location on Google Maps in Maharagama.</span>
+                    <span>Pin the exact store/warehouse location on Google Maps.</span>
                   </li>
                   <li className="flex items-start gap-2">
                     <CheckCircle2 className="w-4 h-4 text-emerald-400 shrink-0 mt-0.5" />
@@ -361,7 +356,7 @@ export const MarketingHubView: React.FC = () => {
                   </li>
                   <li className="flex items-start gap-2">
                     <CheckCircle2 className="w-4 h-4 text-emerald-400 shrink-0 mt-0.5" />
-                    <span>Send review collection link to past wedding clients after event completion.</span>
+                    <span>Send review collection link to past event clients after event completion.</span>
                   </li>
                 </ul>
               </div>
@@ -372,4 +367,3 @@ export const MarketingHubView: React.FC = () => {
     </div>
   );
 };
-

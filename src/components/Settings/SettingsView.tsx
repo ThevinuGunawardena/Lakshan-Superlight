@@ -74,8 +74,8 @@ export const SettingsView: React.FC<SettingsViewProps> = ({ onRefresh }) => {
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
         <div>
           <h2 className="text-2xl font-black text-white">System Settings & Company Profile</h2>
-          <p className="text-xs text-slate-400 mt-1 font-sinhala">
-            ආයතනික තොරතුරු, බැංකු ගිණුම් විස්තර සහ කොන්දේසි සැකසීම
+          <p className="text-xs text-slate-400 mt-1">
+            Configure company branding, commercial bank account details, and default contractual terms
           </p>
         </div>
 
@@ -107,18 +107,6 @@ export const SettingsView: React.FC<SettingsViewProps> = ({ onRefresh }) => {
               />
             </div>
             <div>
-              <label className="block text-slate-300 font-semibold mb-1 font-sinhala">Company Name (Sinhala)</label>
-              <input
-                type="text"
-                value={company.sinhalaName}
-                onChange={(e) => setCompany({ ...company, sinhalaName: e.target.value })}
-                className="w-full bg-slate-950 border border-slate-800 rounded-lg px-2.5 py-1.5 text-white"
-              />
-            </div>
-          </div>
-
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
-            <div>
               <label className="block text-slate-300 font-semibold mb-1">Tagline / Services Line</label>
               <input
                 type="text"
@@ -127,15 +115,16 @@ export const SettingsView: React.FC<SettingsViewProps> = ({ onRefresh }) => {
                 className="w-full bg-slate-950 border border-slate-800 rounded-lg px-2.5 py-1.5 text-white"
               />
             </div>
-            <div>
-              <label className="block text-slate-300 font-semibold mb-1">Registered Address</label>
-              <input
-                type="text"
-                value={company.address}
-                onChange={(e) => setCompany({ ...company, address: e.target.value })}
-                className="w-full bg-slate-950 border border-slate-800 rounded-lg px-2.5 py-1.5 text-white"
-              />
-            </div>
+          </div>
+
+          <div>
+            <label className="block text-slate-300 font-semibold mb-1">Registered Address</label>
+            <input
+              type="text"
+              value={company.address}
+              onChange={(e) => setCompany({ ...company, address: e.target.value })}
+              className="w-full bg-slate-950 border border-slate-800 rounded-lg px-2.5 py-1.5 text-white"
+            />
           </div>
 
           <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
@@ -257,4 +246,3 @@ export const SettingsView: React.FC<SettingsViewProps> = ({ onRefresh }) => {
     </div>
   );
 };
-
