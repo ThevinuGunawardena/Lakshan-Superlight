@@ -263,6 +263,25 @@ export const LightWalView: React.FC<LightWalViewProps> = ({ onRefresh, onOpenPri
             </div>
           </div>
         ))}
+
+        {filteredOrders.length === 0 && (
+          <div className="col-span-full bg-slate-900 border border-slate-800 rounded-2xl p-12 text-center flex flex-col items-center justify-center">
+            <div className="w-14 h-14 rounded-2xl bg-slate-800/80 flex items-center justify-center text-slate-500 mb-4">
+              <Sparkles className="w-7 h-7 text-amber-500/70" />
+            </div>
+            <h3 className="text-base font-bold text-white mb-1">No Custom Light Wal Orders</h3>
+            <p className="text-xs text-slate-400 max-w-md mb-6">
+              There are no festoon chain orders yet. Click below to configure custom chain lengths, socket intervals, and generate assembly job sheets.
+            </p>
+            <button
+              onClick={() => setIsModalOpen(true)}
+              className="bg-amber-500 hover:bg-amber-400 text-slate-950 font-bold px-4 py-2 rounded-xl text-xs transition shadow-lg shadow-amber-500/20 flex items-center gap-2"
+            >
+              <Plus className="w-4 h-4" />
+              <span>Configure New Light Wal Order</span>
+            </button>
+          </div>
+        )}
       </div>
 
       {/* Light Wal Order Detail Modal */}

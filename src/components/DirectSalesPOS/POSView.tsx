@@ -311,6 +311,12 @@ export const POSView: React.FC<POSViewProps> = ({ onRefresh, onOpenPrint }) => {
                   </div>
                 </div>
               ))}
+
+              {filteredItems.length === 0 && (
+                <div className="col-span-full py-16 text-center text-slate-500 text-xs">
+                  No retail products in inventory. Add retail products in the "Retail Stock" tab or load catalog templates in Settings.
+                </div>
+              )}
             </div>
           </div>
 
@@ -514,27 +520,35 @@ export const POSView: React.FC<POSViewProps> = ({ onRefresh, onOpenPrint }) => {
                 </tr>
               </thead>
               <tbody className="divide-y divide-slate-800">
-                {retailItems.map((item) => (
-                  <tr key={item.id} className="hover:bg-slate-800/40">
-                    <td className="py-3 px-4 font-mono text-amber-400">{item.sku}</td>
-                    <td className="py-3 px-4 font-medium text-white">{item.name}</td>
-                    <td className="py-3 px-4 text-slate-400">{item.category}</td>
-                    <td className="py-3 px-4 text-right text-slate-400">Rs. {item.unitCost.toLocaleString()}</td>
-                    <td className="py-3 px-4 text-right font-bold text-white">Rs. {item.retailPrice.toLocaleString()}</td>
-                    <td className="py-3 px-4 text-center font-bold text-slate-200">
-                      {item.stockQty} {item.unit}s
-                    </td>
-                    <td className="py-3 px-4 text-center">
-                      <span className={`px-2 py-0.5 rounded text-[10px] font-bold ${
-                        item.stockQty <= item.minAlertQty
-                          ? 'bg-rose-500/20 text-rose-400 border border-rose-500/30'
-                          : 'bg-emerald-500/20 text-emerald-400'
-                      }`}>
-                        {item.stockQty <= item.minAlertQty ? 'Low Stock' : 'In Stock'}
-                      </span>
+                {retailItems.length === 0 ? (
+                  <tr>
+                    <td colSpan={7} className="text-center py-12 text-slate-500">
+                      No retail inventory items found. Click "+ Add Retail Product" to register bulbs, wires, rolls, or connectors.
                     </td>
                   </tr>
-                ))}
+                ) : (
+                  retailItems.map((item) => (
+                    <tr key={item.id} className="hover:bg-slate-800/40">
+                      <td className="py-3 px-4 font-mono text-amber-400">{item.sku}</td>
+                      <td className="py-3 px-4 font-medium text-white">{item.name}</td>
+                      <td className="py-3 px-4 text-slate-400">{item.category}</td>
+                      <td className="py-3 px-4 text-right text-slate-400">Rs. {item.unitCost.toLocaleString()}</td>
+                      <td className="py-3 px-4 text-right font-bold text-white">Rs. {item.retailPrice.toLocaleString()}</td>
+                      <td className="py-3 px-4 text-center font-bold text-slate-200">
+                        {item.stockQty} {item.unit}s
+                      </td>
+                      <td className="py-3 px-4 text-center">
+                        <span className={`px-2 py-0.5 rounded text-[10px] font-bold ${
+                          item.stockQty <= item.minAlertQty
+                            ? 'bg-rose-500/20 text-rose-400 border border-rose-500/30'
+                            : 'bg-emerald-500/20 text-emerald-400'
+                        }`}>
+                          {item.stockQty <= item.minAlertQty ? 'Low Stock' : 'In Stock'}
+                        </span>
+                      </td>
+                    </tr>
+                  ))
+                )}
               </tbody>
             </table>
           </div>

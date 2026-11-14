@@ -223,6 +223,25 @@ export const RentalStockView: React.FC<RentalStockViewProps> = ({ onRefresh }) =
             </div>
           );
         })}
+
+        {filteredItems.length === 0 && (
+          <div className="col-span-full bg-slate-900 border border-slate-800 rounded-2xl p-12 text-center flex flex-col items-center justify-center">
+            <div className="w-14 h-14 rounded-2xl bg-slate-800/80 flex items-center justify-center text-slate-500 mb-4">
+              <Boxes className="w-7 h-7 text-blue-400/70" />
+            </div>
+            <h3 className="text-base font-bold text-white mb-1">Rental Fleet is Empty</h3>
+            <p className="text-xs text-slate-400 max-w-md mb-6">
+              There is currently no rental equipment in your fleet. Click '+ Add Equipment' to register your moving heads, par cans, truss segments, or distros.
+            </p>
+            <button
+              onClick={() => setIsAddModalOpen(true)}
+              className="bg-amber-500 hover:bg-amber-400 text-slate-950 font-bold px-4 py-2 rounded-xl text-xs transition shadow-lg shadow-amber-500/20 flex items-center gap-2"
+            >
+              <Plus className="w-4 h-4" />
+              <span>Add First Rental Equipment</span>
+            </button>
+          </div>
+        )}
       </div>
 
       {/* Inspect Item Schedule Modal */}

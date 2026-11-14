@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import {
   FileSpreadsheet,
+  FileText,
   Plus,
   Printer,
   ArrowRightLeft,
@@ -304,6 +305,25 @@ export const QuotationsInvoicesView: React.FC<QuotationsInvoicesViewProps> = ({
                 </div>
               </div>
             ))}
+
+            {quotes.length === 0 && (
+              <div className="col-span-full bg-slate-900 border border-slate-800 rounded-2xl p-12 text-center flex flex-col items-center justify-center">
+                <div className="w-14 h-14 rounded-2xl bg-slate-800/80 flex items-center justify-center text-slate-500 mb-4">
+                  <FileText className="w-7 h-7 text-amber-500/70" />
+                </div>
+                <h3 className="text-base font-bold text-white mb-1">No Quotations Created</h3>
+                <p className="text-xs text-slate-400 max-w-md mb-6">
+                  Create formal quotations with automated equipment pricing, logistics, and terms to send directly to your clients.
+                </p>
+                <button
+                  onClick={() => setIsNewQuoteModalOpen(true)}
+                  className="bg-amber-500 hover:bg-amber-400 text-slate-950 font-bold px-4 py-2 rounded-xl text-xs transition shadow-lg shadow-amber-500/20 flex items-center gap-2"
+                >
+                  <Plus className="w-4 h-4" />
+                  <span>Create First Quotation</span>
+                </button>
+              </div>
+            )}
           </div>
         </div>
       )}
@@ -358,6 +378,14 @@ export const QuotationsInvoicesView: React.FC<QuotationsInvoicesViewProps> = ({
                   </td>
                 </tr>
               ))}
+
+              {bookings.length === 0 && (
+                <tr>
+                  <td colSpan={7} className="py-12 text-center text-slate-500 text-xs">
+                    No active commercial invoices yet. Invoices are generated automatically from confirmed bookings.
+                  </td>
+                </tr>
+              )}
             </tbody>
           </table>
         </div>

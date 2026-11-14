@@ -12,7 +12,10 @@ import {
   FileText,
   Database,
   RefreshCw,
-  ExternalLink
+  ExternalLink,
+  Trash2,
+  Sparkles,
+  Boxes
 } from 'lucide-react';
 import { StorageService, CompanyInfo } from '../../services/storage';
 import { getStoredSupabaseConfig, resetSupabaseClient, testSupabaseConnection } from '../../services/supabaseClient';
@@ -112,12 +115,42 @@ export const SettingsView: React.FC<SettingsViewProps> = ({ onRefresh }) => {
           setCompany(data.companyInfo);
         }
         alert('Database restored successfully from backup!');
+        setDataCounts(StorageService.getDataCounts());
         onRefresh();
       } catch (err) {
         alert('Failed to parse backup JSON file.');
       }
     };
     reader.readAsText(file);
+  };
+
+  const [dataCounts, setDataCounts] = useState(StorageService.getDataCounts());
+
+  const handleClearAllDummyData = () => {
+    if (window.confirm('Clear all test bookings, quotations, light wal orders, staff roster, and attendance records?\n\n(Equipment inventory catalog will be preserved).')) {
+      StorageService.clearAllDummyData();
+      setDataCounts(StorageService.getDataCounts());
+      onRefresh();
+      alert('Test bookings, orders, quotes, and staff have been wiped clean!');
+    }
+  };
+
+  const handleClearAllData = () => {
+    if (window.confirm('⚠️ TOTAL CLEAN SLATE: Are you sure you want to delete ALL data (inventory, equipment, bookings, orders, staff) to start from absolute zero?')) {
+      StorageService.clearAllData();
+      setDataCounts(StorageService.getDataCounts());
+      onRefresh();
+      alert('Total clean slate completed. All database tables are now at zero.');
+    }
+  };
+
+  const handleLoadStarterCatalog = () => {
+    if (window.confirm('Load standard professional stage lighting fleet & festoon retail supplies template?')) {
+      const res = StorageService.loadStarterCatalog();
+      setDataCounts(StorageService.getDataCounts());
+      onRefresh();
+      alert(`Loaded ${res.rentalCount} rental equipment items and ${res.retailCount} retail items!`);
+    }
   };
 
   return (
@@ -427,6 +460,91 @@ export const SettingsView: React.FC<SettingsViewProps> = ({ onRefresh }) => {
               <span>Import Database Backup</span>
               <input type="file" accept=".json" onChange={handleImport} className="hidden" />
             </label>
+          </div>
+        </div>
+
+        {/* Production Clean Slate & Data Management */}
+        <div className="bg-slate-900 border border-slate-800 rounded-xl p-5 space-y-4 text-xs">
+          <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2">
+            <div>
+              <h3 className="font-bold text-white text-sm flex items-center gap-2">
+                <Trash2 className="w-4 h-4 text-rose-500" />
+                <span>Production Data Management & Clean Slate</span>
+              </h3>
+              <p className="text-slate-400 text-[11px] mt-0.5">
+                Manage live storage records, purge dummy test data, or load standard stage lighting catalog templates
+              </p>
+            </div>
+            <div className="flex items-center gap-1.5 text-xs font-semibold text-emerald-400 bg-emerald-500/10 border border-emerald-500/20 px-2.5 py-1 rounded-lg">
+              <CheckCircle2 className="w-3.5 h-3.5" />
+              <span>Ready for Production</span>
+            </div>
+          </div>
+
+          {/* Current Database Status Grid */}
+          <div className="grid grid-cols-2 sm:grid-cols-4 gap-2.5 pt-1">
+            <div className="bg-slate-950/70 p-2.5 rounded-lg border border-slate-800/80">
+              <div className="text-[10px] text-slate-400">Event Bookings</div>
+              <div className="text-base font-black text-amber-400">{dataCounts.bookings}</div>
+            </div>
+            <div className="bg-slate-950/70 p-2.5 rounded-lg border border-slate-800/80">
+              <div className="text-[10px] text-slate-400">Rental Equipment</div>
+              <div className="text-base font-black text-blue-400">{dataCounts.rentalItems}</div>
+            </div>
+            <div className="bg-slate-950/70 p-2.5 rounded-lg border border-slate-800/80">
+              <div className="text-[10px] text-slate-400">Retail Supplies</div>
+              <div className="text-base font-black text-emerald-400">{dataCounts.retailItems}</div>
+            </div>
+            <div className="bg-slate-950/70 p-2.5 rounded-lg border border-slate-800/80">
+              <div className="text-[10px] text-slate-400">Light Wal Orders</div>
+              <div className="text-base font-black text-purple-400">{dataCounts.lightWalOrders}</div>
+            </div>
+            <div className="bg-slate-950/70 p-2.5 rounded-lg border border-slate-800/80">
+              <div className="text-[10px] text-slate-400">Quotations</div>
+              <div className="text-base font-black text-cyan-400">{dataCounts.quotations}</div>
+            </div>
+            <div className="bg-slate-950/70 p-2.5 rounded-lg border border-slate-800/80">
+              <div className="text-[10px] text-slate-400">Staff Members</div>
+              <div className="text-base font-black text-pink-400">{dataCounts.employees}</div>
+            </div>
+            <div className="bg-slate-950/70 p-2.5 rounded-lg border border-slate-800/80">
+              <div className="text-[10px] text-slate-400">Attendance Logs</div>
+              <div className="text-base font-black text-slate-300">{dataCounts.attendance}</div>
+            </div>
+            <div className="bg-slate-950/70 p-2.5 rounded-lg border border-slate-800/80">
+              <div className="text-[10px] text-slate-400">POS Sales</div>
+              <div className="text-base font-black text-emerald-300">{dataCounts.posTransactions}</div>
+            </div>
+          </div>
+
+          {/* Action Buttons */}
+          <div className="flex flex-wrap items-center gap-3 pt-2">
+            <button
+              type="button"
+              onClick={handleClearAllData}
+              className="bg-rose-500/10 hover:bg-rose-500/20 text-rose-400 border border-rose-500/30 font-semibold py-2 px-3.5 rounded-xl transition flex items-center gap-2"
+            >
+              <Trash2 className="w-4 h-4 text-rose-400" />
+              <span>Wipe Entire Database (Total Clean Slate)</span>
+            </button>
+
+            <button
+              type="button"
+              onClick={handleClearAllDummyData}
+              className="bg-slate-800 hover:bg-slate-700 text-slate-200 border border-slate-700 font-semibold py-2 px-3.5 rounded-xl transition flex items-center gap-2"
+            >
+              <RotateCcw className="w-4 h-4 text-amber-400" />
+              <span>Wipe Test Bookings & Staff Only</span>
+            </button>
+
+            <button
+              type="button"
+              onClick={handleLoadStarterCatalog}
+              className="bg-slate-800 hover:bg-slate-700 text-white border border-slate-700 font-semibold py-2 px-3.5 rounded-xl transition flex items-center gap-2"
+            >
+              <Sparkles className="w-4 h-4 text-blue-400" />
+              <span>Load Starter Equipment Catalog</span>
+            </button>
           </div>
         </div>
 

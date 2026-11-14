@@ -1,12 +1,22 @@
-import { RentalItem, RetailItem, EventBooking, Quotation, LightWalOrder, Employee, AttendanceRecord, PayrollRecord } from '../types';
+import { RentalItem, RetailItem, EventBooking, Quotation, LightWalOrder, Employee, AttendanceRecord } from '../types';
 
-export const initialRentalItems: RentalItem[] = [
+// Clean initial production slate: all dummy data removed
+export const initialRentalItems: RentalItem[] = [];
+export const initialRetailItems: RetailItem[] = [];
+export const initialBookings: EventBooking[] = [];
+export const initialQuotations: Quotation[] = [];
+export const initialLightWalOrders: LightWalOrder[] = [];
+export const initialEmployees: Employee[] = [];
+export const initialAttendanceRecords: AttendanceRecord[] = [];
+
+// Optional starter equipment templates (can be loaded via Settings -> "Load Starter Equipment Catalog")
+export const starterRentalItems: RentalItem[] = [
   {
     id: 'rent-01',
     name: 'Sharpy Beam 7R Moving Head 230W',
     category: 'Sharpy & Beams',
     totalQuantity: 24,
-    maintenanceQty: 2,
+    maintenanceQty: 0,
     dailyRate: 3500,
     replacementCost: 85000,
     imageUrl: 'https://images.unsplash.com/photo-1516450360452-9312f5e86fc7?w=500&auto=format&fit=crop&q=60',
@@ -17,7 +27,7 @@ export const initialRentalItems: RentalItem[] = [
     name: 'LED Par Light 54x3W RGBW Waterproof',
     category: 'Par Lights',
     totalQuantity: 60,
-    maintenanceQty: 4,
+    maintenanceQty: 0,
     dailyRate: 850,
     replacementCost: 14000,
     imageUrl: 'https://images.unsplash.com/photo-1470225620780-dba8ba36b745?w=500&auto=format&fit=crop&q=60',
@@ -39,7 +49,7 @@ export const initialRentalItems: RentalItem[] = [
     name: 'Stage Blinder 4-Eye 400W COB LED',
     category: 'Effects & Lasers',
     totalQuantity: 12,
-    maintenanceQty: 1,
+    maintenanceQty: 0,
     dailyRate: 2500,
     replacementCost: 38000,
     imageUrl: 'https://images.unsplash.com/photo-1492684223066-81342ee5ff30?w=500&auto=format&fit=crop&q=60',
@@ -61,7 +71,7 @@ export const initialRentalItems: RentalItem[] = [
     name: 'Antari Professional DMX Haze Machine 1500W',
     category: 'Effects & Lasers',
     totalQuantity: 6,
-    maintenanceQty: 1,
+    maintenanceQty: 0,
     dailyRate: 5000,
     replacementCost: 110000,
     imageUrl: 'https://images.unsplash.com/photo-1508700115892-45ecd05ae2ad?w=500&auto=format&fit=crop&q=60',
@@ -91,7 +101,7 @@ export const initialRentalItems: RentalItem[] = [
   }
 ];
 
-export const initialRetailItems: RetailItem[] = [
+export const starterRetailItems: RetailItem[] = [
   {
     id: 'ret-01',
     sku: 'LSL-BULB-ED2W',
@@ -100,8 +110,8 @@ export const initialRetailItems: RetailItem[] = [
     unit: 'Piece',
     unitCost: 160,
     retailPrice: 280,
-    stockQty: 850,
-    minAlertQty: 100
+    stockQty: 100,
+    minAlertQty: 20
   },
   {
     id: 'ret-02',
@@ -111,8 +121,8 @@ export const initialRetailItems: RetailItem[] = [
     unit: 'Piece',
     unitCost: 110,
     retailPrice: 220,
-    stockQty: 1200,
-    minAlertQty: 200
+    stockQty: 150,
+    minAlertQty: 30
   },
   {
     id: 'ret-03',
@@ -122,8 +132,8 @@ export const initialRetailItems: RetailItem[] = [
     unit: 'Roll',
     unitCost: 14500,
     retailPrice: 18500,
-    stockQty: 35,
-    minAlertQty: 10
+    stockQty: 10,
+    minAlertQty: 3
   },
   {
     id: 'ret-04',
@@ -133,8 +143,8 @@ export const initialRetailItems: RetailItem[] = [
     unit: 'Piece',
     unitCost: 65,
     retailPrice: 120,
-    stockQty: 2400,
-    minAlertQty: 300
+    stockQty: 200,
+    minAlertQty: 50
   },
   {
     id: 'ret-05',
@@ -144,8 +154,8 @@ export const initialRetailItems: RetailItem[] = [
     unit: 'Piece',
     unitCost: 220,
     retailPrice: 380,
-    stockQty: 180,
-    minAlertQty: 40
+    stockQty: 50,
+    minAlertQty: 10
   },
   {
     id: 'ret-06',
@@ -155,8 +165,8 @@ export const initialRetailItems: RetailItem[] = [
     unit: 'Box',
     unitCost: 950,
     retailPrice: 1500,
-    stockQty: 65,
-    minAlertQty: 15
+    stockQty: 20,
+    minAlertQty: 5
   },
   {
     id: 'ret-07',
@@ -166,349 +176,7 @@ export const initialRetailItems: RetailItem[] = [
     unit: 'Piece',
     unitCost: 1400,
     retailPrice: 2600,
-    stockQty: 42,
-    minAlertQty: 8
-  }
-];
-
-export const initialEmployees: Employee[] = [
-  {
-    id: 'emp-01',
-    empNo: 'EMP-001',
-    name: 'Kavinda Perera',
-    role: 'Lead Electrician',
-    phone: '077 123 4567',
-    nationalId: '199214502840',
-    salaryType: 'Monthly',
-    basicSalary: 75000,
-    otRatePerHour: 550,
-    epfEligible: true,
-    fingerprintId: 101,
-    active: true
-  },
-  {
-    id: 'emp-02',
-    empNo: 'EMP-002',
-    name: 'Nuwan Jayasinghe',
-    role: 'Lighting Technician',
-    phone: '071 987 6543',
-    nationalId: '199587401129',
-    salaryType: 'Monthly',
-    basicSalary: 62000,
-    otRatePerHour: 450,
-    epfEligible: true,
-    fingerprintId: 102,
-    active: true
-  },
-  {
-    id: 'emp-03',
-    empNo: 'EMP-003',
-    name: 'Saman Kumara',
-    role: 'Vehicle Driver',
-    phone: '076 554 1122',
-    nationalId: '198945603310',
-    salaryType: 'Monthly',
-    basicSalary: 55000,
-    otRatePerHour: 400,
-    epfEligible: true,
-    fingerprintId: 103,
-    active: true
-  },
-  {
-    id: 'emp-04',
-    empNo: 'EMP-004',
-    name: 'Dinesh Bandara',
-    role: 'Site Crew / Helper',
-    phone: '078 332 9901',
-    nationalId: '200155209931',
-    salaryType: 'Daily',
-    basicSalary: 2800,
-    otRatePerHour: 350,
-    epfEligible: false,
-    fingerprintId: 104,
-    active: true
-  }
-];
-
-const today = new Date();
-const formatDate = (d: Date) => d.toISOString().split('T')[0];
-const addDays = (d: Date, n: number) => {
-  const result = new Date(d);
-  result.setDate(result.getDate() + n);
-  return result;
-};
-
-const event1Start = addDays(today, 5);
-const event1End = addDays(today, 9);
-const event1Setup = 3;
-const event1Dismantle = 3;
-
-export const initialBookings: EventBooking[] = [
-  {
-    id: 'evt-001',
-    bookingNumber: 'LSL-EVT-2026-001',
-    customerName: 'Roshan Samarasekera (Grand Wedding)',
-    customerPhone: '077 789 1234',
-    customerEmail: 'roshan.sam@gmail.com',
-    customerAddress: 'No 45, Temple Road, Nugegoda',
-    eventTitle: 'Grand Outdoor Wedding & Banquet',
-    eventVenue: 'Waters Edge, Battaramulla',
-    eventStartDate: formatDate(event1Start),
-    eventEndDate: formatDate(event1End),
-    activeEventDays: 5,
-    setupDaysPrior: event1Setup,
-    dismantleDaysAfter: event1Dismantle,
-    blockedStartDate: formatDate(addDays(event1Start, -event1Setup)),
-    blockedEndDate: formatDate(addDays(event1End, event1Dismantle)),
-    status: 'Confirmed',
-    items: [
-      {
-        itemId: 'rent-01',
-        name: 'Sharpy Beam 7R Moving Head 230W',
-        quantity: 12,
-        dailyRate: 3500,
-        totalDays: 5,
-        subtotal: 210000
-      },
-      {
-        itemId: 'rent-02',
-        name: 'LED Par Light 54x3W RGBW Waterproof',
-        quantity: 24,
-        dailyRate: 850,
-        totalDays: 5,
-        subtotal: 102000
-      },
-      {
-        itemId: 'rent-03',
-        name: 'Aluminum Box Truss 10ft (300mm x 300mm)',
-        quantity: 10,
-        dailyRate: 2000,
-        totalDays: 5,
-        subtotal: 100000
-      },
-      {
-        itemId: 'rent-07',
-        name: 'Warm White Fairy / Festoon Light Canopy Set (500m)',
-        quantity: 2,
-        dailyRate: 15000,
-        totalDays: 5,
-        subtotal: 150000
-      }
-    ],
-    equipmentTotal: 562000,
-    transportCrewFee: 35000,
-    securityDeposit: 50000,
-    discount: 22000,
-    netTotal: 625000,
-    advancePaid: 300000,
-    balanceDue: 325000,
-    paymentMethod: 'Bank Transfer',
-    notes: 'Requires 4-man setup team. Installation begins 3 days prior due to grand marquee construction.',
-    createdAt: formatDate(addDays(today, -3))
-  },
-  {
-    id: 'evt-002',
-    bookingNumber: 'LSL-EVT-2026-002',
-    customerName: 'St. Joseph\'s College Musical Fiesta',
-    customerPhone: '071 445 6677',
-    customerAddress: 'Darley Road, Colombo 10',
-    eventTitle: 'Annual Inter-School Live Concert',
-    eventVenue: 'Sugathadasa Indoor Stadium, Colombo',
-    eventStartDate: formatDate(addDays(today, 14)),
-    eventEndDate: formatDate(addDays(today, 15)),
-    activeEventDays: 2,
-    setupDaysPrior: 2,
-    dismantleDaysAfter: 1,
-    blockedStartDate: formatDate(addDays(today, 12)),
-    blockedEndDate: formatDate(addDays(today, 16)),
-    status: 'Quote',
-    items: [
-      {
-        itemId: 'rent-01',
-        name: 'Sharpy Beam 7R Moving Head 230W',
-        quantity: 16,
-        dailyRate: 3500,
-        totalDays: 2,
-        subtotal: 112000
-      },
-      {
-        itemId: 'rent-04',
-        name: 'Stage Blinder 4-Eye 400W COB LED',
-        quantity: 8,
-        dailyRate: 2500,
-        totalDays: 2,
-        subtotal: 40000
-      },
-      {
-        itemId: 'rent-06',
-        name: 'Antari Professional DMX Haze Machine 1500W',
-        quantity: 2,
-        dailyRate: 5000,
-        totalDays: 2,
-        subtotal: 20000
-      }
-    ],
-    equipmentTotal: 172000,
-    transportCrewFee: 25000,
-    securityDeposit: 30000,
-    discount: 7000,
-    netTotal: 220000,
-    advancePaid: 0,
-    balanceDue: 220000,
-    notes: 'Quotation sent. Awaiting school committee approval.',
-    createdAt: formatDate(addDays(today, -1))
-  }
-];
-
-export const initialQuotations: Quotation[] = [
-  {
-    id: 'qte-001',
-    quoteNumber: 'LSL-QTE-2026-001',
-    customerName: 'Dilshan Wickramasinghe',
-    customerPhone: '077 334 5566',
-    customerAddress: 'Kandy Road, Kiribathgoda',
-    eventTitle: 'Ceremony & Reception Illumination',
-    eventVenue: 'Residence Garden, Kiribathgoda',
-    eventStartDate: formatDate(addDays(today, 10)),
-    eventEndDate: formatDate(addDays(today, 11)),
-    setupDaysPrior: 3,
-    dismantleDaysAfter: 2,
-    items: [
-      {
-        itemId: 'rent-02',
-        name: 'LED Par Light 54x3W RGBW Waterproof',
-        quantity: 16,
-        dailyRate: 850,
-        totalDays: 2,
-        subtotal: 27200
-      },
-      {
-        itemId: 'rent-07',
-        name: 'Warm White Fairy / Festoon Light Canopy Set (500m)',
-        quantity: 1,
-        dailyRate: 15000,
-        totalDays: 2,
-        subtotal: 30000
-      }
-    ],
-    equipmentTotal: 57200,
-    transportCrewFee: 12000,
-    securityDeposit: 15000,
-    discount: 4200,
-    grandTotal: 80000,
-    status: 'Sent',
-    notes: 'Perimeter lighting and surrounding festoon canopy.',
-    validUntil: formatDate(addDays(today, 7)),
-    createdAt: formatDate(addDays(today, -2))
-  }
-];
-
-export const initialLightWalOrders: LightWalOrder[] = [
-  {
-    id: 'lw-001',
-    orderNumber: 'LSL-LW-082',
-    customerName: 'Chaminda Rathnayake',
-    customerPhone: '077 889 0011',
-    customerAddress: 'Main Street, Maharagama',
-    deliveryDate: formatDate(addDays(today, 3)),
-    lengthValue: 150,
-    lengthUnit: 'Feet',
-    bulbSpacingInches: 18,
-    calculatedBulbCount: 100,
-    bulbType: 'Warm White Edison 2W',
-    wireType: 'Heavy Duty Black Rubber 2x1.5mm',
-    plugType: '13A British Standard',
-    controllerIncluded: true,
-    controllerType: '8-Function Memory Controller',
-    pricingMode: 'perFoot',
-    ratePerUnit: 220,
-    accessoriesFee: 3500,
-    discount: 1500,
-    grandTotal: 35000,
-    advancePaid: 15000,
-    balanceDue: 20000,
-    status: 'In Assembly',
-    workshopNotes: 'Customer requested extra 5 spare bulbs in package. Wire ends sealed with heat-shrink tubing.',
-    createdAt: formatDate(addDays(today, -2))
-  },
-  {
-    id: 'lw-002',
-    orderNumber: 'LSL-LW-083',
-    customerName: 'Priyantha Fernando',
-    customerPhone: '071 223 9988',
-    deliveryDate: formatDate(addDays(today, 6)),
-    lengthValue: 300,
-    lengthUnit: 'Feet',
-    bulbSpacingInches: 24,
-    calculatedBulbCount: 150,
-    bulbType: 'Clear Warm White LED 4W',
-    wireType: 'Outdoor Heavy 3-Core Grounded',
-    plugType: '13A British Standard',
-    controllerIncluded: false,
-    pricingMode: 'bundle',
-    ratePerUnit: 68000,
-    accessoriesFee: 4000,
-    discount: 2000,
-    grandTotal: 70000,
-    advancePaid: 35000,
-    balanceDue: 35000,
-    status: 'Confirmed',
-    workshopNotes: 'Used for banquet hall rooftop perimeter.',
-    createdAt: formatDate(today)
-  }
-];
-
-export const initialAttendanceRecords: AttendanceRecord[] = [
-  {
-    id: 'att-01',
-    empId: 'emp-01',
-    date: formatDate(today),
-    checkIn: '08:02',
-    checkOut: '18:30',
-    totalHours: 10.5,
-    normalHours: 8.0,
-    otHours: 2.5,
-    lateMinutes: 2,
-    status: 'Present',
-    terminalSource: 'Biometric Terminal'
-  },
-  {
-    id: 'att-02',
-    empId: 'emp-02',
-    date: formatDate(today),
-    checkIn: '07:55',
-    checkOut: '17:00',
-    totalHours: 9.0,
-    normalHours: 8.0,
-    otHours: 1.0,
-    lateMinutes: 0,
-    status: 'Present',
-    terminalSource: 'Biometric Terminal'
-  },
-  {
-    id: 'att-03',
-    empId: 'emp-03',
-    date: formatDate(today),
-    checkIn: '08:35',
-    checkOut: '19:00',
-    totalHours: 10.4,
-    normalHours: 8.0,
-    otHours: 2.4,
-    lateMinutes: 35,
-    status: 'Present',
-    terminalSource: 'Biometric Terminal'
-  },
-  {
-    id: 'att-04',
-    empId: 'emp-04',
-    date: formatDate(today),
-    checkIn: '08:10',
-    checkOut: '17:15',
-    totalHours: 9.0,
-    normalHours: 8.0,
-    otHours: 1.0,
-    lateMinutes: 10,
-    status: 'Present',
-    terminalSource: 'Biometric Terminal'
+    stockQty: 15,
+    minAlertQty: 5
   }
 ];

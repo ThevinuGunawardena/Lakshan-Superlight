@@ -295,6 +295,16 @@ export const DashboardView: React.FC<DashboardViewProps> = ({ onNavigate, onOpen
               </div>
             );
           })}
+
+          {bookings.length === 0 && (
+            <div className="text-center py-10 bg-slate-950/40 rounded-xl border border-dashed border-slate-800 text-slate-400 text-xs flex flex-col items-center justify-center">
+              <Calendar className="w-8 h-8 text-amber-500/50 mb-2" />
+              <div className="font-semibold text-slate-300">No Active Event Bookings</div>
+              <p className="text-[11px] text-slate-500 mt-1 max-w-sm">
+                As event bookings are created, their automated multi-stage date windows (setup ➜ active event ➜ dismantling) will visualize here in real time.
+              </p>
+            </div>
+          )}
         </div>
       </div>
 
@@ -357,6 +367,12 @@ export const DashboardView: React.FC<DashboardViewProps> = ({ onNavigate, onOpen
                 </div>
               );
             })}
+
+            {rentalStockUsage.length === 0 && (
+              <div className="text-center py-8 text-slate-500 text-xs">
+                No rental gear registered in fleet yet. Add equipment in the Rental Fleet module.
+              </div>
+            )}
           </div>
         </div>
 

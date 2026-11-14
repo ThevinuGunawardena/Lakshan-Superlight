@@ -355,29 +355,37 @@ export const BiometricPayrollView: React.FC<BiometricPayrollViewProps> = ({
                   </tr>
                 </thead>
                 <tbody className="divide-y divide-slate-800">
-                  {attendanceLogs.map((log) => {
-                    const emp = employees.find(e => e.id === log.empId);
-                    return (
-                      <tr key={log.id} className="hover:bg-slate-800/40">
-                        <td className="py-2.5 px-3 font-mono text-slate-300">{log.date}</td>
-                        <td className="py-2.5 px-3 font-medium text-white">
-                          <div>{emp?.name || 'Unknown'}</div>
-                          <div className="text-[10px] text-slate-400">{emp?.role}</div>
-                        </td>
-                        <td className="py-2.5 px-3 text-center font-mono text-emerald-400">{log.checkIn}</td>
-                        <td className="py-2.5 px-3 text-center font-mono text-amber-400">{log.checkOut || '--:--'}</td>
-                        <td className="py-2.5 px-3 text-center font-bold text-slate-200">{log.totalHours}h</td>
-                        <td className="py-2.5 px-3 text-center font-bold text-amber-400">
-                          {log.otHours > 0 ? `+${log.otHours}h` : '0h'}
-                        </td>
-                        <td className="py-2.5 px-3 text-center">
-                          <span className="px-2 py-0.5 rounded text-[10px] bg-emerald-500/20 text-emerald-400 font-bold">
-                            {log.status}
-                          </span>
-                        </td>
-                      </tr>
-                    );
-                  })}
+                  {attendanceLogs.length === 0 ? (
+                    <tr>
+                      <td colSpan={7} className="text-center py-8 text-slate-500">
+                        No biometric attendance punches recorded. Use the Quick Clock-in panel on the left to record punches.
+                      </td>
+                    </tr>
+                  ) : (
+                    attendanceLogs.map((log) => {
+                      const emp = employees.find(e => e.id === log.empId);
+                      return (
+                        <tr key={log.id} className="hover:bg-slate-800/40">
+                          <td className="py-2.5 px-3 font-mono text-slate-300">{log.date}</td>
+                          <td className="py-2.5 px-3 font-medium text-white">
+                            <div>{emp?.name || 'Unknown'}</div>
+                            <div className="text-[10px] text-slate-400">{emp?.role}</div>
+                          </td>
+                          <td className="py-2.5 px-3 text-center font-mono text-emerald-400">{log.checkIn}</td>
+                          <td className="py-2.5 px-3 text-center font-mono text-amber-400">{log.checkOut || '--:--'}</td>
+                          <td className="py-2.5 px-3 text-center font-bold text-slate-200">{log.totalHours}h</td>
+                          <td className="py-2.5 px-3 text-center font-bold text-amber-400">
+                            {log.otHours > 0 ? `+${log.otHours}h` : '0h'}
+                          </td>
+                          <td className="py-2.5 px-3 text-center">
+                            <span className="px-2 py-0.5 rounded text-[10px] bg-emerald-500/20 text-emerald-400 font-bold">
+                              {log.status}
+                            </span>
+                          </td>
+                        </tr>
+                      );
+                    })
+                  )}
                 </tbody>
               </table>
             </div>
@@ -507,6 +515,25 @@ export const BiometricPayrollView: React.FC<BiometricPayrollViewProps> = ({
                 </div>
               </div>
             ))}
+
+            {employees.length === 0 && (
+              <div className="col-span-full bg-slate-900 border border-slate-800 rounded-2xl p-12 text-center flex flex-col items-center justify-center">
+                <div className="w-14 h-14 rounded-2xl bg-slate-800/80 flex items-center justify-center text-slate-500 mb-4">
+                  <Users className="w-7 h-7 text-purple-400/70" />
+                </div>
+                <h3 className="text-base font-bold text-white mb-1">Staff Roster is Empty</h3>
+                <p className="text-xs text-slate-400 max-w-md mb-6">
+                  Add your lighting technicians, electricians, vehicle drivers, and crew helpers to track biometric punches and run monthly EPF/ETF payroll.
+                </p>
+                <button
+                  onClick={() => setIsAddEmpModalOpen(true)}
+                  className="bg-amber-500 hover:bg-amber-400 text-slate-950 font-bold px-4 py-2 rounded-xl text-xs transition shadow-lg shadow-amber-500/20 flex items-center gap-2"
+                >
+                  <Plus className="w-4 h-4" />
+                  <span>Register First Employee</span>
+                </button>
+              </div>
+            )}
           </div>
         </div>
       )}

@@ -16,7 +16,9 @@ import {
   initialBookings,
   initialQuotations,
   initialLightWalOrders,
-  initialAttendanceRecords
+  initialAttendanceRecords,
+  starterRentalItems,
+  starterRetailItems
 } from './mockData';
 
 const STORAGE_KEYS = {
@@ -31,6 +33,38 @@ const STORAGE_KEYS = {
   POS_TRANSACTIONS: 'lsl_pos_transactions',
   COMPANY_INFO: 'lsl_company_info'
 };
+
+// Automatic one-time production purge: wipes legacy dummy test data from browser cache
+const DUMMY_PURGE_FLAG = 'lsl_dummy_data_purged_v2';
+if (typeof window !== 'undefined') {
+  try {
+    if (!localStorage.getItem(DUMMY_PURGE_FLAG)) {
+      localStorage.removeItem(STORAGE_KEYS.BOOKINGS);
+      localStorage.removeItem(STORAGE_KEYS.QUOTATIONS);
+      localStorage.removeItem(STORAGE_KEYS.LIGHT_WAL_ORDERS);
+      localStorage.removeItem(STORAGE_KEYS.EMPLOYEES);
+      localStorage.removeItem(STORAGE_KEYS.ATTENDANCE);
+      localStorage.removeItem(STORAGE_KEYS.PAYROLL);
+      localStorage.removeItem(STORAGE_KEYS.POS_TRANSACTIONS);
+      localStorage.removeItem(STORAGE_KEYS.RENTAL_ITEMS);
+      localStorage.removeItem(STORAGE_KEYS.RETAIL_ITEMS);
+
+      localStorage.setItem(STORAGE_KEYS.BOOKINGS, JSON.stringify([]));
+      localStorage.setItem(STORAGE_KEYS.QUOTATIONS, JSON.stringify([]));
+      localStorage.setItem(STORAGE_KEYS.LIGHT_WAL_ORDERS, JSON.stringify([]));
+      localStorage.setItem(STORAGE_KEYS.EMPLOYEES, JSON.stringify([]));
+      localStorage.setItem(STORAGE_KEYS.ATTENDANCE, JSON.stringify([]));
+      localStorage.setItem(STORAGE_KEYS.PAYROLL, JSON.stringify([]));
+      localStorage.setItem(STORAGE_KEYS.POS_TRANSACTIONS, JSON.stringify([]));
+      localStorage.setItem(STORAGE_KEYS.RENTAL_ITEMS, JSON.stringify([]));
+      localStorage.setItem(STORAGE_KEYS.RETAIL_ITEMS, JSON.stringify([]));
+
+      localStorage.setItem(DUMMY_PURGE_FLAG, 'true');
+    }
+  } catch (e) {
+    console.error('Storage purge error:', e);
+  }
+}
 
 export interface CompanyInfo {
   name: string;
@@ -320,15 +354,66 @@ export const StorageService = {
     return JSON.stringify(backup, null, 2);
   },
 
+  // Production Clean Slate: Wipe all test/dummy data
+  clearAllDummyData: () => {
+    StorageService.saveBookings([]);
+    StorageService.saveQuotations([]);
+    StorageService.saveLightWalOrders([]);
+    StorageService.saveEmployees([]);
+    StorageService.saveAttendance([]);
+    StorageService.savePayroll([]);
+    StorageService.savePOSTransactions([]);
+  },
+
+  // Total Clean Slate: Wipe all items & transactions to absolute zero
+  clearAllData: () => {
+    StorageService.saveRentalItems([]);
+    StorageService.saveRetailItems([]);
+    StorageService.saveBookings([]);
+    StorageService.saveQuotations([]);
+    StorageService.saveLightWalOrders([]);
+    StorageService.saveEmployees([]);
+    StorageService.saveAttendance([]);
+    StorageService.savePayroll([]);
+    StorageService.savePOSTransactions([]);
+  },
+
+  // Optional: Load professional stage lighting equipment & retail stock templates
+  loadStarterCatalog: () => {
+    StorageService.saveRentalItems(starterRentalItems);
+    StorageService.saveRetailItems(starterRetailItems);
+    return {
+      rentalCount: starterRentalItems.length,
+      retailCount: starterRetailItems.length
+    };
+  },
+
+  // Quick statistics of all tables in local storage
+  getDataCounts: () => {
+    return {
+      bookings: StorageService.getBookings().length,
+      rentalItems: StorageService.getRentalItems().length,
+      retailItems: StorageService.getRetailItems().length,
+      quotations: StorageService.getQuotations().length,
+      lightWalOrders: StorageService.getLightWalOrders().length,
+      employees: StorageService.getEmployees().length,
+      attendance: StorageService.getAttendance().length,
+      payroll: StorageService.getPayroll().length,
+      posTransactions: StorageService.getPOSTransactions().length
+    };
+  },
+
   resetToDefaults: () => {
     localStorage.clear();
-    StorageService.saveRentalItems(initialRentalItems);
-    StorageService.saveRetailItems(initialRetailItems);
-    StorageService.saveBookings(initialBookings);
-    StorageService.saveQuotations(initialQuotations);
-    StorageService.saveLightWalOrders(initialLightWalOrders);
-    StorageService.saveEmployees(initialEmployees);
-    StorageService.saveAttendance(initialAttendanceRecords);
+    StorageService.saveRentalItems([]);
+    StorageService.saveRetailItems([]);
+    StorageService.saveBookings([]);
+    StorageService.saveQuotations([]);
+    StorageService.saveLightWalOrders([]);
+    StorageService.saveEmployees([]);
+    StorageService.saveAttendance([]);
+    StorageService.savePayroll([]);
+    StorageService.savePOSTransactions([]);
     StorageService.saveCompanyInfo(defaultCompanyInfo);
   }
 };
