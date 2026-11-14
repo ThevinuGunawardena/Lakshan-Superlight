@@ -65,17 +65,17 @@ export const Header: React.FC<HeaderProps> = ({ onQuickAction, onDataChanged, th
     <header className="h-16 bg-slate-900/90 backdrop-blur border-b border-slate-800 px-6 flex items-center justify-between sticky top-0 z-20 no-print">
       {/* Date & Live Clock */}
       <div className="flex items-center gap-3">
-        <div className="hidden lg:flex items-center gap-2 bg-slate-950/80 px-2.5 py-1 rounded-lg border border-slate-800 text-xs">
+        <div className="hidden lg:flex items-center gap-2 bg-slate-100 dark:bg-slate-800 px-3 py-1.5 rounded-lg border border-slate-200 dark:border-slate-700 text-xs shadow-sm">
           <img src={theme === 'light' ? './logo-icon.svg' : './logo-icon-dark.svg'} alt="LS" className="w-4 h-4 object-contain" />
-          <span className="font-bold text-slate-800 dark:text-slate-200">Lakshan Super Light</span>
-          <span className="text-[10px] text-red-600 font-semibold">(Pvt) Ltd</span>
+          <span className="font-black text-slate-900 dark:text-white">Lakshan Super Light</span>
+          <span className="text-[10px] text-red-600 font-extrabold tracking-wider">(Pvt) Ltd</span>
         </div>
 
-        <div className="flex items-center gap-2 bg-slate-800/80 px-3 py-1.5 rounded-lg border border-slate-700/60 text-xs">
-          <Clock className="w-3.5 h-3.5 text-red-500" />
-          <span className="font-semibold text-slate-700 dark:text-slate-200">{timeStr}</span>
-          <span className="text-slate-400">|</span>
-          <span className="text-slate-500 dark:text-slate-400">{dateStr}</span>
+        <div className="flex items-center gap-2 bg-slate-100 dark:bg-slate-800 px-3 py-1.5 rounded-lg border border-slate-200 dark:border-slate-700 text-xs shadow-sm">
+          <Clock className="w-3.5 h-3.5 text-red-600" />
+          <span className="font-bold text-slate-900 dark:text-slate-100 font-mono">{timeStr}</span>
+          <span className="text-slate-300 dark:text-slate-600">|</span>
+          <span className="font-medium text-slate-600 dark:text-slate-300">{dateStr}</span>
         </div>
 
         {/* Theme Toggle Button */}
@@ -83,17 +83,17 @@ export const Header: React.FC<HeaderProps> = ({ onQuickAction, onDataChanged, th
           <button
             onClick={onToggleTheme}
             title={theme === 'light' ? 'Switch to Dark Mode' : 'Switch to Light Mode'}
-            className="flex items-center gap-1.5 px-2.5 py-1.5 rounded-lg border border-slate-200 dark:border-slate-700/60 bg-white dark:bg-slate-800/80 hover:bg-slate-100 dark:hover:bg-slate-700 text-xs transition font-medium shadow-sm"
+            className="theme-toggle-btn flex items-center gap-1.5 px-3 py-1.5 rounded-lg border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 hover:bg-slate-50 text-xs transition font-semibold shadow-sm"
           >
             {theme === 'light' ? (
               <>
-                <Sun className="w-3.5 h-3.5 text-amber-500" />
-                <span className="hidden sm:inline text-slate-700 font-semibold text-[11px]">Light Mode</span>
+                <Sun className="w-3.5 h-3.5 text-amber-500 fill-amber-500/20" />
+                <span className="hidden sm:inline text-slate-800 text-[11px]">Light Mode</span>
               </>
             ) : (
               <>
                 <Moon className="w-3.5 h-3.5 text-indigo-400" />
-                <span className="hidden sm:inline text-slate-300 font-semibold text-[11px]">Dark Mode</span>
+                <span className="hidden sm:inline text-slate-200 text-[11px]">Dark Mode</span>
               </>
             )}
           </button>

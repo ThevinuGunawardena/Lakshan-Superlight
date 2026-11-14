@@ -14,9 +14,27 @@ import { PrintModal } from './components/Common/PrintModal';
 import { StorageService } from './services/storage';
 
 export function App() {
-  const [currentTab, setCurrentTab] = useState<TabType>('dashboard');
+  const [currentTab, setCurrentTab] = useState<TabType>(() => {
+    const params = new URLSearchParams(window.location.search);
+    const tabParam = params.get('tab') as TabType;
+    const validTabs: TabType[] = ['dashboard', 'bookings', 'rental-stock', 'light-wal', 'direct-sales', 'quotations', 'payroll', 'marketing', 'settings'];
+    if (tabParam && validTabs.includes(tabParam)) {
+      return tabParam;
+    }
+    return 'dashboard';
+  });
   const [dataVersion, setDataVersion] = useState(0);
   const [selectedBookingId, setSelectedBookingId] = useState<string | null>(null);
+
+  const handleSelectTab = (tab: TabType) => {
+    setSelectedBookingId(null);
+    setCurrentTab(tab);
+    try {
+      const url = new URL(window.location.href);
+      url.searchParams.set('tab', tab);
+      window.history.replaceState({}, '', url.toString());
+    } catch {}
+  };
 
   // Theme management: defaults to 'light'
   const [theme, setTheme] = useState<'light' | 'dark'>(() => {
@@ -96,10 +114,7 @@ export function App() {
       {/* Sidebar navigation */}
       <Sidebar
         currentTab={currentTab}
-        onSelectTab={(tab) => {
-          setSelectedBookingId(null);
-          setCurrentTab(tab);
-        }}
+        onSelectTab={handleSelectTab}
         bookingBadgeCount={activeBookingsCount}
         lowStockCount={lowStockCount}
         theme={theme}
@@ -117,10 +132,7 @@ export function App() {
         <main className="flex-1 p-6 lg:p-8 max-w-7xl w-full mx-auto">
           {currentTab === 'dashboard' && (
             <DashboardView
-              onNavigate={(tab) => {
-                setSelectedBookingId(null);
-                setCurrentTab(tab);
-              }}
+              onNavigate={handleSelectTab}
               onOpenBooking={handleOpenBooking}
             />
           )}

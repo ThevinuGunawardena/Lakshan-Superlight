@@ -67,6 +67,15 @@ html.light-theme,
   background-color: #f1f5f9 !important;
   border-color: #e2e8f0 !important;
 }
+.light-theme .bg-slate-900\/40,
+.light-theme .bg-slate-900\/50,
+.light-theme .bg-slate-900\/60,
+.light-theme .bg-slate-900\/70,
+.light-theme .bg-slate-900\/80 {
+  background-color: #f1f5f9 !important;
+  border-color: #e2e8f0 !important;
+  color: #334155 !important;
+}
 .light-theme .bg-slate-950\/40,
 .light-theme .bg-slate-950\/60,
 .light-theme .bg-slate-950\/70,
@@ -119,6 +128,64 @@ html.light-theme,
   color: #0f172a !important;
 }
 
+/* Accessible color contrast for colored text & accents in Light Theme */
+.light-theme .text-amber-400,
+.light-theme .text-amber-300 {
+  color: #b45309 !important;
+}
+.light-theme .text-emerald-400,
+.light-theme .text-emerald-300 {
+  color: #047857 !important;
+}
+.light-theme .text-red-400,
+.light-theme .text-red-300,
+.light-theme .text-rose-400 {
+  color: #dc2626 !important;
+}
+.light-theme .text-blue-400,
+.light-theme .text-blue-300 {
+  color: #1d4ed8 !important;
+}
+.light-theme .text-purple-400,
+.light-theme .text-purple-300 {
+  color: #6d28d9 !important;
+}
+.light-theme .text-cyan-400 {
+  color: #0e7490 !important;
+}
+
+/* Hover text contrast */
+.light-theme .hover\:text-white:hover {
+  color: #0f172a !important;
+}
+.light-theme .group:hover .group-hover\:text-white {
+  color: #0f172a !important;
+}
+.light-theme .hover\:text-slate-200:hover {
+  color: #0f172a !important;
+}
+
+/* Gradient stops overrides in Light Theme */
+.light-theme .via-slate-900 {
+  --tw-gradient-via: #ffffff !important;
+  --tw-gradient-stops: var(--tw-gradient-from), #ffffff, var(--tw-gradient-to) !important;
+}
+.light-theme .to-slate-900 {
+  --tw-gradient-to: #f8fafc !important;
+}
+.light-theme .from-red-950\/40 {
+  --tw-gradient-from: #fff1f2 !important;
+  --tw-gradient-stops: #fff1f2, #ffffff, #f8fafc !important;
+}
+.light-theme .from-amber-500\/10 {
+  --tw-gradient-from: #fffbeb !important;
+  --tw-gradient-stops: #fffbeb, #ffffff, #f8fafc !important;
+}
+.light-theme .from-emerald-500\/10 {
+  --tw-gradient-from: #ecfdf5 !important;
+  --tw-gradient-stops: #ecfdf5, #ffffff, #f8fafc !important;
+}
+
 /* Ensure colored buttons and badges retain crisp white text */
 .light-theme button .text-white,
 .light-theme button.text-white,
@@ -127,7 +194,6 @@ html.light-theme,
 .light-theme [class*="bg-emerald-"] .text-white,
 .light-theme [class*="bg-blue-"] .text-white,
 .light-theme [class*="bg-purple-"] .text-white,
-.light-theme [class*="bg-slate-950"] .text-white,
 .light-theme .btn-primary,
 .light-theme .bg-red-600 * {
   color: #ffffff !important;
@@ -184,7 +250,7 @@ html.light-theme,
 
 /* Header Styling in Light Theme */
 .light-theme header {
-  background-color: rgba(255, 255, 255, 0.95) !important;
+  background-color: rgba(255, 255, 255, 0.98) !important;
   border-bottom: 1px solid #e2e8f0 !important;
   box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.04) !important;
 }
@@ -195,6 +261,38 @@ html.light-theme,
 .light-theme header .bg-slate-950\/80 {
   background-color: #ffffff !important;
   border-color: #e2e8f0 !important;
+}
+.light-theme header .text-slate-200,
+.light-theme header .text-slate-300 {
+  color: #0f172a !important;
+}
+.light-theme header .text-slate-400 {
+  color: #64748b !important;
+}
+.light-theme .theme-toggle-btn {
+  background-color: #ffffff !important;
+  border-color: #e2e8f0 !important;
+  color: #0f172a !important;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05) !important;
+}
+.light-theme .theme-toggle-btn:hover {
+  background-color: #f8fafc !important;
+  border-color: #cbd5e1 !important;
+}
+
+/* Event timeline breakdown blocks in Light Theme */
+.light-theme .bg-amber-500\/10,
+.light-theme .bg-amber-400\/10 {
+  background-color: #fffbeb !important;
+  border-color: #fde68a !important;
+}
+.light-theme .bg-emerald-500\/10 {
+  background-color: #ecfdf5 !important;
+  border-color: #a7f3d0 !important;
+}
+.light-theme .bg-purple-500\/10 {
+  background-color: #faf5ff !important;
+  border-color: #e9d5ff !important;
 }
 
 /* Operations Dashboard Hero Banner in Light Theme */
