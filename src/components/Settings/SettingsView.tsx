@@ -6,11 +6,17 @@ import {
   Upload,
   RotateCcw,
   CheckCircle2,
+  AlertTriangle,
   Building,
   CreditCard,
-  FileText
+  FileText,
+  Database,
+  RefreshCw,
+  ExternalLink
 } from 'lucide-react';
 import { StorageService, CompanyInfo } from '../../services/storage';
+import { getStoredSupabaseConfig, resetSupabaseClient, testSupabaseConnection } from '../../services/supabaseClient';
+import { CloudSyncService } from '../../services/cloudSync';
 
 interface SettingsViewProps {
   onRefresh: () => void;
@@ -19,6 +25,52 @@ interface SettingsViewProps {
 export const SettingsView: React.FC<SettingsViewProps> = ({ onRefresh }) => {
   const [company, setCompany] = useState<CompanyInfo>(StorageService.getCompanyInfo());
   const [savedSuccess, setSavedSuccess] = useState(false);
+
+  // Cloud database config
+  const initialCloud = getStoredSupabaseConfig();
+  const [supabaseUrl, setSupabaseUrl] = useState(initialCloud.url);
+  const [supabaseKey, setSupabaseKey] = useState(initialCloud.key);
+  const [isCloudReady, setIsCloudReady] = useState(initialCloud.isConfigured);
+  const [cloudTesting, setCloudTesting] = useState(false);
+  const [cloudStatusMsg, setCloudStatusMsg] = useState<{ success: boolean; message: string } | null>(null);
+  const [cloudSyncing, setCloudSyncing] = useState(false);
+
+  const handleTestConnection = async () => {
+    setCloudTesting(true);
+    setCloudStatusMsg(null);
+    const res = await testSupabaseConnection(supabaseUrl, supabaseKey);
+    setCloudStatusMsg(res);
+    setCloudTesting(false);
+  };
+
+  const handleSaveCloudConfig = async () => {
+    resetSupabaseClient(supabaseUrl, supabaseKey);
+    const updated = getStoredSupabaseConfig();
+    setIsCloudReady(updated.isConfigured);
+    setCloudStatusMsg({ success: true, message: 'Cloud database credentials saved successfully!' });
+    setTimeout(() => setCloudStatusMsg(null), 4000);
+  };
+
+  const handlePushToCloud = async () => {
+    setCloudSyncing(true);
+    setCloudStatusMsg(null);
+    const res = await CloudSyncService.pushToCloud();
+    setCloudStatusMsg(res);
+    setCloudSyncing(false);
+  };
+
+  const handlePullFromCloud = async () => {
+    setCloudSyncing(true);
+    setCloudStatusMsg(null);
+    const res = await CloudSyncService.pullFromCloud();
+    if (res.success) {
+      setCloudStatusMsg({ success: true, message: `Successfully pulled ${res.count} records from cloud database!` });
+      onRefresh();
+    } else {
+      setCloudStatusMsg({ success: false, message: res.error || 'Failed to pull cloud records.' });
+    }
+    setCloudSyncing(false);
+  };
 
   const handleSave = (e: React.FormEvent) => {
     e.preventDefault();
@@ -238,6 +290,118 @@ export const SettingsView: React.FC<SettingsViewProps> = ({ onRefresh }) => {
                 className="w-full bg-slate-950 border border-slate-800 rounded-lg px-2.5 py-1.5 text-white"
               />
             </div>
+          </div>
+        </div>
+
+        {/* Cloud Database & Multi-Device Synchronization (Supabase) */}
+        <div className="bg-slate-900 border border-slate-800 rounded-xl p-5 space-y-4 text-xs">
+          <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 border-b border-slate-800 pb-3">
+            <h3 className="font-bold text-white text-sm flex items-center gap-2">
+              <Database className="w-4 h-4 text-emerald-400" />
+              <span>Cloud Database & Multi-Device Sync (Supabase PostgreSQL)</span>
+            </h3>
+            <span className={`inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-[11px] font-semibold border ${
+              isCloudReady
+                ? 'bg-emerald-500/10 text-emerald-700 dark:text-emerald-400 border-emerald-500/30'
+                : 'bg-amber-500/10 text-amber-800 dark:text-amber-400 border-amber-500/30'
+            }`}>
+              <span className={`w-2 h-2 rounded-full ${isCloudReady ? 'bg-emerald-500 animate-pulse' : 'bg-amber-500'}`}></span>
+              <span>{isCloudReady ? 'Cloud Connected' : 'Local Storage Mode'}</span>
+            </span>
+          </div>
+
+          <p className="text-slate-400 text-[11px]">
+            Connect a free Supabase cloud database so when you host this website, bookings, stock deductions, and POS sales instantly synchronize across all office PCs, warehouse tablets, and mobile phones.
+          </p>
+
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+            <div>
+              <label className="block text-slate-300 font-semibold mb-1">
+                Supabase Project URL
+              </label>
+              <input
+                type="text"
+                placeholder="https://xyzcompany.supabase.co"
+                value={supabaseUrl}
+                onChange={(e) => setSupabaseUrl(e.target.value)}
+                className="w-full bg-slate-950 border border-slate-800 rounded-lg px-2.5 py-1.5 text-white font-mono"
+              />
+            </div>
+            <div>
+              <label className="block text-slate-300 font-semibold mb-1">
+                Supabase Anon Public API Key
+              </label>
+              <input
+                type="password"
+                placeholder="eyJhbGciOiJIUzI1NiIsInR5cCI..."
+                value={supabaseKey}
+                onChange={(e) => setSupabaseKey(e.target.value)}
+                className="w-full bg-slate-950 border border-slate-800 rounded-lg px-2.5 py-1.5 text-white font-mono"
+              />
+            </div>
+          </div>
+
+          {cloudStatusMsg && (
+            <div className={`p-2.5 rounded-lg border text-xs flex items-center gap-2 ${
+              cloudStatusMsg.success 
+                ? 'bg-emerald-500/10 border-emerald-500/30 text-emerald-700 dark:text-emerald-400' 
+                : 'bg-rose-500/10 border-rose-500/30 text-rose-700 dark:text-rose-400'
+            }`}>
+              {cloudStatusMsg.success ? <CheckCircle2 className="w-4 h-4 shrink-0" /> : <AlertTriangle className="w-4 h-4 shrink-0" />}
+              <span>{cloudStatusMsg.message}</span>
+            </div>
+          )}
+
+          <div className="flex flex-wrap items-center gap-2.5 pt-1">
+            <button
+              type="button"
+              disabled={cloudTesting}
+              onClick={handleTestConnection}
+              className="bg-slate-800 hover:bg-slate-700 text-white font-semibold py-1.5 px-3.5 rounded-lg transition flex items-center gap-1.5 border border-slate-700/60"
+            >
+              <RefreshCw className={`w-3.5 h-3.5 ${cloudTesting ? 'animate-spin' : ''}`} />
+              <span>{cloudTesting ? 'Testing Connection...' : 'Test Connection'}</span>
+            </button>
+
+            <button
+              type="button"
+              onClick={handleSaveCloudConfig}
+              className="bg-emerald-600 hover:bg-emerald-500 text-white font-semibold py-1.5 px-3.5 rounded-lg transition flex items-center gap-1.5 shadow"
+            >
+              <Save className="w-3.5 h-3.5" />
+              <span>Save Cloud Credentials</span>
+            </button>
+
+            {isCloudReady && (
+              <>
+                <button
+                  type="button"
+                  disabled={cloudSyncing}
+                  onClick={handlePushToCloud}
+                  className="bg-blue-600 hover:bg-blue-500 text-white font-semibold py-1.5 px-3.5 rounded-lg transition flex items-center gap-1.5 shadow"
+                >
+                  <Upload className="w-3.5 h-3.5" />
+                  <span>{cloudSyncing ? 'Uploading...' : 'Push Local Data to Cloud'}</span>
+                </button>
+
+                <button
+                  type="button"
+                  disabled={cloudSyncing}
+                  onClick={handlePullFromCloud}
+                  className="bg-slate-800 hover:bg-slate-700 text-white font-semibold py-1.5 px-3.5 rounded-lg transition flex items-center gap-1.5 border border-slate-700"
+                >
+                  <Download className="w-3.5 h-3.5" />
+                  <span>Pull Cloud Data to Device</span>
+                </button>
+              </>
+            )}
+          </div>
+
+          <div className="bg-slate-950/60 p-3 rounded-lg border border-slate-800/80 text-[11px] text-slate-400 space-y-1">
+            <div className="font-semibold text-slate-300">Quick 3-Minute Setup:</div>
+            <div>1. Create a free account at <a href="https://supabase.com" target="_blank" rel="noreferrer" className="text-red-500 underline font-semibold">supabase.com</a> and click "New Project".</div>
+            <div>2. Open the <strong>SQL Editor</strong> in Supabase, paste the contents of <code className="font-mono text-slate-300">supabase_schema.sql</code> (provided in this project), and click <strong>Run</strong>.</div>
+            <div>3. Go to <strong>Project Settings ➜ API</strong>, copy your <strong>Project URL</strong> and <strong>anon public API key</strong> into the fields above, and click <strong>Save Cloud Credentials</strong>.</div>
           </div>
         </div>
 

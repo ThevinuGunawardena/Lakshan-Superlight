@@ -113,9 +113,9 @@ export const Sidebar: React.FC<SidebarProps> = ({
       {/* Brand Header */}
       <div className="px-5 py-4 border-b border-slate-800/80 bg-slate-950/70">
         <div className="flex items-center gap-3">
-          <img 
-            src={theme === 'light' ? './logo.svg' : './logo-white.svg'} 
-            alt="Lakshan Super Light (Pvt) Ltd" 
+          <img
+            src={theme === 'light' ? './logo.svg' : './logo-white.svg'}
+            alt="Lakshan Super Light (Pvt) Ltd"
             className="h-10 w-auto max-w-[215px] object-contain drop-shadow-sm"
           />
         </div>

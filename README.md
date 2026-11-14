@@ -77,7 +77,26 @@ A unified operational management system engineered specifically for **Lakshan Su
 
 ---
 
-## 💻 Quick Start Guide
+### 10. Cloud Database & Multi-Device Synchronization (Supabase)
+- **Central PostgreSQL Cloud Database**: Connect free Supabase cloud database to allow real-time multi-device sync across office PCs, warehouse tablets, and mobile phones.
+- **Offline-First Hybrid Persistence**: Instant optimistic UI with local fallback if internet disconnects, automatically writing to cloud when connected.
+- **1-Click SQL Setup**: Automated schema file `supabase_schema.sql` included in root for instant 1-click table setup.
+- **In-App Credential Management**: Enter Supabase URL and Key directly in the UI under **Settings ➜ Cloud Database** or via `.env` file.
+
+---
+
+## ☁️ Web Hosting & Cloud Setup Guide
+
+### 1. Free Cloud Database Setup (Supabase)
+1. Create a free account at [supabase.com](https://supabase.com) and click **New Project**.
+2. Go to the **SQL Editor** tab on the left, copy the contents of **`supabase_schema.sql`** in this project, and click **Run**.
+3. In Supabase, go to **Project Settings ➜ API**, copy your **Project URL** and **anon public API key**.
+4. In the Lakshan Superlight web app, open **Settings & Company ➜ Cloud Database**, paste the URL and Key, and click **Save Cloud Credentials**.
+5. Click **Push Local Data to Cloud** to upload all existing mock/demo equipment and bookings into the cloud!
+
+### 2. Deploying to Free Web Hosting (Vercel or Netlify)
+- **Vercel**: Import the GitHub repository `ThevinuGunawardena/Lakshan-Superlight`, add environment variables `VITE_SUPABASE_URL` and `VITE_SUPABASE_ANON_KEY`, and click **Deploy**.
+- **Netlify**: Connect your GitHub repository, set build command `npm run build` and publish directory `dist`.
 
 ### Launching with the Windows 1-Click Launcher
 Double-click **`Run-Lakshan-Superlight.bat`** in the application directory.
