@@ -91,9 +91,42 @@ export const SettingsView: React.FC<SettingsViewProps> = ({ onRefresh }) => {
         {/* Company Details */}
         <div className="bg-slate-900 border border-slate-800 rounded-xl p-5 space-y-4 text-xs">
           <h3 className="font-bold text-white text-sm flex items-center gap-2">
-            <Building className="w-4 h-4 text-amber-400" />
+            <Building className="w-4 h-4 text-red-500" />
             <span>Company Branding (Header on Invoices & Quotations)</span>
           </h3>
+
+          {/* Official Brand Logo Preview & Downloads */}
+          <div className="p-4 rounded-xl bg-slate-950/70 border border-slate-800 grid grid-cols-1 md:grid-cols-3 gap-4">
+            <div className="bg-white p-3 rounded-lg border border-slate-200 flex flex-col items-center justify-center gap-2">
+              <span className="text-[10px] font-bold text-slate-500 uppercase tracking-wider">Print / Light Media Logo</span>
+              <img src="./logo.svg" alt="Lakshan Super Light Logo" className="h-12 w-auto object-contain" />
+              <div className="flex gap-2 mt-1">
+                <a href="./logo.svg" download="Lakshan-Superlight-Logo.svg" className="text-[10px] text-red-600 hover:underline font-semibold">Download SVG</a>
+                <span className="text-slate-300">•</span>
+                <a href="./logo.png" download="Lakshan-Superlight-Logo.png" className="text-[10px] text-slate-700 hover:underline font-semibold">PNG (High-Res)</a>
+              </div>
+            </div>
+
+            <div className="bg-slate-900 p-3 rounded-lg border border-slate-800 flex flex-col items-center justify-center gap-2">
+              <span className="text-[10px] font-bold text-slate-400 uppercase tracking-wider">Dark Theme / Header Logo</span>
+              <img src="./logo-white.svg" alt="Lakshan Super Light Dark Logo" className="h-12 w-auto object-contain" />
+              <div className="flex gap-2 mt-1">
+                <a href="./logo-white.svg" download="Lakshan-Superlight-White.svg" className="text-[10px] text-red-400 hover:underline font-semibold">Download SVG</a>
+                <span className="text-slate-600">•</span>
+                <a href="./logo-white.png" download="Lakshan-Superlight-White.png" className="text-[10px] text-slate-300 hover:underline font-semibold">PNG</a>
+              </div>
+            </div>
+
+            <div className="bg-slate-900/60 p-3 rounded-lg border border-slate-800 flex flex-col items-center justify-center gap-2">
+              <span className="text-[10px] font-bold text-slate-400 uppercase tracking-wider">Circular LS Monogram Badge</span>
+              <img src="./logo-icon-dark.svg" alt="LS Monogram" className="h-12 w-12 object-contain" />
+              <div className="flex gap-2 mt-1">
+                <a href="./logo-icon.svg" download="LS-Monogram.svg" className="text-[10px] text-red-400 hover:underline font-semibold">Icon SVG</a>
+                <span className="text-slate-600">•</span>
+                <a href="./favicon.png" download="favicon.png" className="text-[10px] text-slate-300 hover:underline font-semibold">Favicon PNG</a>
+              </div>
+            </div>
+          </div>
 
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
             <div>

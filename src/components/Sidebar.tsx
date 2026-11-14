@@ -9,7 +9,6 @@ import {
   Fingerprint,
   Megaphone,
   Settings,
-  Flame,
   ChevronRight
 } from 'lucide-react';
 
@@ -110,23 +109,21 @@ export const Sidebar: React.FC<SidebarProps> = ({
   return (
     <aside className="w-72 bg-slate-900 border-r border-slate-800 flex flex-col h-screen sticky top-0 shrink-0 no-print select-none">
       {/* Brand Header */}
-      <div className="p-5 border-b border-slate-800/80 bg-slate-950/40">
+      <div className="px-5 py-4 border-b border-slate-800/80 bg-slate-950/70">
         <div className="flex items-center gap-3">
-          <div className="w-11 h-11 rounded-xl bg-gradient-to-br from-amber-400 to-amber-600 flex items-center justify-center shadow-lg shadow-amber-500/20 ring-2 ring-amber-400/30">
-            <Flame className="w-6 h-6 text-slate-950 fill-slate-950" />
-          </div>
-          <div>
-            <h1 className="font-extrabold text-base tracking-tight text-white flex items-center gap-1.5">
-              <span>LAKSHAN</span>
-              <span className="text-amber-400 font-black">SUPERLIGHT</span>
-            </h1>
-            <p className="text-[11px] text-slate-400 font-medium leading-none mt-0.5">
-              Event Productions & Rentals
-            </p>
-            <p className="text-[10px] text-amber-400/80 font-medium mt-1">
-              Enterprise Management System
-            </p>
-          </div>
+          <img 
+            src="./logo-white.svg" 
+            alt="Lakshan Super Light (Pvt) Ltd" 
+            className="h-10 w-auto max-w-[215px] object-contain drop-shadow"
+          />
+        </div>
+        <div className="flex items-center justify-between mt-2.5 pt-2 border-t border-slate-800/70">
+          <span className="text-[10px] font-semibold text-slate-400 tracking-wider uppercase">
+            Operations & POS
+          </span>
+          <span className="text-[9px] px-1.5 py-0.5 rounded font-bold bg-red-500/15 text-red-400 border border-red-500/30">
+            Enterprise v1.0
+          </span>
         </div>
       </div>
 

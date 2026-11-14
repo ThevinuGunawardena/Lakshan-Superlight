@@ -42,24 +42,33 @@ export const DashboardView: React.FC<DashboardViewProps> = ({ onNavigate, onOpen
   return (
     <div className="space-y-6">
       {/* Top Banner with Specs Notification */}
-      <div className="bg-gradient-to-r from-amber-500/15 via-slate-900 to-slate-900 border border-amber-500/30 rounded-2xl p-5 relative overflow-hidden">
+      <div className="bg-gradient-to-r from-red-950/40 via-slate-900 to-slate-900 border border-red-500/30 rounded-2xl p-5 relative overflow-hidden">
         <div className="relative z-10 flex flex-col md:flex-row md:items-center justify-between gap-4">
-          <div>
-            <div className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-md bg-amber-500/20 text-amber-300 text-xs font-semibold mb-2 border border-amber-500/30">
-              <Sparkles className="w-3.5 h-3.5" />
-              <span>Full-Lifecycle Date Blocking Engine Active</span>
+          <div className="flex items-start gap-4">
+            <div className="hidden sm:flex w-16 h-16 rounded-2xl bg-slate-950/80 border border-slate-700/60 p-2 items-center justify-center shrink-0 shadow-lg shadow-black/50">
+              <img 
+                src="./logo-icon-dark.svg" 
+                alt="Lakshan Super Light" 
+                className="w-full h-full object-contain"
+              />
             </div>
-            <h2 className="text-2xl font-black text-white tracking-tight">
-              Lakshan Superlight Operations Hub
-            </h2>
-            <p className="text-sm text-slate-300 mt-1 max-w-2xl">
-              Automatic inventory deduction across <span className="text-amber-400 font-semibold">Pre-Event Setup (3–4 days)</span>, <span className="text-emerald-400 font-semibold">Active Event</span>, and <span className="text-purple-400 font-semibold">Post-Event Dismantling (3 days)</span> to prevent overbooking.
-            </p>
+            <div>
+              <div className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-md bg-red-500/15 text-red-300 text-xs font-semibold mb-2 border border-red-500/30">
+                <Sparkles className="w-3.5 h-3.5 text-red-400" />
+                <span>Full-Lifecycle Date Blocking Engine Active</span>
+              </div>
+              <h2 className="text-2xl font-black text-white tracking-tight">
+                Lakshan Super Light Operations Hub
+              </h2>
+              <p className="text-sm text-slate-300 mt-1 max-w-2xl">
+                Automatic inventory deduction across <span className="text-red-400 font-semibold">Pre-Event Setup (3–4 days)</span>, <span className="text-emerald-400 font-semibold">Active Event</span>, and <span className="text-purple-400 font-semibold">Post-Event Dismantling (3 days)</span> to prevent overbooking.
+              </p>
+            </div>
           </div>
           <div className="flex items-center gap-3">
             <button
               onClick={() => onNavigate('bookings')}
-              className="bg-amber-500 hover:bg-amber-400 text-slate-950 font-bold px-4 py-2.5 rounded-xl text-sm transition shadow-lg shadow-amber-500/20 flex items-center gap-2"
+              className="bg-red-600 hover:bg-red-500 text-white font-bold px-4 py-2.5 rounded-xl text-sm transition shadow-lg shadow-red-600/30 flex items-center gap-2"
             >
               <Calendar className="w-4 h-4" />
               <span>Manage Bookings & Dates</span>

@@ -59,22 +59,26 @@ export const PrintModal: React.FC<PrintModalProps> = ({
           <div className="space-y-6">
             {/* Header */}
             <div className="flex justify-between items-start border-b-2 border-slate-900 pb-4">
-              <div>
-                <h1 className="text-2xl font-black text-slate-950 tracking-tight">
-                  {company.name.toUpperCase()}
-                </h1>
-                <div className="text-xs text-amber-700 font-bold mt-0.5">
-                  {company.tagline}
-                </div>
-                <div className="text-xs text-slate-600 mt-1 max-w-md">
-                  {company.address}
-                </div>
-                <div className="text-xs text-slate-600">
-                  Tel: {company.phone1} | {company.phone2} • Email: {company.email}
+              <div className="flex items-start gap-4">
+                <img 
+                  src="./logo.svg" 
+                  alt="Lakshan Super Light (Pvt) Ltd" 
+                  className="h-16 w-auto object-contain"
+                />
+                <div className="pt-0.5">
+                  <div className="text-xs text-red-600 font-bold uppercase tracking-wider">
+                    {company.tagline}
+                  </div>
+                  <div className="text-xs text-slate-600 mt-1 max-w-md">
+                    {company.address}
+                  </div>
+                  <div className="text-xs text-slate-600">
+                    Tel: {company.phone1} | {company.phone2} • Email: {company.email}
+                  </div>
                 </div>
               </div>
 
-              <div className="text-right">
+              <div className="text-right shrink-0">
                 <span className="inline-block bg-slate-950 text-white font-black text-base px-3 py-1 rounded">
                   {docType === 'invoice' ? 'COMMERCIAL INVOICE' : 'QUOTATION'}
                 </span>
@@ -85,7 +89,7 @@ export const PrintModal: React.FC<PrintModalProps> = ({
                   Date: {data.createdAt || new Date().toISOString().split('T')[0]}
                 </div>
                 {docType === 'quote' && (
-                  <div className="text-xs text-amber-700 font-semibold">
+                  <div className="text-xs text-red-700 font-semibold">
                     Valid Until: {data.validUntil}
                   </div>
                 )}
@@ -227,20 +231,24 @@ export const PrintModal: React.FC<PrintModalProps> = ({
         {docType === 'light-wal' && (
           <div className="space-y-6">
             <div className="flex justify-between items-start border-b-2 border-slate-900 pb-4">
-              <div>
-                <h1 className="text-2xl font-black text-slate-950 tracking-tight">
-                  {company.name.toUpperCase()}
-                </h1>
-                <div className="text-xs text-amber-700 font-bold mt-0.5">
-                  Dedicated "Light Wal" (Fairy / Festoon Lights) Invoicing & Workshop Sheet
-                </div>
-                <div className="text-xs text-slate-600 mt-1">
-                  {company.address} • Tel: {company.phone1}
+              <div className="flex items-start gap-4">
+                <img 
+                  src="./logo.svg" 
+                  alt="Lakshan Super Light (Pvt) Ltd" 
+                  className="h-14 w-auto object-contain"
+                />
+                <div className="pt-0.5">
+                  <div className="text-xs text-red-600 font-bold uppercase tracking-wider">
+                    Dedicated "Light Wal" (Fairy / Festoon Lights) Invoicing & Workshop Sheet
+                  </div>
+                  <div className="text-xs text-slate-600 mt-1">
+                    {company.address} • Tel: {company.phone1}
+                  </div>
                 </div>
               </div>
 
-              <div className="text-right">
-                <span className="inline-block bg-amber-600 text-white font-black text-sm px-3 py-1 rounded">
+              <div className="text-right shrink-0">
+                <span className="inline-block bg-red-600 text-white font-black text-sm px-3 py-1 rounded">
                   LIGHT WAL INVOICE
                 </span>
                 <div className="text-xs font-mono font-bold text-slate-800 mt-2">
@@ -376,9 +384,13 @@ export const PrintModal: React.FC<PrintModalProps> = ({
         {/* ==================================================== */}
         {docType === 'pos-receipt' && (
           <div className="max-w-xs mx-auto font-mono text-xs space-y-3 text-slate-900 py-4">
-            <div className="text-center space-y-0.5 border-b border-dashed border-slate-400 pb-3">
-              <div className="font-black text-sm uppercase">{company.name}</div>
-              <div className="text-[10px] text-slate-600">RETAIL DIRECT SALES</div>
+            <div className="text-center space-y-1 border-b border-dashed border-slate-400 pb-3">
+              <img 
+                src="./logo.svg" 
+                alt="Lakshan Super Light (Pvt) Ltd" 
+                className="h-8 mx-auto object-contain mb-1"
+              />
+              <div className="text-[10px] text-slate-600 font-bold tracking-wider">RETAIL DIRECT SALES</div>
               <div className="text-[10px]">{company.address}</div>
               <div className="text-[10px]">Tel: {company.phone1}</div>
               <div className="text-[10px] font-bold mt-1">RECEIPT: {data.receiptNumber}</div>
@@ -439,19 +451,23 @@ export const PrintModal: React.FC<PrintModalProps> = ({
         {docType === 'payslip' && (
           <div className="space-y-6">
             <div className="flex justify-between items-start border-b-2 border-slate-900 pb-4">
-              <div>
-                <h1 className="text-xl font-black text-slate-950 tracking-tight">
-                  {company.name.toUpperCase()}
-                </h1>
-                <div className="text-xs text-purple-700 font-bold mt-0.5">
-                  MONTHLY SALARY PAYSLIP
-                </div>
-                <div className="text-xs text-slate-600 mt-1">
-                  {company.address}
+              <div className="flex items-start gap-4">
+                <img 
+                  src="./logo.svg" 
+                  alt="Lakshan Super Light (Pvt) Ltd" 
+                  className="h-14 w-auto object-contain"
+                />
+                <div className="pt-0.5">
+                  <div className="text-xs text-purple-700 font-bold uppercase tracking-wider">
+                    MONTHLY SALARY PAYSLIP
+                  </div>
+                  <div className="text-xs text-slate-600 mt-1">
+                    {company.address}
+                  </div>
                 </div>
               </div>
 
-              <div className="text-right">
+              <div className="text-right shrink-0">
                 <span className="inline-block bg-purple-700 text-white font-bold text-xs px-2.5 py-1 rounded">
                   {data.payrollMonth} PAYSLIP
                 </span>

@@ -48,7 +48,7 @@ export interface CompanyInfo {
 }
 
 export const defaultCompanyInfo: CompanyInfo = {
-  name: 'Lakshan Superlight & Event Productions',
+  name: 'Lakshan Super Light (Pvt) Ltd',
   tagline: 'Professional Stage Lighting, Light Wal Rentals & Sales',
   address: 'No. 142/B, High Level Road, Maharagama, Sri Lanka',
   phone1: '+94 77 123 4567',
@@ -58,7 +58,7 @@ export const defaultCompanyInfo: CompanyInfo = {
   bankName: 'Commercial Bank of Ceylon',
   bankBranch: 'Maharagama Super Branch',
   accountNumber: '800 124 5590',
-  accountHolder: 'Lakshan Superlight Productions',
+  accountHolder: 'Lakshan Super Light (Pvt) Ltd',
   terms: [
     '30% non-refundable advance required to confirm booking and lock equipment dates.',
     'Equipment blocked strictly includes pre-event setup (3-4 days) & post-event dismantling (3 days).',
@@ -197,7 +197,15 @@ export const StorageService = {
   savePayroll: (payroll: PayrollRecord[]) => setStored(STORAGE_KEYS.PAYROLL, payroll),
 
   // Company Info
-  getCompanyInfo: (): CompanyInfo => getStored(STORAGE_KEYS.COMPANY_INFO, defaultCompanyInfo),
+  getCompanyInfo: (): CompanyInfo => {
+    const info = getStored(STORAGE_KEYS.COMPANY_INFO, defaultCompanyInfo);
+    if (info && info.name === 'Lakshan Superlight & Event Productions') {
+      info.name = 'Lakshan Super Light (Pvt) Ltd';
+      info.accountHolder = 'Lakshan Super Light (Pvt) Ltd';
+      setStored(STORAGE_KEYS.COMPANY_INFO, info);
+    }
+    return info;
+  },
   saveCompanyInfo: (info: CompanyInfo) => setStored(STORAGE_KEYS.COMPANY_INFO, info),
 
   // Date Blocking & Overbooking Prevention
