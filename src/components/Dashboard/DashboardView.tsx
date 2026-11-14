@@ -45,9 +45,9 @@ export const DashboardView: React.FC<DashboardViewProps> = ({ onNavigate, onOpen
       <div className="bg-gradient-to-r from-red-950/40 via-slate-900 to-slate-900 border border-red-500/30 rounded-2xl p-5 relative overflow-hidden">
         <div className="relative z-10 flex flex-col md:flex-row md:items-center justify-between gap-4">
           <div className="flex items-start gap-4">
-            <div className="hidden sm:flex w-16 h-16 rounded-2xl bg-slate-950/80 border border-slate-700/60 p-2 items-center justify-center shrink-0 shadow-lg shadow-black/50">
+            <div className="hidden sm:flex w-16 h-16 rounded-2xl bg-white dark:bg-slate-950/80 border border-slate-200 dark:border-slate-700/60 p-2 items-center justify-center shrink-0 shadow-md">
               <img 
-                src="./logo-icon-dark.svg" 
+                src="./logo-icon.svg" 
                 alt="Lakshan Super Light" 
                 className="w-full h-full object-contain"
               />

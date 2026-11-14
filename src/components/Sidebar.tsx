@@ -28,13 +28,15 @@ interface SidebarProps {
   onSelectTab: (tab: TabType) => void;
   bookingBadgeCount?: number;
   lowStockCount?: number;
+  theme?: 'light' | 'dark';
 }
 
 export const Sidebar: React.FC<SidebarProps> = ({
   currentTab,
   onSelectTab,
   bookingBadgeCount = 0,
-  lowStockCount = 0
+  lowStockCount = 0,
+  theme = 'light'
 }) => {
   const menuItems = [
     {
@@ -112,16 +114,16 @@ export const Sidebar: React.FC<SidebarProps> = ({
       <div className="px-5 py-4 border-b border-slate-800/80 bg-slate-950/70">
         <div className="flex items-center gap-3">
           <img 
-            src="./logo-white.svg" 
+            src={theme === 'light' ? './logo.svg' : './logo-white.svg'} 
             alt="Lakshan Super Light (Pvt) Ltd" 
-            className="h-10 w-auto max-w-[215px] object-contain drop-shadow"
+            className="h-10 w-auto max-w-[215px] object-contain drop-shadow-sm"
           />
         </div>
         <div className="flex items-center justify-between mt-2.5 pt-2 border-t border-slate-800/70">
-          <span className="text-[10px] font-semibold text-slate-400 tracking-wider uppercase">
+          <span className="text-[10px] font-semibold text-slate-500 tracking-wider uppercase">
             Operations & POS
           </span>
-          <span className="text-[9px] px-1.5 py-0.5 rounded font-bold bg-red-500/15 text-red-400 border border-red-500/30">
+          <span className="text-[9px] px-1.5 py-0.5 rounded font-bold bg-red-500/15 text-red-600 border border-red-500/30">
             Enterprise v1.0
           </span>
         </div>

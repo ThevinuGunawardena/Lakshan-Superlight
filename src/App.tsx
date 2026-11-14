@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Sidebar, TabType } from './components/Sidebar';
 import { Header } from './components/Header';
 import { DashboardView } from './components/Dashboard/DashboardView';
@@ -17,6 +17,29 @@ export function App() {
   const [currentTab, setCurrentTab] = useState<TabType>('dashboard');
   const [dataVersion, setDataVersion] = useState(0);
   const [selectedBookingId, setSelectedBookingId] = useState<string | null>(null);
+
+  // Theme management: defaults to 'light'
+  const [theme, setTheme] = useState<'light' | 'dark'>(() => {
+    const saved = localStorage.getItem('lsl_theme');
+    return (saved === 'dark' || saved === 'light') ? saved : 'light';
+  });
+
+  useEffect(() => {
+    localStorage.setItem('lsl_theme', theme);
+    if (theme === 'light') {
+      document.documentElement.classList.add('light-theme');
+      document.body.classList.add('light-theme');
+      document.documentElement.classList.remove('dark');
+    } else {
+      document.documentElement.classList.remove('light-theme');
+      document.body.classList.remove('light-theme');
+      document.documentElement.classList.add('dark');
+    }
+  }, [theme]);
+
+  const handleToggleTheme = () => {
+    setTheme(prev => prev === 'light' ? 'dark' : 'light');
+  };
 
   // Print Modal State
   const [printModalState, setPrintModalState] = useState<{
@@ -69,7 +92,7 @@ export function App() {
   const lowStockCount = retailItems.filter(i => i.stockQty <= i.minAlertQty).length;
 
   return (
-    <div className="flex min-h-screen bg-slate-950 text-slate-100">
+    <div className={`flex min-h-screen ${theme === 'light' ? 'bg-slate-50 text-slate-900 light-theme' : 'bg-slate-950 text-slate-100'}`}>
       {/* Sidebar navigation */}
       <Sidebar
         currentTab={currentTab}
@@ -79,6 +102,7 @@ export function App() {
         }}
         bookingBadgeCount={activeBookingsCount}
         lowStockCount={lowStockCount}
+        theme={theme}
       />
 
       {/* Main Content Area */}
@@ -86,6 +110,8 @@ export function App() {
         <Header
           onQuickAction={handleQuickAction}
           onDataChanged={handleRefreshData}
+          theme={theme}
+          onToggleTheme={handleToggleTheme}
         />
 
         <main className="flex-1 p-6 lg:p-8 max-w-7xl w-full mx-auto">

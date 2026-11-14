@@ -4,7 +4,7 @@
 
 @layer base {
   body {
-    @apply bg-slate-950 text-slate-100 font-sans;
+    @apply bg-slate-950 text-slate-100 font-sans transition-colors duration-150;
   }
 }
 
@@ -24,7 +24,244 @@
   background: #475569;
 }
 
-/* Print optimizations */
+/* ==========================================================================
+   ENTERPRISE LIGHT THEME ENGINE (LAKSHAN SUPER LIGHT BRANDED)
+   ========================================================================== */
+
+body.light-theme,
+html.light-theme,
+.light-theme {
+  background-color: #f8fafc !important;
+  color: #0f172a !important;
+}
+
+/* Scrollbar in Light Theme */
+.light-theme ::-webkit-scrollbar-track {
+  background: #f1f5f9;
+}
+.light-theme ::-webkit-scrollbar-thumb {
+  background: #cbd5e1;
+}
+.light-theme ::-webkit-scrollbar-thumb:hover {
+  background: #94a3b8;
+}
+
+/* Surface backgrounds */
+.light-theme .bg-slate-950 {
+  background-color: #f8fafc !important;
+}
+.light-theme .bg-slate-900 {
+  background-color: #ffffff !important;
+  border-color: #e2e8f0 !important;
+  box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.05), 0 1px 2px -1px rgba(0, 0, 0, 0.05);
+}
+.light-theme .bg-slate-800 {
+  background-color: #f1f5f9 !important;
+  border-color: #e2e8f0 !important;
+}
+.light-theme .bg-slate-800\/80,
+.light-theme .bg-slate-800\/70,
+.light-theme .bg-slate-800\/60,
+.light-theme .bg-slate-800\/50,
+.light-theme .bg-slate-800\/40 {
+  background-color: #f1f5f9 !important;
+  border-color: #e2e8f0 !important;
+}
+.light-theme .bg-slate-950\/40,
+.light-theme .bg-slate-950\/60,
+.light-theme .bg-slate-950\/70,
+.light-theme .bg-slate-950\/80 {
+  background-color: #f8fafc !important;
+  border-color: #e2e8f0 !important;
+}
+
+/* Border overrides */
+.light-theme .border-slate-800,
+.light-theme .border-slate-800\/80,
+.light-theme .border-slate-800\/70,
+.light-theme .border-slate-800\/60,
+.light-theme .border-slate-700,
+.light-theme .border-slate-700\/60,
+.light-theme .border-slate-700\/50 {
+  border-color: #e2e8f0 !important;
+}
+.light-theme .divide-slate-800 > :not([hidden]) ~ :not([hidden]),
+.light-theme .divide-slate-700 > :not([hidden]) ~ :not([hidden]) {
+  border-color: #f1f5f9 !important;
+}
+
+/* Typography Hierarchy in Light Theme */
+.light-theme h1,
+.light-theme h2,
+.light-theme h3,
+.light-theme h4,
+.light-theme h5,
+.light-theme h6 {
+  color: #0f172a !important;
+}
+
+.light-theme .text-slate-100 {
+  color: #0f172a !important;
+}
+.light-theme .text-slate-200 {
+  color: #1e293b !important;
+}
+.light-theme .text-slate-300 {
+  color: #334155 !important;
+}
+.light-theme .text-slate-400 {
+  color: #64748b !important;
+}
+.light-theme .text-slate-500 {
+  color: #64748b !important;
+}
+.light-theme .text-white {
+  color: #0f172a !important;
+}
+
+/* Ensure colored buttons and badges retain crisp white text */
+.light-theme button .text-white,
+.light-theme button.text-white,
+.light-theme [class*="bg-red-"] .text-white,
+.light-theme [class*="bg-red-"] span,
+.light-theme [class*="bg-emerald-"] .text-white,
+.light-theme [class*="bg-blue-"] .text-white,
+.light-theme [class*="bg-purple-"] .text-white,
+.light-theme [class*="bg-slate-950"] .text-white,
+.light-theme .btn-primary,
+.light-theme .bg-red-600 * {
+  color: #ffffff !important;
+}
+
+/* Inputs, Textareas and Selects */
+.light-theme input,
+.light-theme select,
+.light-theme textarea {
+  background-color: #ffffff !important;
+  border: 1px solid #cbd5e1 !important;
+  color: #0f172a !important;
+}
+.light-theme input::placeholder,
+.light-theme textarea::placeholder {
+  color: #94a3b8 !important;
+}
+.light-theme input:focus,
+.light-theme select:focus,
+.light-theme textarea:focus {
+  border-color: #e30308 !important;
+  box-shadow: 0 0 0 2px rgba(227, 3, 8, 0.15) !important;
+}
+
+/* Sidebar Styling in Light Theme */
+.light-theme aside {
+  background-color: #ffffff !important;
+  border-right: 1px solid #e2e8f0 !important;
+  box-shadow: 1px 0 3px rgba(0, 0, 0, 0.03) !important;
+}
+.light-theme aside > div:first-child {
+  background-color: #ffffff !important;
+  border-bottom: 1px solid #f1f5f9 !important;
+}
+.light-theme aside > div:last-child {
+  background-color: #f8fafc !important;
+  border-top: 1px solid #f1f5f9 !important;
+}
+.light-theme aside nav button:not(.bg-amber-500):not(.bg-red-600) {
+  color: #475569 !important;
+}
+.light-theme aside nav button:hover:not(.bg-amber-500):not(.bg-red-600) {
+  background-color: #f1f5f9 !important;
+  color: #0f172a !important;
+}
+.light-theme aside nav button.bg-amber-500 {
+  background-color: #e30308 !important;
+  color: #ffffff !important;
+  box-shadow: 0 4px 12px rgba(227, 3, 8, 0.25) !important;
+}
+.light-theme aside nav button.bg-amber-500 * {
+  color: #ffffff !important;
+}
+
+/* Header Styling in Light Theme */
+.light-theme header {
+  background-color: rgba(255, 255, 255, 0.95) !important;
+  border-bottom: 1px solid #e2e8f0 !important;
+  box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.04) !important;
+}
+.light-theme header .bg-slate-800\/80 {
+  background-color: #f1f5f9 !important;
+  border-color: #e2e8f0 !important;
+}
+.light-theme header .bg-slate-950\/80 {
+  background-color: #ffffff !important;
+  border-color: #e2e8f0 !important;
+}
+
+/* Operations Dashboard Hero Banner in Light Theme */
+.light-theme .from-red-950\/40,
+.light-theme .from-amber-500\/15 {
+  background: linear-gradient(135deg, #fff1f2 0%, #ffffff 50%, #f8fafc 100%) !important;
+  border-color: #fecdd3 !important;
+  box-shadow: 0 4px 6px -1px rgba(227, 3, 8, 0.05) !important;
+}
+.light-theme .from-red-950\/40 h2,
+.light-theme .from-amber-500\/15 h2 {
+  color: #0f172a !important;
+}
+.light-theme .from-red-950\/40 p,
+.light-theme .from-amber-500\/15 p {
+  color: #475569 !important;
+}
+
+/* Primary Action Buttons in Light Theme */
+.light-theme button.bg-amber-500 {
+  background-color: #e30308 !important;
+  color: #ffffff !important;
+  box-shadow: 0 4px 12px rgba(227, 3, 8, 0.2) !important;
+}
+.light-theme button.bg-amber-500:hover {
+  background-color: #c90005 !important;
+}
+
+/* Secondary Action Buttons in Light Theme */
+.light-theme .bg-amber-400\/15 {
+  background-color: #fef2f2 !important;
+  border-color: #fca5a5 !important;
+  color: #b91c1c !important;
+}
+.light-theme .bg-amber-400\/15:hover {
+  background-color: #fee2e2 !important;
+}
+
+/* Table styling in Light Theme */
+.light-theme table thead {
+  background-color: #f1f5f9 !important;
+  color: #334155 !important;
+}
+.light-theme table tbody tr {
+  border-color: #f1f5f9 !important;
+}
+.light-theme table tbody tr:hover {
+  background-color: #f8fafc !important;
+}
+
+/* Hover cards */
+.light-theme .hover\:border-amber-500\/40:hover {
+  border-color: #e30308 !important;
+  box-shadow: 0 4px 12px rgba(227, 3, 8, 0.08) !important;
+}
+
+/* Modal styling in Light Theme */
+.light-theme .bg-slate-900.rounded-xl,
+.light-theme .bg-slate-900.rounded-2xl {
+  background-color: #ffffff !important;
+  border-color: #e2e8f0 !important;
+  box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 8px 10px -6px rgba(0, 0, 0, 0.1) !important;
+}
+
+/* ==========================================================================
+   PRINT OPTIMIZATIONS
+   ========================================================================== */
 @media print {
   nav, aside, header, .no-print, button:not(.print-allow) {
     display: none !important;

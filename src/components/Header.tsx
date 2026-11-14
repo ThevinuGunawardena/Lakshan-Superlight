@@ -7,16 +7,20 @@ import {
   ShoppingBag,
   Clock,
   CheckCircle2,
-  AlertTriangle
+  AlertTriangle,
+  Sun,
+  Moon
 } from 'lucide-react';
 import { StorageService } from '../services/storage';
 
 interface HeaderProps {
   onQuickAction: (action: 'new-booking' | 'new-light-wal' | 'new-pos' | 'punch-attendance') => void;
   onDataChanged: () => void;
+  theme?: 'light' | 'dark';
+  onToggleTheme?: () => void;
 }
 
-export const Header: React.FC<HeaderProps> = ({ onQuickAction, onDataChanged }) => {
+export const Header: React.FC<HeaderProps> = ({ onQuickAction, onDataChanged, theme = 'light', onToggleTheme }) => {
   const [timeStr, setTimeStr] = useState<string>('');
   const [dateStr, setDateStr] = useState<string>('');
   const [toast, setToast] = useState<string | null>(null);
@@ -62,17 +66,38 @@ export const Header: React.FC<HeaderProps> = ({ onQuickAction, onDataChanged }) 
       {/* Date & Live Clock */}
       <div className="flex items-center gap-3">
         <div className="hidden lg:flex items-center gap-2 bg-slate-950/80 px-2.5 py-1 rounded-lg border border-slate-800 text-xs">
-          <img src="./logo-icon-dark.svg" alt="LS" className="w-4 h-4 object-contain" />
-          <span className="font-bold text-slate-200">Lakshan Super Light</span>
-          <span className="text-[10px] text-red-400 font-semibold">(Pvt) Ltd</span>
+          <img src={theme === 'light' ? './logo-icon.svg' : './logo-icon-dark.svg'} alt="LS" className="w-4 h-4 object-contain" />
+          <span className="font-bold text-slate-800 dark:text-slate-200">Lakshan Super Light</span>
+          <span className="text-[10px] text-red-600 font-semibold">(Pvt) Ltd</span>
         </div>
 
         <div className="flex items-center gap-2 bg-slate-800/80 px-3 py-1.5 rounded-lg border border-slate-700/60 text-xs">
-          <Clock className="w-3.5 h-3.5 text-red-400" />
-          <span className="font-semibold text-slate-200">{timeStr}</span>
+          <Clock className="w-3.5 h-3.5 text-red-500" />
+          <span className="font-semibold text-slate-700 dark:text-slate-200">{timeStr}</span>
           <span className="text-slate-400">|</span>
-          <span className="text-slate-400">{dateStr}</span>
+          <span className="text-slate-500 dark:text-slate-400">{dateStr}</span>
         </div>
+
+        {/* Theme Toggle Button */}
+        {onToggleTheme && (
+          <button
+            onClick={onToggleTheme}
+            title={theme === 'light' ? 'Switch to Dark Mode' : 'Switch to Light Mode'}
+            className="flex items-center gap-1.5 px-2.5 py-1.5 rounded-lg border border-slate-200 dark:border-slate-700/60 bg-white dark:bg-slate-800/80 hover:bg-slate-100 dark:hover:bg-slate-700 text-xs transition font-medium shadow-sm"
+          >
+            {theme === 'light' ? (
+              <>
+                <Sun className="w-3.5 h-3.5 text-amber-500" />
+                <span className="hidden sm:inline text-slate-700 font-semibold text-[11px]">Light Mode</span>
+              </>
+            ) : (
+              <>
+                <Moon className="w-3.5 h-3.5 text-indigo-400" />
+                <span className="hidden sm:inline text-slate-300 font-semibold text-[11px]">Dark Mode</span>
+              </>
+            )}
+          </button>
+        )}
 
         {toast && (
           <div className="flex items-center gap-2 bg-emerald-500/10 border border-emerald-500/30 text-emerald-400 px-3 py-1.5 rounded-lg text-xs animate-in fade-in slide-in-from-top-2">
